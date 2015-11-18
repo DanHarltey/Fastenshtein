@@ -18,6 +18,6 @@ foreach (var item in new []{ "value2", "value3", "value4"})
 }
 ```
 
-It is under the [MIT license](LICENSE.md).
+It is under the [MIT license](LICENSE).
 
 Find this useful? Let me know to make me happy.
