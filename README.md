@@ -7,7 +7,7 @@ You owe it to your end user to use this.
 ## Usage
 
 ```cs
-int levenshteinDistance = Fastenshtein.Levenshtein.Distance(“value1”, “value2”);
+int levenshteinDistance = Fastenshtein.Levenshtein.Distance("value1", "value2");
 ```
 Alternative method for comparing one item against many (quicker due to less memory allocation)
 ```cs
