@@ -4,6 +4,8 @@ The fastest .Net Levenshtein around.
 I got tired of seeing slow Levenshtein implementations, think of the CPU cycles we could be saving! 
 You owe it to your end user to use this.
 
+Under the [MIT license](LICENSE) also available as [NuGet package](https://www.nuget.org/packages/Fastenshtein/).
+
 ## Usage
 
 ```cs
@@ -18,6 +20,5 @@ foreach (var item in new []{ "value2", "value3", "value4"})
 }
 ```
 
-It is under the [MIT license](LICENSE).
 
 Find this useful? Let me know to make me happy.
