@@ -8,6 +8,7 @@
     using NuGetCompetitors.TNX;
     using System;
     using System.Diagnostics;
+    using System.Linq;
     using System.Threading.Tasks;
 
     static class Program
@@ -63,6 +64,8 @@
                 new MinimumEditDistanceFactory(),
             };
 
+            decimal[] times = new decimal[factories.Length];
+
             for (int i = 0; i < factories.Length; i++)
             {
                 Stopwatch stopwatch = Stopwatch.StartNew();
@@ -77,7 +80,19 @@
                 });
 
                 stopwatch.Stop();
-                Console.WriteLine(factories[i].Name + "\t\t\t" + stopwatch.Elapsed);
+                times[i] = stopwatch.ElapsedTicks;
+                Console.WriteLine(stopwatch.Elapsed + "\t" + factories[i].Name);
+            }
+
+            decimal minTime = times.Min();
+
+            for (int i = 0; i < times.Length; i++)
+            {
+                decimal difference = times[i] - minTime;
+                decimal percentSlower = 100 * (difference / times[i]);
+                percentSlower = Math.Round(percentSlower, 0);
+
+                Console.WriteLine(percentSlower + "%\t" + factories[i].Name);
             }
 
             Console.WriteLine();
