@@ -3,14 +3,14 @@
   <metadata>
     <id>Fastenshtein</id>
     <title>Fastenshtein</title>
-    <version>1.0.0</version>
+    <version>1.0.0.1</version>
     <authors>DanHartley</authors>
     <owners>DanHartley</owners>
     <licenseUrl>https://raw.githubusercontent.com/DanHarltey/Fastenshtein/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/DanHarltey/Fastenshtein</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>The fastest Levenshtein on NuGet</description>
-    <releaseNotes>Initial Release</releaseNotes>
+    <releaseNotes>Speed improvement</releaseNotes>
     <copyright>Copyright 2015</copyright>
     <tags>Levenshtein Distance String Fuzzy Matching Search</tags>
     <dependencies />
