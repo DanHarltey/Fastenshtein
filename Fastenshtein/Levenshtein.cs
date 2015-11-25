@@ -54,23 +54,25 @@
 
                 for (int j = 0; j < this.storedValue.Length; j++)
                 {
+                    int cost;
                     int insertionCost = this.costs[j + 1];
 
                     if (value[i] == this.storedValue[j])
                     {
-                        this.costs[j + 1] = addationCost;
+                        cost = addationCost;
                     }
                     else
                     {
-                        int tmp = insertionCost < addationCost ?
+                        cost = insertionCost < addationCost ?
                             insertionCost :                         // insertion
                             addationCost;                           // addation
 
-                        this.costs[j + 1] = (this.costs[j] < tmp ?
+                        cost = (this.costs[j] < cost ?
                             this.costs[j] :                         // deletion
-                            tmp) + 1;
+                            cost) + 1;
                     }
 
+                    this.costs[j + 1] = cost;
                     addationCost = insertionCost;
                 }
             }

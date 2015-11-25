@@ -21,42 +21,44 @@
             IsPrecise = true)]
         public static int Distance(string value1, string value2)
         {
-            int[] cost = new int[value2.Length + 1];
+            int[] costs = new int[value2.Length + 1];
 
             // Add indexing for insertion to first row
-            for (int i = 0; i < cost.Length; cost[i] = i++)
+            for (int i = 0; i < costs.Length; costs[i] = i++)
             {
             }
 
             for (int i = 0; i < value1.Length; i++)
             {
-                cost[0] = i + 1;
+                costs[0] = i + 1;
                 int addationCost = i;
 
                 for (int j = 0; j < value2.Length; j++)
                 {
-                    int insertionCost = cost[j + 1];
+                    int cost;
+                    int insertionCost = costs[j + 1];
 
                     if (value1[i] == value2[j])
                     {
-                        cost[j + 1] = addationCost;
+                        cost = addationCost;
                     }
                     else
                     {
-                        int tmp = insertionCost < addationCost ?
-                            insertionCost :                         // insertion
-                            addationCost;                           // addation
+                        cost = insertionCost < addationCost ?
+                            insertionCost :         // insertion
+                            addationCost;           // addation
 
-                        cost[j + 1] = (cost[j] < tmp ?
-                            cost[j] :                               // deletion
-                            tmp) + 1;
+                        cost = (costs[j] < cost ?
+                            costs[j] :              // deletion
+                            cost) + 1;
                     }
 
+                    costs[j + 1] = cost;
                     addationCost = insertionCost;
                 }
             }
 
-            return cost[value2.Length];
+            return costs[value2.Length];
         }
     }
 }
