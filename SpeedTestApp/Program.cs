@@ -29,8 +29,6 @@
             const int fullTestSize = 23000;
             FullTest(fullTestSize);
             Console.WriteLine();
-
-            Console.ReadLine();
         }
 
         private static void FullTest(int testSize)
@@ -89,7 +87,7 @@
             for (int i = 0; i < times.Length; i++)
             {
                 decimal difference = times[i] - minTime;
-                decimal percentSlower = 100 * (difference / times[i]);
+                decimal percentSlower = (difference / minTime) * 100;
                 percentSlower = Math.Round(percentSlower, 0);
 
                 Console.WriteLine(percentSlower + "%\t" + factories[i].Name);
