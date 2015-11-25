@@ -2,11 +2,11 @@
 <package >
   <metadata>
     <id>Fastenshtein</id>
-	<title>Fastenshtein</title>
+    <title>Fastenshtein</title>
     <version>1.0.0</version>
     <authors>DanHartley</authors>
     <owners>DanHartley</owners>
-    <licenseUrl>https://github.com/DanHarltey/Fastenshtein/blob/master/LICENSE</licenseUrl>
+    <licenseUrl>https://raw.githubusercontent.com/DanHarltey/Fastenshtein/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/DanHarltey/Fastenshtein</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>The fastest Levenshtein on NuGet</description>
