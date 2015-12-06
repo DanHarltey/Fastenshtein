@@ -1,6 +1,8 @@
 ﻿namespace Fastenshtein
 {
+#if !PCL
     using Microsoft.SqlServer.Server;
+#endif
 
     /// <summary>
     /// Measures the difference between two strings.
@@ -14,12 +16,14 @@
         /// <param name="value1">the incomplete value entered by the user</param>
         /// <param name="value2">the value to compare value1 against</param>
         /// <returns>0 exact match less a positive value, lower the value the best match</returns>
+#if !PCL
         [SqlFunction(
             Name = "AutoCompleteLevenshteinDistance",
             DataAccess = DataAccessKind.None,
             SystemDataAccess = SystemDataAccessKind.None,
             IsDeterministic = true,
             IsPrecise = true)]
+#endif
         public static int Distance(string value1, string value2)
         {
             int[] costs = new int[value1.Length + 1];

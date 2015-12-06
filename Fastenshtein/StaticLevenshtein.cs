@@ -1,6 +1,8 @@
 ﻿namespace Fastenshtein
 {
+#if !PCL
     using Microsoft.SqlServer.Server;
+#endif
 
     /// <summary>
     /// Measures the difference between two strings.
@@ -13,12 +15,14 @@
         /// Thread safe.
         /// </summary>
         /// <returns>Difference. 0 complete match.</returns>
+#if !PCL
         [SqlFunction(
             Name= "LevenshteinDistance",
             DataAccess = DataAccessKind.None,
             SystemDataAccess = SystemDataAccessKind.None,
             IsDeterministic = true,
             IsPrecise = true)]
+#endif
         public static int Distance(string value1, string value2)
         {
             int[] costs = new int[value2.Length + 1];

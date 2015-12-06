@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fastenshtein.Tests", "Faste
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedTestApp", "SpeedTestApp\SpeedTestApp.csproj", "{F2B1CFC4-6070-4780-BEEA-7244F9DCC10F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastenshteinPcl", "FastenshteinPcl\FastenshteinPcl.csproj", "{E1E27460-50C6-409E-878A-BE1F5EE0F8F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F2B1CFC4-6070-4780-BEEA-7244F9DCC10F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2B1CFC4-6070-4780-BEEA-7244F9DCC10F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2B1CFC4-6070-4780-BEEA-7244F9DCC10F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1E27460-50C6-409E-878A-BE1F5EE0F8F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1E27460-50C6-409E-878A-BE1F5EE0F8F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1E27460-50C6-409E-878A-BE1F5EE0F8F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1E27460-50C6-409E-878A-BE1F5EE0F8F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
