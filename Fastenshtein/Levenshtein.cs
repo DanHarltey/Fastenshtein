@@ -42,6 +42,9 @@
         /// <returns>Difference. 0 complete match.</returns>
         public int Distance(string value)
         {
+            // Check if both values are identical first
+            if (storedValue == value) return 0;
+
             // Add indexing for insertion to first row
             for (int i = 0; i < this.costs.Length; this.costs[i] = i++)
             {

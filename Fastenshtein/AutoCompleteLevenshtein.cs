@@ -26,6 +26,9 @@
 #endif
         public static int Distance(string value1, string value2)
         {
+            // Check if both values are identical first
+            if (value1 == value2) return 0;
+
             int[] costs = new int[value1.Length + 1];
 
             // Add indexing for insertion to first row
