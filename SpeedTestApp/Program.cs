@@ -5,6 +5,7 @@
     using NuGetCompetitors.MinimumEditDistance;
     using NuGetCompetitors.NinjaNye;
     using NuGetCompetitors.StringCompare;
+    using NuGetCompetitors.StringSimilarity;
     using NuGetCompetitors.TNX;
     using System;
     using System.Diagnostics;
@@ -55,6 +56,7 @@
                 new FastenshteinFactory(),
                 new FastenshteinStaticFactory(),
                 // the others
+                new StringSimilarityFactory(),
                 new NinjaNyeFactory(),
                 new TNXFactory(),
                 new StringCompareFactory(),
@@ -66,20 +68,30 @@
 
             for (int i = 0; i < factories.Length; i++)
             {
-                Stopwatch stopwatch = Stopwatch.StartNew();
+                TimeSpan timeTaken = TimeSpan.MaxValue;
 
-                Parallel.For(0, words.Length, j =>
+                // do the test 5 times and take the min value to rule out any anomalies
+                for (int numberOfTimes = 0; numberOfTimes < 5; numberOfTimes++)
                 {
-                    ILevenshtein levenshtein = factories[i].Create(words[j]);
-                    for (int k = 0; k < words.Length; k++)
-                    {
-                        levenshtein.Distance(words[k]);
-                    }
-                });
+                    Stopwatch stopwatch = Stopwatch.StartNew();
 
-                stopwatch.Stop();
-                times[i] = stopwatch.ElapsedTicks;
-                Console.WriteLine(stopwatch.Elapsed + "\t" + factories[i].Name);
+                    Parallel.For(0, words.Length, j =>
+                    {
+                        ILevenshtein levenshtein = factories[i].Create(words[j]);
+                        for (int k = 0; k < words.Length; k++)
+                        {
+                            levenshtein.Distance(words[k]);
+                        }
+                    });
+
+                    stopwatch.Stop();
+
+                    // min
+                    timeTaken = timeTaken < stopwatch.Elapsed ? timeTaken : stopwatch.Elapsed;
+                }
+
+                times[i] = timeTaken.Ticks;
+                Console.WriteLine(timeTaken + "\t" + factories[i].Name);
             }
 
             decimal minTime = times.Min();

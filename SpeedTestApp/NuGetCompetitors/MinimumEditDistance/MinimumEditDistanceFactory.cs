@@ -1,7 +1,5 @@
 ﻿namespace SpeedTestApp.NuGetCompetitors.MinimumEditDistance
 {
-    using Fastenshtein;
-
     internal class MinimumEditDistanceFactory : ILevenshteinFactory
     {
         public string Name

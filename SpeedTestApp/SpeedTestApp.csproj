@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SpeedTestApp</RootNamespace>
     <AssemblyName>SpeedTestApp</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -36,6 +36,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="NuGetCompetitors\StringSimilarity\StringSimilarityFactory.cs" />
     <Compile Include="NuGetCompetitors\DuoVia\DuoViaFactory.cs" />
     <Compile Include="NuGetCompetitors\DuoVia\DuoViaLevenshtein.cs" />
     <Compile Include="Fastenshtein\FastenshteinFactory.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="NuGetCompetitors\MinimumEditDistance\MinimumEditDistanceFactory.cs" />
     <Compile Include="NuGetCompetitors\NinjaNye\NinjaNyeFactory.cs" />
     <Compile Include="NuGetCompetitors\NinjaNye\NinjaNyeLevenshtein.cs" />
+    <Compile Include="NuGetCompetitors\StringSimilarity\StringSimilarityLevenshtein.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomWords.cs" />
@@ -74,12 +76,16 @@
       <HintPath>..\packages\DuoVia.FuzzyStrings.1.0.1\lib\net40\DuoVia.FuzzyStrings.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="F23.StringSimilarity, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\F23.StringSimilarity.1.1.1\lib\F23.StringSimilarity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MinimumEditDistance, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\LevenshteinMinimumEditDistance.1.2.0\lib\MinimumEditDistance.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NinjaNye.SearchExtensions, Version=1.7.5798.38367, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NinjaNye.SearchExtensions.1.7.5798.38367\lib\net40\NinjaNye.SearchExtensions.dll</HintPath>
+    <Reference Include="NinjaNye.SearchExtensions, Version=1.8.6091.39511, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NinjaNye.SearchExtensions.1.8.6091.39511\lib\net40\NinjaNye.SearchExtensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="StringCompare, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

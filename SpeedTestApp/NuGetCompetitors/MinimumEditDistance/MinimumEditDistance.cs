@@ -1,8 +1,5 @@
-﻿
-namespace SpeedTestApp.NuGetCompetitors.MinimumEditDistance
+﻿namespace SpeedTestApp.NuGetCompetitors.MinimumEditDistance
 {
-    using MinimumEditDistance;
-
     internal class MinimumEditDistanceLevenshtein : LevenshteinBase, ILevenshtein
     {
         public MinimumEditDistanceLevenshtein(string value1)

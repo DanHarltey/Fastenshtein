@@ -1,8 +1,5 @@
 ﻿namespace SpeedTestApp.NuGetCompetitors.StringCompare
 {
-    using System;
-    using SpeedTestApp.Fastenshtein;
-
     internal class StringCompareFactory : ILevenshteinFactory
     {
         public string Name

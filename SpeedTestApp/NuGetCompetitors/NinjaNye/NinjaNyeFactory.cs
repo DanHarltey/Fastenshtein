@@ -1,7 +1,5 @@
 ﻿namespace SpeedTestApp.NuGetCompetitors.NinjaNye
 {
-    using System;
-
     internal class NinjaNyeFactory : ILevenshteinFactory
     {
         public string Name

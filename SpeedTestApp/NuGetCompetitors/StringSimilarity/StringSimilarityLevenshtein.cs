@@ -1,0 +1,23 @@
+﻿namespace SpeedTestApp.NuGetCompetitors.StringSimilarity
+{
+    using F23.StringSimilarity;
+
+    internal class StringSimilarityLevenshtein : LevenshteinBase, ILevenshtein
+    {
+        // I've read the source code it is thread safe
+        private readonly static Levenshtein levenshtein = new Levenshtein();
+
+        public StringSimilarityLevenshtein(string value1)
+            : base(value1)
+        {
+        }
+
+        public int Distance(string value2)
+        {
+            // why does it return a double? - do not convert it as may affect the performance test
+            StringSimilarityLevenshtein.levenshtein.Distance(this.Value1, value2);
+
+            return 0;
+        }
+    }
+}
