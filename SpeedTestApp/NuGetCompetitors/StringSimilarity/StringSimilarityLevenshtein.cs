@@ -14,10 +14,10 @@
 
         public int Distance(string value2)
         {
-            // why does it return a double? - do not convert it as may affect the performance test
-            StringSimilarityLevenshtein.levenshtein.Distance(this.Value1, value2);
+            // why does it return a double
+            var result = StringSimilarityLevenshtein.levenshtein.Distance(this.Value1, value2);
 
-            return 0;
+            return (int)result;
         }
     }
 }
