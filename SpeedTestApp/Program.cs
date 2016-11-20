@@ -9,28 +9,36 @@
 
     static class Program
     {
+        private const int WarmUpTestSize = 1000;
+        private const int SingleThreadTestSize = 11000;
+        private const int MultiThreadTestSize = 23000;
+
+        // Load the test data once to stop memory access times affecting performance
+        private static string[] LargeWords = RandomWords.Create(Program.MultiThreadTestSize / 18, 400);
+        private static string[] NormalWords = RandomWords.Create(Program.MultiThreadTestSize, 20);
+        private static string[] SmallWords = RandomWords.Create(Program.MultiThreadTestSize * 3, 5);
+
         static void Main(string[] args)
         {
-            List<ILevenshteinFactory> factoryList= Program.CreateFactories();
+            List<ILevenshteinFactory> factoryList = Program.CreateFactories();
 
             // this will remove factories that do not produce correct results
-            ResultsTest(factoryList);
+            Program.ResultsTest(factoryList);
 
             ILevenshteinFactory[] factories = factoryList.ToArray();
 
+            // Warm up rule out JIT costs
             Console.WriteLine("WarmUp Test" + Environment.NewLine);
-            const int warmUpTestSize = 1000;
-            SpeedTest(factories, warmUpTestSize);
+            SpeedTest(factories, Program.WarmUpTestSize, Program.MultiThread);
+            SpeedTest(factories, Program.WarmUpTestSize, Program.SingleThread);
             Console.WriteLine();
 
-            Console.WriteLine("Quick Test" + Environment.NewLine);
-            const int quickTestSize = 9000;
-            SpeedTest(factories, quickTestSize);
+            Console.WriteLine("Single Thread Test" + Environment.NewLine);
+            Program.SpeedTest(factories, Program.SingleThreadTestSize, Program.SingleThread);
             Console.WriteLine();
 
-            Console.WriteLine("Full Test" + Environment.NewLine);
-            const int fullTestSize = 23000;
-            SpeedTest(factories, fullTestSize);
+            Console.WriteLine("Multi Thread Test" + Environment.NewLine);
+            Program.SpeedTest(factories, Program.MultiThreadTestSize, Program.MultiThread);
             Console.WriteLine();
         }
 
@@ -41,7 +49,7 @@
             var factoryTypes = Assembly.GetExecutingAssembly()
                 .GetTypes()
                 .Where(p => type.IsAssignableFrom(p));
- 
+
             List<ILevenshteinFactory> factories = new List<ILevenshteinFactory>();
 
             foreach (var factoryType in factoryTypes)
@@ -92,45 +100,39 @@
             }
         }
 
-        private static void SpeedTest(ILevenshteinFactory[] factories, int testSize)
+        private static void SpeedTest(
+            ILevenshteinFactory[] factories,
+            int testSize,
+            Action<ILevenshteinFactory, string[], int> testMethod)
         {
-            string[] words;
-
             Console.WriteLine("Normal Test");
-            words = RandomWords.Create(testSize, 20);
-            TestSpeed(factories, words);
+            Program.TestSpeed(factories, Program.NormalWords, testSize, testMethod);
 
             Console.WriteLine("Large Words Test");
-            words = RandomWords.Create(testSize / 18, 400);
-            TestSpeed(factories, words);
+            Program.TestSpeed(factories, Program.LargeWords, testSize / 18, testMethod);
 
             Console.WriteLine("Small Words Test");
-            words = RandomWords.Create(testSize * 3, 5);
-            TestSpeed(factories, words);
+            Program.TestSpeed(factories, Program.SmallWords, testSize * 3, testMethod);
         }
 
-        private static void TestSpeed(ILevenshteinFactory[] factories, string[] words)
+        private static void TestSpeed(
+            ILevenshteinFactory[] factories,
+            string[] words,
+            int testSize,
+            Action<ILevenshteinFactory, string[], int> testMethod)
         {
-
-            decimal[] times = new decimal[factories.Length];
+            TimeSpan[] times = new TimeSpan[factories.Length];
 
             for (int i = 0; i < factories.Length; i++)
             {
                 TimeSpan timeTaken = TimeSpan.MaxValue;
 
                 // do the test 5 times and take the min value to rule out any anomalies
-                for (int numberOfTimes = 0; numberOfTimes < 5; numberOfTimes++)
+                for (int numberOfTimes = 0; numberOfTimes < 3; numberOfTimes++)
                 {
                     Stopwatch stopwatch = Stopwatch.StartNew();
 
-                    Parallel.For(0, words.Length, j =>
-                    {
-                        ILevenshtein levenshtein = factories[i].Create(words[j]);
-                        for (int k = 0; k < words.Length; k++)
-                        {
-                            levenshtein.Distance(words[k]);
-                        }
-                    });
+                    testMethod(factories[i], words, testSize);
 
                     stopwatch.Stop();
 
@@ -138,15 +140,50 @@
                     timeTaken = timeTaken < stopwatch.Elapsed ? timeTaken : stopwatch.Elapsed;
                 }
 
-                times[i] = timeTaken.Ticks;
-                Console.WriteLine(timeTaken + "\t" + factories[i].Name);
+                times[i] = timeTaken;
             }
 
-            decimal minTime = times.Min();
+            Program.DisplayResults(factories, times);
+        }
+
+        private static void MultiThread(ILevenshteinFactory factory, string[] words, int testSize)
+        {
+            Parallel.For(0, testSize, i =>
+            {
+                ILevenshtein levenshtein = factory.Create(words[i]);
+                for (int j = 0; j < testSize; j++)
+                {
+                    levenshtein.Distance(words[j]);
+                }
+            });
+        }
+
+        private static void SingleThread(ILevenshteinFactory factory, string[] words, int testSize)
+        {
+            for (int i = 0; i < testSize; i++)
+            {
+                ILevenshtein levenshtein = factory.Create(words[i]);
+                for (int j = 0; j < testSize; j++)
+                {
+                    levenshtein.Distance(words[j]);
+                }
+            }
+        }
+
+        private static void DisplayResults(ILevenshteinFactory[] factories, TimeSpan[] times)
+        {
+            for (int i = 0; i < times.Length; i++)
+            {
+                Console.WriteLine(times[i] + "\t" + factories[i].Name);
+            }
+
+            decimal minTime = times
+                .Select(x => x.Ticks)
+                .Min();
 
             for (int i = 0; i < times.Length; i++)
             {
-                decimal difference = times[i] - minTime;
+                decimal difference = times[i].Ticks - minTime;
                 decimal percentSlower = (difference / minTime) * 100;
                 percentSlower = Math.Round(percentSlower, 0);
 
