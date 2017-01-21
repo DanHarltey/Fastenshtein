@@ -72,8 +72,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="F23.StringSimilarity, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\F23.StringSimilarity.1.1.1\lib\F23.StringSimilarity.dll</HintPath>
+    <Reference Include="F23.StringSimilarity, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\F23.StringSimilarity.2.0.0\lib\F23.StringSimilarity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MinimumEditDistance, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
