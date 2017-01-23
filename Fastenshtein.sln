@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fastenshtein", "Fastenshtein\Fastenshtein.csproj", "{72495701-4313-458F-9A14-095A6A030140}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fastenshtein", "src\Fastenshtein\Fastenshtein.csproj", "{72495701-4313-458F-9A14-095A6A030140}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fastenshtein.Tests", "Fastenshtein.Tests\Fastenshtein.Tests.csproj", "{C3B6E22D-3A8B-4997-9267-0075C3C12732}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fastenshtein.Tests", "tests\Fastenshtein.Tests\Fastenshtein.Tests.csproj", "{C3B6E22D-3A8B-4997-9267-0075C3C12732}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedTestApp", "SpeedTestApp\SpeedTestApp.csproj", "{F2B1CFC4-6070-4780-BEEA-7244F9DCC10F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedTestApp", "src\SpeedTestApp\SpeedTestApp.csproj", "{F2B1CFC4-6070-4780-BEEA-7244F9DCC10F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastenshteinPcl", "FastenshteinPcl\FastenshteinPcl.csproj", "{E1E27460-50C6-409E-878A-BE1F5EE0F8F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastenshteinPcl", "src\FastenshteinPcl\FastenshteinPcl.csproj", "{E1E27460-50C6-409E-878A-BE1F5EE0F8F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BF8EDB96-7FBA-4D96-A4C6-9C4C8AA8DEF4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4F67D85A-A3D4-4595-9EDD-428D0FB05BB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +40,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{72495701-4313-458F-9A14-095A6A030140} = {BF8EDB96-7FBA-4D96-A4C6-9C4C8AA8DEF4}
+		{C3B6E22D-3A8B-4997-9267-0075C3C12732} = {4F67D85A-A3D4-4595-9EDD-428D0FB05BB8}
+		{F2B1CFC4-6070-4780-BEEA-7244F9DCC10F} = {BF8EDB96-7FBA-4D96-A4C6-9C4C8AA8DEF4}
+		{E1E27460-50C6-409E-878A-BE1F5EE0F8F4} = {BF8EDB96-7FBA-4D96-A4C6-9C4C8AA8DEF4}
 	EndGlobalSection
 EndGlobal

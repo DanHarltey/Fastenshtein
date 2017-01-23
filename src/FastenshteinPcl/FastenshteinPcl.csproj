@@ -39,7 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <None Include="..\LICENSE">
+    <None Include="..\..\LICENSE">
       <Link>LICENSE</Link>
     </None>
   </ItemGroup>
