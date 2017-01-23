@@ -63,13 +63,13 @@
     <Compile Include="StaticLevenshteinTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Fastenshtein\Fastenshtein.csproj">
-      <Project>{72495701-4313-458f-9a14-095a6a030140}</Project>
-      <Name>Fastenshtein</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Fastenshtein.Benchmarking\Fastenshtein.Benchmarking.csproj">
       <Project>{f2b1cfc4-6070-4780-beea-7244f9dcc10f}</Project>
       <Name>Fastenshtein.Benchmarking</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Fastenshtein\Fastenshtein.csproj">
+      <Project>{17b19153-bf95-435f-b59a-6ea72e3fc0c3}</Project>
+      <Name>Fastenshtein</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

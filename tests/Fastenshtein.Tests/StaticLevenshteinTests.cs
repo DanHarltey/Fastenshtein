@@ -1,7 +1,7 @@
 ﻿namespace Fastenshtein.Tests
 {
+    using Fastenshtein.Benchmarking;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using SpeedTestApp;
     using System.Threading.Tasks;
 
     [TestClass]
