@@ -10,6 +10,7 @@
     <projectUrl>https://github.com/DanHarltey/Fastenshtein</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>The fastest Levenshtein on NuGet. Supports .NET Framework and .NET Core (.NET Standard 1.0).</description>
+    <Summary />
     <releaseNotes>Now supporting .Net core vai .NET Standard 1.0</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>Levenshtein Distance String Fuzzy Matching Search</tags>
