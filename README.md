@@ -1,4 +1,6 @@
 # Fastenshtein
+[![NuGet](https://img.shields.io/nuget/v/Fastenshtein.svg)](https://www.nuget.org/packages/Fastenshtein/) [![Build status](https://img.shields.io/appveyor/ci/DanHarltey/fastenshtein/master.svg?label=appveyor)](https://ci.appveyor.com/project/DanHarltey/fastenshtein/branch/master) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
+
 The fastest .Net Levenshtein around.
 
 I got tired of seeing slow Levenshtein implementations, think of the CPU cycles we could be saving! 
