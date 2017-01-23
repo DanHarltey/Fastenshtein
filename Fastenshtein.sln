@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fastenshtein", "src\Fastens
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fastenshtein.Tests", "tests\Fastenshtein.Tests\Fastenshtein.Tests.csproj", "{C3B6E22D-3A8B-4997-9267-0075C3C12732}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedTestApp", "src\SpeedTestApp\SpeedTestApp.csproj", "{F2B1CFC4-6070-4780-BEEA-7244F9DCC10F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fastenshtein.Benchmarking", "src\Fastenshtein.Benchmarking\Fastenshtein.Benchmarking.csproj", "{F2B1CFC4-6070-4780-BEEA-7244F9DCC10F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastenshteinPcl", "src\FastenshteinPcl\FastenshteinPcl.csproj", "{E1E27460-50C6-409E-878A-BE1F5EE0F8F4}"
 EndProject

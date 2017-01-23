@@ -1,4 +1,4 @@
-﻿namespace SpeedTestApp
+﻿namespace Fastenshtein.Benchmarking
 {
     using BenchmarkDotNet.Attributes;
     using System.Threading.Tasks;

@@ -1,4 +1,4 @@
-﻿namespace SpeedTestApp
+﻿namespace Fastenshtein.Benchmarking
 {
     public class BenchmarkSmallWordsSingleThread : BenchmarkSingleThread
     {

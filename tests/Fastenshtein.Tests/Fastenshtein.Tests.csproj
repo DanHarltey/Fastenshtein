@@ -67,13 +67,15 @@
       <Project>{72495701-4313-458f-9a14-095a6a030140}</Project>
       <Name>Fastenshtein</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\SpeedTestApp\SpeedTestApp.csproj">
+    <ProjectReference Include="..\..\src\Fastenshtein.Benchmarking\Fastenshtein.Benchmarking.csproj">
       <Project>{f2b1cfc4-6070-4780-beea-7244f9dcc10f}</Project>
-      <Name>SpeedTestApp</Name>
+      <Name>Fastenshtein.Benchmarking</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
