@@ -21,7 +21,7 @@
         {
             this.storedValue = value;
             // Create matrix row
-            this.costs = new int[this.storedValue.Length + 1];
+            this.costs = new int[this.storedValue.Length];
         }
 
         /// <summary>
@@ -42,42 +42,55 @@
         /// <returns>Difference. 0 complete match.</returns>
         public int Distance(string value)
         {
-            // Add indexing for insertion to first row
-            for (int i = 0; i < this.costs.Length; this.costs[i] = i++)
+            if (costs.Length == 0)
             {
+                return value.Length;
+            }
+
+            // Add indexing for insertion to first row
+            for (int i = 0; i < this.costs.Length;)
+            {
+                this.costs[i] = ++i;
             }
 
             for (int i = 0; i < value.Length; i++)
             {
-                this.costs[0] = i + 1;
+                // cost of the first index
+                int cost = i;
                 int addationCost = i;
+
+                // cache value for inner loop to avoid index lookup and bonds checking, profiled this is quicker
+                char value1Char = value[i];
 
                 for (int j = 0; j < this.storedValue.Length; j++)
                 {
-                    int cost;
-                    int insertionCost = this.costs[j + 1];
+                    int insertionCost = cost;
 
-                    if (value[i] == this.storedValue[j])
+                    cost = addationCost;
+
+                    // assigning this here reduces the array reads we do, improvment of the old version
+                    addationCost = this.costs[j];
+
+                    if (value1Char != this.storedValue[j])
                     {
-                        cost = addationCost;
-                    }
-                    else
-                    {
-                        cost = insertionCost < addationCost ?
-                            insertionCost :                         // insertion
-                            addationCost;                           // addation
+                        if (insertionCost < cost)
+                        {
+                            cost = insertionCost;
+                        }
 
-                        cost = (this.costs[j] < cost ?
-                            this.costs[j] :                         // deletion
-                            cost) + 1;
+                        if (addationCost < cost)
+                        {
+                            cost = addationCost;
+                        }
+
+                        ++cost;
                     }
 
-                    this.costs[j + 1] = cost;
-                    addationCost = insertionCost;
+                    this.costs[j] = cost;
                 }
             }
 
-            return this.costs[this.storedValue.Length];
+            return this.costs[this.costs.Length - 1];
         }
     }
 }

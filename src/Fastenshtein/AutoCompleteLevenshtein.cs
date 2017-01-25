@@ -26,46 +26,59 @@
 #endif
         public static int Distance(string value1, string value2)
         {
-            int[] costs = new int[value1.Length + 1];
+            if (value1.Length == 0)
+            {
+                return 0;
+            }
+
+            int[] costs = new int[value1.Length];
 
             // Add indexing for insertion to first row
-            for (int i = 0; i < costs.Length; costs[i] = i++)
+            for (int i = 0; i < costs.Length;)
             {
+                costs[i] = ++i;
             }
 
             int minSize = value1.Length < value2.Length ? value1.Length : value2.Length;
 
             for (int i = 0; i < minSize; i++)
             {
-                costs[0] = i + 1;
+                // cost of the first index
+                int cost = i;
                 int addationCost = i;
+
+                // cache value for inner loop to avoid index lookup and bonds checking, profiled this is quicker
+                char value2Char = value2[i];
 
                 for (int j = 0; j < value1.Length; j++)
                 {
-                    int cost;
-                    int insertionCost = costs[j + 1];
+                    int insertionCost = cost;
 
-                    if (value2[i] == value1[j])
+                    cost = addationCost;
+
+                    // assigning this here reduces the array reads we do, improvment of the old version
+                    addationCost = costs[j];
+
+                    if (value2Char != value1[j])
                     {
-                        cost = addationCost;
-                    }
-                    else
-                    {
-                        cost = insertionCost < addationCost ?
-                            insertionCost :         // insertion
-                            addationCost;           // addation
+                        if (insertionCost < cost)
+                        {
+                            cost = insertionCost;
+                        }
 
-                        cost = (costs[j] < cost ?
-                            costs[j] :              // deletion
-                            cost) + 1;
+                        if (addationCost < cost)
+                        {
+                            cost = addationCost;
+                        }
+
+                        ++cost;
                     }
 
-                    costs[j + 1] = cost;
-                    addationCost = insertionCost;
+                    costs[j] = cost;
                 }
             }
 
-            return costs[value1.Length];
+            return costs[costs.Length - 1];
         }
     }
 }
