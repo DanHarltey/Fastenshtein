@@ -9,10 +9,11 @@
     <licenseUrl>https://raw.githubusercontent.com/DanHarltey/Fastenshtein/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/DanHarltey/Fastenshtein</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>The fastest Levenshtein on NuGet. Supports .NET Framework and .NET Core (.NET Standard 1.0). Levenshtein calculates the shortest possible distance between two strings. Producing a count of the number of insertions, deletions and substitutions to make one string into another.</description>
-    <Summary />
+    <description>The fastest Levenshtein on NuGet. Supports .NET Framework and .NET Core (.NET Standard 1.0).
+    
+    Levenshtein calculates the shortest possible distance between two strings. Producing a count of the number of insertions, deletions and substitutions to make one string into another.</description>
     <releaseNotes>Small speed improvement</releaseNotes>
-    <copyright>Copyright 2017</copyright>
+    <copyright>Freely available under the MIT license</copyright>
     <tags>Levenshtein Distance String Fuzzy Matching Search netstandard</tags>
     <dependencies>
         <group targetFramework="netstandard1.0">
