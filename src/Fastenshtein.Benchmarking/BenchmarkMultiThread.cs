@@ -1,8 +1,11 @@
 ﻿namespace Fastenshtein.Benchmarking
 {
     using BenchmarkDotNet.Attributes;
+    using BenchmarkDotNet.Attributes.Exporters;
     using System.Threading.Tasks;
 
+    [RPlotExporter]
+    [CsvMeasurementsExporter]
     public abstract class BenchmarkMultiThread
     {
         protected string[] words;
@@ -58,13 +61,17 @@
         }
 
         [Benchmark]
-        public void MinimumEditDistance()
+        public void StringSimilarity()
         {
+            // I've read the source code it is thread safe
+            var lev = new global::F23.StringSimilarity.Levenshtein();
+
             Parallel.For(0, words.Length, i =>
             {
                 for (int j = 0; j < words.Length; j++)
                 {
-                    global::MinimumEditDistance.Levenshtein.CalculateDistance(words[i], words[j], 1);
+                    // why does it return a double ??
+                    lev.Distance(words[i], words[j]);
                 }
             });
         }
@@ -82,22 +89,6 @@
         }
 
         [Benchmark]
-        public void StringSimilarity()
-        {
-            // I've read the source code it is thread safe
-            var lev = new global::F23.StringSimilarity.Levenshtein();
-
-            Parallel.For(0, words.Length, i =>
-            {
-                for (int j = 0; j < words.Length; j++)
-                {
-                    // why does it return a double ??
-                    lev.Distance(words[i], words[j]);
-                }
-            });
-        }
-
-        [Benchmark]
         public void TNXStringManipulation()
         {
             Parallel.For(0, words.Length, i =>
@@ -108,6 +99,17 @@
                 }
             });
         }
+
+        [Benchmark]
+        public void MinimumEditDistance()
+        {
+            Parallel.For(0, words.Length, i =>
+            {
+                for (int j = 0; j < words.Length; j++)
+                {
+                    global::MinimumEditDistance.Levenshtein.CalculateDistance(words[i], words[j], 1);
+                }
+            });
+        }
     }
 }
- 
