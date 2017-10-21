@@ -204,7 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fastenshtein\Fastenshtein.csproj">
-      <Project>{17b19153-bf95-435f-b59a-6ea72e3fc0c3}</Project>
+      <Project>{97c0bf94-75c5-40bc-965c-8a841f3be8ea}</Project>
       <Name>Fastenshtein</Name>
     </ProjectReference>
   </ItemGroup>
