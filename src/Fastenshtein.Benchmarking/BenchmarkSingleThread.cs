@@ -11,7 +11,7 @@
 
         protected abstract string[] CreateTestData();
 
-        [Setup]
+        [GlobalSetup]
         public void SetUp()
         {
             this.words = this.CreateTestData();
