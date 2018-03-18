@@ -1,12 +1,11 @@
 ﻿namespace Fastenshtein.Tests
 {
     using Fastenshtein.Benchmarking;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Xunit;
 
-    [TestClass]
     public class LevenshteinTests : LevenshteinAlgorithmTests
     {
-        [TestMethod]
+        [Fact]
         public void Repeated_Distance_Calls_Return_Correct_Distances()
         {
             string[] testData = RandomWords.Create(100000, 20);
@@ -23,7 +22,7 @@
             for (int i = 0; i < testData.Length; i++)
             {
                 int actual = levenshteinInstance.Distance(testData[i]);
-                Assert.AreEqual(expected[i], actual);
+                Assert.Equal(expected[i], actual);
             }
         }
 

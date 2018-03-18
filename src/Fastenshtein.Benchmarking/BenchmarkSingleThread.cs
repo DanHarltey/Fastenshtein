@@ -88,25 +88,13 @@
         }
 
         [Benchmark]
-        public void TNXStringManipulation()
+        public void FuzzyString()
         {
             for (int i = 0; i < words.Length; i++)
             {
                 for (int j = 0; j < words.Length; j++)
                 {
-                    global::System.LevenshteinDistanceExtensions.LevenshteinDistanceFrom(words[i], words[j]);
-                }
-            }
-        }
-
-        [Benchmark]
-        public void MinimumEditDistance()
-        {
-            for (int i = 0; i < words.Length; i++)
-            {
-                for (int j = 0; j < words.Length; j++)
-                {
-                    global::MinimumEditDistance.Levenshtein.CalculateDistance(words[i], words[j], 1);
+                    global::DuoVia.FuzzyStrings.LevenshteinDistanceExtensions.LevenshteinDistance(words[i], words[j]);
                 }
             }
         }

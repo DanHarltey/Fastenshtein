@@ -1,13 +1,12 @@
 ﻿namespace Fastenshtein.Tests
 {
     using Fastenshtein.Benchmarking;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System.Threading.Tasks;
+    using Xunit;
 
-    [TestClass]
     public class StaticLevenshteinTests : LevenshteinAlgorithmTests
     {
-        [TestMethod]
+        [Fact]
         public void IsThreadSafe_Test()
         {
             string[] testData = RandomWords.Create(1000000, 20);
@@ -23,7 +22,7 @@
             Parallel.For(0, testData.Length, i =>
             {
                 int actual = this.CalculateDistance(testData[0], testData[i]);
-                Assert.AreEqual(expected[i], actual);
+                Assert.Equal(expected[i], actual);
             });
         }
 

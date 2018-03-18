@@ -88,26 +88,15 @@
             });
         }
 
-        [Benchmark]
-        public void TNXStringManipulation()
-        {
-            Parallel.For(0, words.Length, i =>
-            {
-                for (int j = 0; j < words.Length; j++)
-                {
-                    global::System.LevenshteinDistanceExtensions.LevenshteinDistanceFrom(words[i], words[j]);
-                }
-            });
-        }
 
         [Benchmark]
-        public void MinimumEditDistance()
+        public void FuzzyString()
         {
             Parallel.For(0, words.Length, i =>
             {
                 for (int j = 0; j < words.Length; j++)
                 {
-                    global::MinimumEditDistance.Levenshtein.CalculateDistance(words[i], words[j], 1);
+                    global::DuoVia.FuzzyStrings.LevenshteinDistanceExtensions.LevenshteinDistance(words[i], words[j], true);
                 }
             });
         }
