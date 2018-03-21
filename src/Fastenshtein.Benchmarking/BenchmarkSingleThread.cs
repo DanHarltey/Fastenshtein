@@ -88,7 +88,7 @@
         }
 
         [Benchmark]
-        public void FuzzyString()
+        public void FuzzyStringsNetStandard()
         {
             for (int i = 0; i < words.Length; i++)
             {

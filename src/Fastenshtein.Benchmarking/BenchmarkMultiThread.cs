@@ -90,7 +90,7 @@
 
 
         [Benchmark]
-        public void FuzzyString()
+        public void FuzzyStringsNetStandard()
         {
             Parallel.For(0, words.Length, i =>
             {
