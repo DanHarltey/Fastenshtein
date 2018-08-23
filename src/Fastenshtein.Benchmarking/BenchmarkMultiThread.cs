@@ -1,7 +1,6 @@
 ﻿namespace Fastenshtein.Benchmarking
 {
     using BenchmarkDotNet.Attributes;
-    using BenchmarkDotNet.Attributes.Exporters;
     using System.Threading.Tasks;
 
     [RPlotExporter]
