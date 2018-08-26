@@ -31,7 +31,7 @@
         ////    }
         ////}
 
-        [Benchmark(Baseline = true)]
+        [Benchmark]
         public void Fastenshtein()
         {
             for (int i = 0; i < words.Length; i++)
@@ -53,6 +53,32 @@
                 for (int j = 0; j < words.Length; j++)
                 {
                     global::Fastenshtein.Levenshtein.Distance(words[i], words[j]);
+                }
+            }
+        }
+
+        [Benchmark(Baseline = true)]
+        public void Fastenshtein_1_0_0_5()
+        {
+            for (int i = 0; i < words.Length; i++)
+            {
+                var levenshtein = new global::Fastenshtein.Benchmarking.FastenshteinOld.Fastenshtein_1_0_0_5(words[i]);
+
+                for (int j = 0; j < words.Length; j++)
+                {
+                    levenshtein.DistanceFrom(words[j]);
+                }
+            }
+        }
+
+        [Benchmark]
+        public void FastenshteinStatic_1_0_0_5()
+        {
+            for (int i = 0; i < words.Length; i++)
+            {
+                for (int j = 0; j < words.Length; j++)
+                {
+                    global::Fastenshtein.Benchmarking.FastenshteinOld.Fastenshtein_1_0_0_5.Distance(words[i], words[j]);
                 }
             }
         }
