@@ -40,7 +40,7 @@
         /// Not thread safe.
         /// </summary>
         /// <returns>Difference. 0 complete match.</returns>
-        public int Distance(string value)
+        public int DistanceFrom(string value)
         {
             if (costs.Length == 0)
             {

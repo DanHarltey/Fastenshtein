@@ -3,8 +3,7 @@
     using BenchmarkDotNet.Attributes;
     using System.Threading.Tasks;
 
-    [RPlotExporter]
-    [CsvMeasurementsExporter]
+    [RankColumn]
     public abstract class BenchmarkMultiThread
     {
         protected string[] words;
@@ -42,7 +41,7 @@
 
                 for (int j = 0; j < words.Length; j++)
                 {
-                    levenshtein.Distance(words[j]);
+                    levenshtein.DistanceFrom(words[j]);
                 }
             });
         }

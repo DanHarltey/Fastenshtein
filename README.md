@@ -26,20 +26,43 @@ Alternative method for comparing one item against many (quicker due to less memo
 Fastenshtein.Levenshtein lev = new Fastenshtein.Levenshtein("value1");
 foreach (var item in new []{ "value2", "value3", "value4"})
 {
-	int levenshteinDistance = lev.Distance(item);
+	int levenshteinDistance = lev.DistanceFrom(item);
 }
 ```
-### SQL Server Hosting (SQLCLR)
-If you are crazy enough to want to do this. Place the Fastenshtein.dll on the SQL Servers hard drive and do the following…
+### How to include Fastenshtein in Microsoft SQL Server (SQLCLR)
+
+We will create Fastenshtein as a CLR Scalar-Valued Function within SQL Server. This will allow the fast Levenshtein implementationto be used within SQL Server.
+
+1. To enable CLR integration for the server:
 ```sql
-CREATE ASSEMBLY Fastenshtein from 'C:\Program Files\Microsoft SQL Server\MSSQL11.DEV\MSSQL\Binn\Fastenshtein.dll' WITH PERMISSION_SET = SAFE
+sp_configure 'clr enabled', 1
+RECONFIGURE
+```
 
-CREATE FUNCTION [dbo].[Levenshtein](@s [nvarchar](4000), @t [nvarchar](4000))
-RETURNS [int] WITH EXECUTE AS CALLER
+2. Place the Fastenshtein.dll on the same computer as the SQL Server instance in a directory that the SQL Server instance has access to. You must use the .Net framework version 4 of Fastenshtein. To create the assembly (dll) either:
+
+* Compile the project “FastenshteinFramework” in Release config in Visual Studio.
+
+OR
+
+* Download the pre-compiled dll from [nuget](https://www.nuget.org/api/v2/package/Fastenshtein/) unzip the package and use the dll in \lib\net40-client folder.
+   
+3. Create the assembly
+```sql
+CREATE ASSEMBLY FastenshteinAssembly FROM 'C:\Fastenshtein.dll' WITH PERMISSION_SET = SAFE
+```
+
+4. Then create the function
+```sql
+CREATE FUNCTION [Levenshtein](@value1 [nvarchar](MAX), @value2 [nvarchar](MAX))
+RETURNS [int]
 AS 
-EXTERNAL NAME [Fastenshtein].[Fastenshtein.Levenshtein].[Distance]
+EXTERNAL NAME [FastenshteinAssembly].[Fastenshtein.Levenshtein].[Distance]
 GO
+```
 
+5. It is now ready to be used: 
+```sql
 -- Usage
 DECLARE @retVal as integer
 select @retVal = [dbo].[Levenshtein]('Test','test')

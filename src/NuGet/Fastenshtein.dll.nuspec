@@ -3,7 +3,7 @@
   <metadata>
     <id>Fastenshtein</id>
     <title>Fastenshtein</title>
-    <version>1.0.0.4</version>
+    <version>1.0.0.5</version>
     <authors>DanHartley</authors>
     <owners>DanHartley</owners>
     <licenseUrl>https://raw.githubusercontent.com/DanHarltey/Fastenshtein/master/LICENSE</licenseUrl>
@@ -12,7 +12,7 @@
     <description>The fastest Levenshtein on NuGet. Supports .NET Framework and .NET Core (.NET Standard 1.0).
     
     Levenshtein calculates the shortest possible distance between two strings. Producing a count of the number of insertions, deletions and substitutions to make one string into another.</description>
-    <releaseNotes>Small speed improvement</releaseNotes>
+    <releaseNotes>Method renamed to help with SQL server hosting</releaseNotes>
     <copyright>Freely available under the MIT license</copyright>
     <tags>Levenshtein Distance String Fuzzy Matching Search netstandard</tags>
     <dependencies>
@@ -23,9 +23,8 @@
   </metadata>
   <files>
         <!-- netstandard1.0 can be used by all .Net things -->
-         <file src="..\Fastenshtein\bin\Release\Fastenshtein.dll" target="lib\netstandard1.0\Fastenshtein.dll" />
-         <file src="..\Fastenshtein\bin\Release\Fastenshtein.xml" target="lib\netstandard1.0\Fastenshtein.xml" />
-
+         <file src="..\Fastenshtein\bin\Release\netstandard1.0\Fastenshtein.dll" target="lib\netstandard1.0\Fastenshtein.dll" />
+		 
         <!-- .net 4 client can be used by full framework 4 and above -->
          <file src="..\FastenshteinFramework\bin\Release\Fastenshtein.dll" target="lib\net40-client\Fastenshtein.dll" />
          <file src="..\FastenshteinFramework\bin\Release\Fastenshtein.xml" target="lib\net40-client\Fastenshtein.xml" />

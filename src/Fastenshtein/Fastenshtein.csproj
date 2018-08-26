@@ -4,7 +4,7 @@
     <TargetFramework>netstandard1.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Fastenshtein</PackageId>
-    <Version>1.0.0.4</Version>
+    <Version>1.0.0.5</Version>
     <Authors>DanHartley</Authors>
     <Company />
     <Description>The fastest Levenshtein on NuGet. Supports .NET Framework and .NET Core (.NET Standard 1.0).

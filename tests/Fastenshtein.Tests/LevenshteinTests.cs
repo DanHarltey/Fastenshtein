@@ -21,7 +21,7 @@
             Levenshtein levenshteinInstance = new Levenshtein(testData[0]);
             for (int i = 0; i < testData.Length; i++)
             {
-                int actual = levenshteinInstance.Distance(testData[i]);
+                int actual = levenshteinInstance.DistanceFrom(testData[i]);
                 Assert.Equal(expected[i], actual);
             }
         }
@@ -29,7 +29,7 @@
         protected override int CalculateDistance(string value1, string value2)
         {
             Levenshtein lev = new Levenshtein(value1);
-            return lev.Distance(value2);
+            return lev.DistanceFrom(value2);
         }
     }
 }
