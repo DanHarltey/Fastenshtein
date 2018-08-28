@@ -8,6 +8,7 @@
     <owners>DanHartley</owners>
     <licenseUrl>https://raw.githubusercontent.com/DanHarltey/Fastenshtein/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/DanHarltey/Fastenshtein</projectUrl>
+	<repository type="git" url="https://github.com/DanHarltey/Fastenshtein.git" />
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>The fastest Levenshtein on NuGet. Supports .NET Framework and .NET Core (.NET Standard 1.0).
     
