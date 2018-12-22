@@ -45,36 +45,39 @@
             {
                 // cost of the first index
                 int cost = i;
-                int addationCost = i;
+                int previousCost = i;
 
                 // cache value for inner loop to avoid index lookup and bonds checking, profiled this is quicker
                 char value2Char = value2[i];
 
                 for (int j = 0; j < value1.Length; j++)
                 {
-                    int insertionCost = cost;
+                    int currentCost = cost;
 
-                    cost = addationCost;
-
-                    // assigning this here reduces the array reads we do, improvment of the old version
-                    addationCost = costs[j];
+                    // assigning this here reduces the array reads we do, improvement of the old version
+                    cost = costs[j];
 
                     if (value2Char != value1[j])
                     {
-                        if (insertionCost < cost)
+                        if (previousCost < currentCost)
                         {
-                            cost = insertionCost;
+                            currentCost = previousCost;
                         }
 
-                        if (addationCost < cost)
+                        if (cost < currentCost)
                         {
-                            cost = addationCost;
+                            currentCost = cost;
                         }
 
-                        ++cost;
+                        ++currentCost;
                     }
 
-                    costs[j] = cost;
+                    /* 
+                     * Improvement on the older versions.
+                     * Swapping the variables here results in a performance improvement for modern intel CPU’s, but I have no idea why?
+                     */
+                    costs[j] = currentCost;
+                    previousCost = currentCost;
                 }
             }
 
