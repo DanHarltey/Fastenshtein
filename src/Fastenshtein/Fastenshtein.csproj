@@ -20,12 +20,16 @@ Levenshtein calculates the shortest possible distance between two strings. Produ
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
     <DefineConstants>TRACE;RELEASE;NETSTANDARD1_0;PCL</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
     <DefineConstants>TRACE;DEBUG;NETSTANDARD1_0;PCL;NETSTANDARD1_0</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
 </Project>

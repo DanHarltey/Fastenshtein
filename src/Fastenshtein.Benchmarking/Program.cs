@@ -15,7 +15,9 @@
         {
             DateTime startTime = DateTime.UtcNow;
 
-            var summary = BenchmarkRunner.Run<BenchmarkSmallWordsSingleThread>();
+            var summary = BenchmarkRunner.Run<BenchmarkFastenshteinDisassembly>();
+
+            summary = BenchmarkRunner.Run<BenchmarkSmallWordsSingleThread>();
             summary = BenchmarkRunner.Run<BenchmarkNormalWordsSingleThread>();
             summary = BenchmarkRunner.Run<BenchmarkLargeWordsSingleThread>();
 
