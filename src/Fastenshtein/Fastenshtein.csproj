@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
@@ -11,9 +11,11 @@
 
 Levenshtein calculates the shortest possible distance between two strings. Producing a count of the number of insertions, deletions and substitutions to make one string into another.</Description>
     <Copyright>Freely available under the MIT license</Copyright>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/DanHarltey/Fastenshtein/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/DanHarltey/Fastenshtein</PackageProjectUrl>
     <PackageTags>Levenshtein Distance String Fuzzy Matching Search netstandard</PackageTags>
+    <RepositoryUrl>https://github.com/DanHarltey/Fastenshtein.git</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
