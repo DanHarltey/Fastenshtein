@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Fastenshtein.Benchmarking\Fastenshtein.Benchmarking.csproj" />
+    <ProjectReference Include="..\..\benchmarks\Fastenshtein.Benchmarking\Fastenshtein.Benchmarking.csproj" />
   </ItemGroup>
 
 </Project>
