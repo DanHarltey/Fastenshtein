@@ -21,7 +21,7 @@ From the included brenchmarking tests comparing random words of 3 to 20 random c
 ```cs
 int levenshteinDistance = Fastenshtein.Levenshtein.Distance("value1", "value2");
 ```
-Alternative method for comparing one item against many (quicker due to less memory allocation)
+Alternative method for comparing one item against many (quicker due to less memory allocation, not thread safe)
 ```cs
 Fastenshtein.Levenshtein lev = new Fastenshtein.Levenshtein("value1");
 foreach (var item in new []{ "value2", "value3", "value4"})
