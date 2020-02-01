@@ -1,10 +1,6 @@
 ﻿namespace Fastenshtein.Benchmarking.FastenshteinOld
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
-    internal class Fastenshtein_1_0_0_5
+    public class Fastenshtein_1_0_0_5
     {
         private readonly string storedValue;
         private readonly int[] costs;

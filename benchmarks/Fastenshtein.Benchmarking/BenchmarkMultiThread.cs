@@ -46,17 +46,32 @@
             });
         }
 
+
         [Benchmark]
-        public void FastenshteinStatic()
+        public void JSLevenshteinPort()
         {
             Parallel.For(0, words.Length, i =>
             {
+                var levenshtein = new global::Fastenshtein.JSLevenshteinPort(words[i]);
+
                 for (int j = 0; j < words.Length; j++)
                 {
-                    global::Fastenshtein.Levenshtein.Distance(words[i], words[j]);
+                    levenshtein.DistanceFrom(words[j]);
                 }
             });
         }
+
+        //[Benchmark]
+        //public void FastenshteinStatic()
+        //{
+        //    Parallel.For(0, words.Length, i =>
+        //    {
+        //        for (int j = 0; j < words.Length; j++)
+        //        {
+        //            global::Fastenshtein.Levenshtein.Distance(words[i], words[j]);
+        //        }
+        //    });
+        //}
 
         [Benchmark(Baseline = true)]
         public void Fastenshtein_1_0_0_5()
@@ -72,57 +87,57 @@
             });
         }
 
-        [Benchmark]
-        public void FastenshteinStatic_1_0_0_5()
-        {
-            Parallel.For(0, words.Length, i =>
-            {
-                for (int j = 0; j < words.Length; j++)
-                {
-                    global::Fastenshtein.Benchmarking.FastenshteinOld.Fastenshtein_1_0_0_5.Distance(words[i], words[j]);
-                }
-            });
-        }
+        //[Benchmark]
+        //public void FastenshteinStatic_1_0_0_5()
+        //{
+        //    Parallel.For(0, words.Length, i =>
+        //    {
+        //        for (int j = 0; j < words.Length; j++)
+        //        {
+        //            global::Fastenshtein.Benchmarking.FastenshteinOld.Fastenshtein_1_0_0_5.Distance(words[i], words[j]);
+        //        }
+        //    });
+        //}
 
-        [Benchmark]
-        public void StringSimilarity()
-        {
-            // I've read the source code it is thread safe
-            var lev = new global::F23.StringSimilarity.Levenshtein();
+        ////[Benchmark]
+        ////public void StringSimilarity()
+        ////{
+        ////    // I've read the source code it is thread safe
+        ////    var lev = new global::F23.StringSimilarity.Levenshtein();
 
-            Parallel.For(0, words.Length, i =>
-            {
-                for (int j = 0; j < words.Length; j++)
-                {
-                    // why does it return a double ??
-                    lev.Distance(words[i], words[j]);
-                }
-            });
-        }
+        ////    Parallel.For(0, words.Length, i =>
+        ////    {
+        ////        for (int j = 0; j < words.Length; j++)
+        ////        {
+        ////            // why does it return a double ??
+        ////            lev.Distance(words[i], words[j]);
+        ////        }
+        ////    });
+        ////}
 
-        [Benchmark]
-        public void NinjaNye()
-        {
-            Parallel.For(0, words.Length, i =>
-            {
-                for (int j = 0; j < words.Length; j++)
-                {
-                    global::NinjaNye.SearchExtensions.Levenshtein.LevenshteinProcessor.LevenshteinDistance(words[i], words[j]);
-                }
-            });
-        }
+        ////[Benchmark]
+        ////public void NinjaNye()
+        ////{
+        ////    Parallel.For(0, words.Length, i =>
+        ////    {
+        ////        for (int j = 0; j < words.Length; j++)
+        ////        {
+        ////            global::NinjaNye.SearchExtensions.Levenshtein.LevenshteinProcessor.LevenshteinDistance(words[i], words[j]);
+        ////        }
+        ////    });
+        ////}
 
 
-        [Benchmark]
-        public void FuzzyStringsNetStandard()
-        {
-            Parallel.For(0, words.Length, i =>
-            {
-                for (int j = 0; j < words.Length; j++)
-                {
-                    global::DuoVia.FuzzyStrings.LevenshteinDistanceExtensions.LevenshteinDistance(words[i], words[j], true);
-                }
-            });
-        }
+        ////[Benchmark]
+        ////public void FuzzyStringsNetStandard()
+        ////{
+        ////    Parallel.For(0, words.Length, i =>
+        ////    {
+        ////        for (int j = 0; j < words.Length; j++)
+        ////        {
+        ////            global::DuoVia.FuzzyStrings.LevenshteinDistanceExtensions.LevenshteinDistance(words[i], words[j], true);
+        ////        }
+        ////    });
+        ////}
     }
 }

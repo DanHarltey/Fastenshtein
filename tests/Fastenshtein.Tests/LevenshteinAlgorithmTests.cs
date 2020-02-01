@@ -1,5 +1,7 @@
 ﻿namespace Fastenshtein.Tests
 {
+    using Fastenshtein.Benchmarking;
+    using Fastenshtein.Benchmarking.FastenshteinOld;
     using Xunit;
 
     public abstract class LevenshteinAlgorithmTests
@@ -45,6 +47,26 @@
         public void EmtpyStrings_Returns_Zero_Test()
         {
             Test(string.Empty, string.Empty, 0);
+        }
+
+        [Fact]
+        public void Fuzzing_Test()
+        {
+            string[] testData = RandomWords.Create(100000, 20);
+            int[] expected = new int[testData.Length];
+
+            for (int i = 0; i < testData.Length; i++)
+            {
+                expected[i] = this.CalculateDistance(testData[0], testData[i]);
+            }
+
+            // compare against known good
+            Fastenshtein_1_0_0_5 levenshteinInstance = new Fastenshtein_1_0_0_5(testData[0]);
+            for (int i = 0; i < testData.Length; i++)
+            {
+                int actual = levenshteinInstance.DistanceFrom(testData[i]);
+                Assert.Equal(expected[i], actual);
+            }
         }
 
         protected abstract int CalculateDistance(string value1, string value2);
