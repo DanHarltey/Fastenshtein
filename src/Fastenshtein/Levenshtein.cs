@@ -1,4 +1,6 @@
-﻿namespace Fastenshtein
+﻿using System.Runtime.CompilerServices;
+
+namespace Fastenshtein
 {
     /// <summary>
     /// Measures the difference between two strings.
@@ -64,33 +66,36 @@
 
                 for (int j = 0; j < this.storedValue.Length; j++)
                 {
-                    int insertionCost = cost;
+                    int newCost = Min(costs[j], cost, addationCost, value1Char, this.storedValue[j]);
 
-                    cost = addationCost;
-
-                    // assigning this here reduces the array reads we do, improvment of the old version
-                    addationCost = this.costs[j];
-
-                    if (value1Char != this.storedValue[j])
-                    {
-                        if (insertionCost < cost)
-                        {
-                            cost = insertionCost;
-                        }
-
-                        if (addationCost < cost)
-                        {
-                            cost = addationCost;
-                        }
-
-                        ++cost;
-                    }
-
-                    this.costs[j] = cost;
+                    addationCost = costs[j];
+                    costs[j] = newCost;
+                    cost = newCost;
                 }
             }
 
             return this.costs[this.costs.Length - 1];
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static int Min(int prevouseCosts, int cost, int addationCost, char value1Char, char value2Char)
+        {
+            if (value1Char != value2Char)
+            {
+                if (cost < addationCost)
+                {
+                    addationCost = cost;
+                }
+
+                if (prevouseCosts < addationCost)
+                {
+                    addationCost = prevouseCosts;
+                }
+
+                ++addationCost;
+            }
+
+            return addationCost;
         }
     }
 }
