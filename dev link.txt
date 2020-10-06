@@ -1,0 +1,2 @@
+maybe look at this
+https://tooslowexception.com/getting-rid-of-array-bound-checks-ref-returns-and-net-5/
