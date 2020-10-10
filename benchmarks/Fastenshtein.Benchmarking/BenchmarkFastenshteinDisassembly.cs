@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Text;
 
-    [DisassemblyDiagnoser(printAsm: true, /*printSource: true,*/ printDiff: true)]
+    [DisassemblyDiagnoser(/*printSource: true,*/)]
     public class BenchmarkFastenshteinDisassembly
     {
         [Benchmark(Baseline = true)]
