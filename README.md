@@ -21,7 +21,7 @@ From the included brenchmarking tests comparing random words of 3 to 20 random c
 ```cs
 int levenshteinDistance = Fastenshtein.Levenshtein.Distance("value1", "value2");
 ```
-Alternative method for comparing one item against many (quicker due to less memory allocation)
+Alternative method for comparing one item against many (quicker due to less memory allocation, not thread safe)
 ```cs
 Fastenshtein.Levenshtein lev = new Fastenshtein.Levenshtein("value1");
 foreach (var item in new []{ "value2", "value3", "value4"})
@@ -38,21 +38,29 @@ We will create Fastenshtein as a CLR Scalar-Valued Function within SQL Server. T
 sp_configure 'clr enabled', 1
 RECONFIGURE
 ```
+2. Beginning with SQL Server 2017 (14.x), either configure [CLR strict security](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/clr-strict-security?view=sql-server-ver15) or run the below to disable it.
+```sql
+EXEC sp_configure 'show advanced options', 1;
+RECONFIGURE;
 
-2. Place the Fastenshtein.dll on the same computer as the SQL Server instance in a directory that the SQL Server instance has access to. You must use the .Net framework version 4 of Fastenshtein. To create the assembly (dll) either:
+EXEC sp_configure 'clr strict security', 0;
+RECONFIGURE;
+```
+
+3. Place the Fastenshtein.dll on the same computer as the SQL Server instance in a directory that the SQL Server instance has access to. You must use the .Net framework version 4 of Fastenshtein. To create the assembly (dll) either:
 
 * Compile the project “FastenshteinFramework” in Release config in Visual Studio.
 
 OR
 
 * Download the pre-compiled dll from [nuget](https://www.nuget.org/api/v2/package/Fastenshtein/) unzip the package and use the dll in \lib\net40-client folder.
-   
-3. Create the assembly
+
+4. Create the assembly
 ```sql
 CREATE ASSEMBLY FastenshteinAssembly FROM 'C:\Fastenshtein.dll' WITH PERMISSION_SET = SAFE
 ```
 
-4. Then create the function
+5. Then create the function
 ```sql
 CREATE FUNCTION [Levenshtein](@value1 [nvarchar](MAX), @value2 [nvarchar](MAX))
 RETURNS [int]
@@ -61,7 +69,7 @@ EXTERNAL NAME [FastenshteinAssembly].[Fastenshtein.Levenshtein].[Distance]
 GO
 ```
 
-5. It is now ready to be used: 
+6. It is now ready to be used: 
 ```sql
 -- Usage
 DECLARE @retVal as integer

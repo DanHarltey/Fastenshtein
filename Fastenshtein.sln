@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastenshteinFramework", "src\FastenshteinFramework\FastenshteinFramework.csproj", "{72495701-4313-458F-9A14-095A6A030140}"
 EndProject
@@ -13,9 +13,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4F67D85A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fastenshtein", "src\Fastenshtein\Fastenshtein.csproj", "{97C0BF94-75C5-40BC-965C-8A841F3BE8EA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fastenshtein.Benchmarking", "src\Fastenshtein.Benchmarking\Fastenshtein.Benchmarking.csproj", "{7C12DEC0-84A5-46FD-A863-9B1F56A6E5EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fastenshtein.Benchmarking", "benchmarks\Fastenshtein.Benchmarking\Fastenshtein.Benchmarking.csproj", "{7C12DEC0-84A5-46FD-A863-9B1F56A6E5EB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fastenshtein.Tests", "tests\Fastenshtein.Tests\Fastenshtein.Tests.csproj", "{28369860-088E-4927-9F3A-B5715DA1DD40}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmarks", "benchmarks", "{DD7EE063-92FE-4B4F-BF63-EAF020462BF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,7 +53,7 @@ Global
 		{72495701-4313-458F-9A14-095A6A030140} = {BF8EDB96-7FBA-4D96-A4C6-9C4C8AA8DEF4}
 		{E1E27460-50C6-409E-878A-BE1F5EE0F8F4} = {BF8EDB96-7FBA-4D96-A4C6-9C4C8AA8DEF4}
 		{97C0BF94-75C5-40BC-965C-8A841F3BE8EA} = {BF8EDB96-7FBA-4D96-A4C6-9C4C8AA8DEF4}
-		{7C12DEC0-84A5-46FD-A863-9B1F56A6E5EB} = {BF8EDB96-7FBA-4D96-A4C6-9C4C8AA8DEF4}
+		{7C12DEC0-84A5-46FD-A863-9B1F56A6E5EB} = {DD7EE063-92FE-4B4F-BF63-EAF020462BF0}
 		{28369860-088E-4927-9F3A-B5715DA1DD40} = {4F67D85A-A3D4-4595-9EDD-428D0FB05BB8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
