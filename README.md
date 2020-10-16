@@ -38,7 +38,7 @@ We will create Fastenshtein as a CLR Scalar-Valued Function within SQL Server. T
 sp_configure 'clr enabled', 1
 RECONFIGURE
 ```
-2. Beginning with SQL Server 2017 (14.x), either configure [CLR strict security](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/clr-strict-security?view=sql-server-ver15) or run the below to disable it.
+2. Beginning with SQL Server 2017 (14.x). Either configure [CLR strict security](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/clr-strict-security?view=sql-server-ver15) or run the below to disable it.
 ```sql
 EXEC sp_configure 'show advanced options', 1;
 RECONFIGURE;
@@ -47,9 +47,9 @@ EXEC sp_configure 'clr strict security', 0;
 RECONFIGURE;
 ```
 
-3. Place the Fastenshtein.dll on the same computer as the SQL Server instance in a directory that the SQL Server instance has access to. You must use the .Net framework version 4 of Fastenshtein. To create the assembly (dll) either:
+3. Place the Fastenshtein.dll on the same computer as the SQL Server instance in a directory that the SQL Server instance has access to. You must use the .Net framework version 4.5.2 of Fastenshtein. To create the assembly (dll) either:
 
-* Compile the project “FastenshteinFramework” in Release config in Visual Studio.
+* Compile the project “Fastenshtein” in Release config in Visual Studio.
 
 OR
 

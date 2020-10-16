@@ -1,37 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.0</TargetFramework>
+    <TargetFrameworks>netstandard1.0;net452</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageId>Fastenshtein</PackageId>
-    <Version>1.0.0.5</Version>
     <Authors>DanHartley</Authors>
-    <Company />
-    <Description>The fastest Levenshtein on NuGet. Supports .NET Framework and .NET Core (.NET Standard 1.0).
+    <Description>The one of the fastest Levenshtein distance packages on NuGet. Supports .NET Framework and .NET Core (.NET Standard 1.0).
 
 Levenshtein calculates the shortest possible distance between two strings. Producing a count of the number of insertions, deletions and substitutions to make one string into another.</Description>
-    <Copyright>Freely available under the MIT license</Copyright>
+    <Copyright>Copyright ©  2017</Copyright>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/DanHarltey/Fastenshtein</PackageProjectUrl>
-    <PackageTags>Levenshtein Distance String Fuzzy Matching Search netstandard</PackageTags>
-    <RepositoryUrl>https://github.com/DanHarltey/Fastenshtein.git</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/DanHarltey/Fastenshtein.git</RepositoryUrl>
+    <AssemblyVersion>1.0.0.6</AssemblyVersion>
+    <FileVersion>1.0.0.6</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <WarningsAsErrors />
-    <DefineConstants>TRACE;RELEASE;NETSTANDARD1_0;PCL</DefineConstants>
-    <DebugType>pdbonly</DebugType>
-    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <WarningsAsErrors />
-    <DefineConstants>TRACE;DEBUG;NETSTANDARD1_0;PCL;NETSTANDARD1_0</DefineConstants>
-    <DebugType>pdbonly</DebugType>
-    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
