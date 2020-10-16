@@ -1,9 +1,9 @@
 # Fastenshtein
 [![NuGet](https://img.shields.io/nuget/v/Fastenshtein.svg)](https://www.nuget.org/packages/Fastenshtein/) [![Build status](https://img.shields.io/appveyor/ci/DanHarltey/fastenshtein/master.svg?label=appveyor)](https://ci.appveyor.com/project/DanHarltey/fastenshtein/branch/master) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-The fastest .Net Levenshtein around.
+One of the fastest .Net Levenshtein projects around.
 
-Fastenshtein is an optimized and unit tested Levenshtein implementation. It is optimized for speed and memory usage.
+Fastenshtein is an optimized and fully unit tested Levenshtein implementation. It is optimized for speed and memory usage.
 
 From the included brenchmarking tests comparing random words of 3 to 20 random chars to other Nuget Levenshtein implementations.
 
