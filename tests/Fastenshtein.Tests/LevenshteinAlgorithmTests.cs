@@ -42,6 +42,12 @@
         }
 
         [Fact]
+        public void Wide_Chars_Are_Supported_Test()
+        {
+            Test("😄😄😄", "😄😓😄", 1);
+        }
+
+        [Fact]
         public void EmtpyStrings_Returns_Zero_Test()
         {
             Test(string.Empty, string.Empty, 0);

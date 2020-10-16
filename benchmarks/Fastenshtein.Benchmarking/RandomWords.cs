@@ -10,21 +10,21 @@
         {
             string[] words = new string[size];
 
-            Random r = new Random(69);
+            var random = new Random(69);
 
             for (int i = 0; i < words.Length; i++)
             {
-                int wordSize = r.Next(3, maxWordSize);
-                char[] word = new char[wordSize];
+                int wordSize = random.Next(3, maxWordSize);
 
-                for (int j = 0; j < word.Length; j++)
+                words[i] = string.Create(wordSize, random, (word, r) =>
                 {
-                    // createWord
-                    word[j] = Letters[r.Next(0, Letters.Length)];
-                }
-
-                words[i] = new string(word);
+                    for (int j = 0; j < word.Length; j++)
+                    {
+                        word[j] = Letters[r.Next(0, Letters.Length)];
+                    }
+                });
             }
+
             return words;
         }
     }

@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4F67D85A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fastenshtein.Benchmarking", "benchmarks\Fastenshtein.Benchmarking\Fastenshtein.Benchmarking.csproj", "{7C12DEC0-84A5-46FD-A863-9B1F56A6E5EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fastenshtein.Tests", "tests\Fastenshtein.Tests\Fastenshtein.Tests.csproj", "{28369860-088E-4927-9F3A-B5715DA1DD40}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmarks", "benchmarks", "{DD7EE063-92FE-4B4F-BF63-EAF020462BF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fastenshtein", "src\Fastenshtein\Fastenshtein.csproj", "{B64FA67E-B6A5-491B-A48E-E670D4DA6439}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fastenshtein", "src\Fastenshtein\Fastenshtein.csproj", "{B64FA67E-B6A5-491B-A48E-E670D4DA6439}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fastenshtein.Tests", "tests\Fastenshtein.Tests\Fastenshtein.Tests.csproj", "{01E26E0C-F161-4133-9E99-5ED200745E9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,22 +25,22 @@ Global
 		{7C12DEC0-84A5-46FD-A863-9B1F56A6E5EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C12DEC0-84A5-46FD-A863-9B1F56A6E5EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C12DEC0-84A5-46FD-A863-9B1F56A6E5EB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{28369860-088E-4927-9F3A-B5715DA1DD40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28369860-088E-4927-9F3A-B5715DA1DD40}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28369860-088E-4927-9F3A-B5715DA1DD40}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28369860-088E-4927-9F3A-B5715DA1DD40}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B64FA67E-B6A5-491B-A48E-E670D4DA6439}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B64FA67E-B6A5-491B-A48E-E670D4DA6439}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B64FA67E-B6A5-491B-A48E-E670D4DA6439}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B64FA67E-B6A5-491B-A48E-E670D4DA6439}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01E26E0C-F161-4133-9E99-5ED200745E9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01E26E0C-F161-4133-9E99-5ED200745E9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01E26E0C-F161-4133-9E99-5ED200745E9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01E26E0C-F161-4133-9E99-5ED200745E9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7C12DEC0-84A5-46FD-A863-9B1F56A6E5EB} = {DD7EE063-92FE-4B4F-BF63-EAF020462BF0}
-		{28369860-088E-4927-9F3A-B5715DA1DD40} = {4F67D85A-A3D4-4595-9EDD-428D0FB05BB8}
 		{B64FA67E-B6A5-491B-A48E-E670D4DA6439} = {BF8EDB96-7FBA-4D96-A4C6-9C4C8AA8DEF4}
+		{01E26E0C-F161-4133-9E99-5ED200745E9B} = {4F67D85A-A3D4-4595-9EDD-428D0FB05BB8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0703F632-2C3F-48C7-8116-651F70046E7C}
