@@ -20,7 +20,8 @@
                 {
                     for (int j = 0; j < word.Length; j++)
                     {
-                        word[j] = Letters[r.Next(0, Letters.Length)];
+                        var index = r.Next(0, Letters.Length);
+                        word[j] = Letters[index];
                     }
                 });
             }

@@ -1,5 +1,6 @@
 ﻿namespace Fastenshtein.Benchmarking
 {
+    using BenchmarkDotNet.Configs;
     using BenchmarkDotNet.Running;
     using System;
 
@@ -15,15 +16,20 @@
         {
             DateTime startTime = DateTime.UtcNow;
 
-            var summary = BenchmarkRunner.Run<BenchmarkFastenshteinDisassembly>();
+            if (args.Length != 0 && string.Equals(args[0], "d", StringComparison.OrdinalIgnoreCase))
+            {
+                _ = BenchmarkRunner.Run<FastenshteinDisassembly>();
+            }
+            else
+            { 
+                _ = BenchmarkRunner.Run<BenchmarkSmallWordsSingleThread>();
+                _ = BenchmarkRunner.Run<BenchmarkNormalWordsSingleThread>();
+                _ = BenchmarkRunner.Run<BenchmarkLargeWordsSingleThread>();
 
-            summary = BenchmarkRunner.Run<BenchmarkSmallWordsSingleThread>();
-            summary = BenchmarkRunner.Run<BenchmarkNormalWordsSingleThread>();
-            summary = BenchmarkRunner.Run<BenchmarkLargeWordsSingleThread>();
-
-            summary = BenchmarkRunner.Run<BenchmarkSmallWordsMultiThread>();
-            summary = BenchmarkRunner.Run<BenchmarkNormalWordsMultiThread>();
-            summary = BenchmarkRunner.Run<BenchmarkLargeWordsMultiThread>();
+                _ = BenchmarkRunner.Run<BenchmarkSmallWordsMultiThread>();
+                _ = BenchmarkRunner.Run<BenchmarkNormalWordsMultiThread>();
+                _ = BenchmarkRunner.Run<BenchmarkLargeWordsMultiThread>();
+            }
 
             Console.WriteLine("Completed in : " + (DateTime.UtcNow - startTime));
         }
