@@ -1,4 +1,4 @@
-name: .NET Core
+name: Fastenshtein GitHub action build
 
 on:
   push:
@@ -23,3 +23,10 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+    - name: Pack
+      run: dotnet pack -c Release --no-build --no-restore --nologo    
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Fastenshtein.nupkg
+        path: src/Fastenshtein/bin/Release/Fastenshtein.*.nupkg
