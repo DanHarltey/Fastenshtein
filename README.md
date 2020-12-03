@@ -1,5 +1,5 @@
 # Fastenshtein
-[![NuGet](https://img.shields.io/nuget/v/Fastenshtein.svg)](https://www.nuget.org/packages/Fastenshtein/) ![GitHub action build](https://github.com/DanHarltey/Fastenshtein/workflows/GitHub%20action%20build/badge.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![NuGet](https://img.shields.io/nuget/v/Fastenshtein.svg)](https://www.nuget.org/packages/Fastenshtein/) ![GitHub action build](https://github.com/DanHarltey/Fastenshtein/workflows/GitHub%20action%20build/badge.svg) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Unit test coverage](https://coveralls.io/repos/github/DanHarltey/Fastenshtein/badge.svg?branch=master)](https://coveralls.io/github/DanHarltey/Fastenshtein?branch=master)
 
 One of the fastest .Net Levenshtein projects around.
 

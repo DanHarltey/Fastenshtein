@@ -22,7 +22,12 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test
-      run: dotnet test --configuration Release --no-build --no-restore --verbosity normal
+      run: dotnet test --configuration Release --no-build --no-restore --verbosity normal /p:CollectCoverage=true /p:CoverletOutput=TestResults /p:CoverletOutputFormat=lcov 
+    - name: Upload unit test code coverage to Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: .\tests\Fastenshtein.Tests\TestResults.info
     - name: Pack
       run: dotnet pack --configuration Release --no-build --no-restore --nologo
     - name: Upload Artifact
