@@ -1,4 +1,4 @@
-name: Fastenshtein GitHub action build
+name: GitHub action build
 
 on:
   push:
@@ -13,18 +13,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET Core
+    - name: Setup .NET 5
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.x
+        dotnet-version: 5.0.x
     - name: Install dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test --configuration Release --no-build --no-restore --verbosity normal
     - name: Pack
-      run: dotnet pack -c Release --no-build --no-restore --nologo    
+      run: dotnet pack --configuration Release --no-build --no-restore --nologo
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
