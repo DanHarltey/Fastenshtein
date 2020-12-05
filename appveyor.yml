@@ -1,0 +1,10 @@
+image:
+  - Visual Studio 2019
+  - Ubuntu
+build_script:
+  - cd scripts
+  - cmd: .\benchmark.bat
+  - sh: ./benchmark.sh
+artifacts:
+  - path: scripts/BenchmarkDotNet.Artifacts
+    name: Benchmark results
