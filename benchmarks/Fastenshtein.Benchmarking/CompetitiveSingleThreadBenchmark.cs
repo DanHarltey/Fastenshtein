@@ -3,7 +3,7 @@
     using BenchmarkDotNet.Attributes;
 
     [RankColumn]
-    public abstract class BenchmarkSingleThread
+    public abstract class CompetitiveSingleThreadBenchmark
     {
         protected string[] words;
 

@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
 
     [RankColumn]
-    public abstract class BenchmarkMultiThread
+    public abstract class CompetitiveMultiThreadBenchmark
     {
         protected string[] words;
 

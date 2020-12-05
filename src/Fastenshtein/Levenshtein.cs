@@ -27,13 +27,7 @@
         /// <summary>
         /// gets the length of the stored value that is tested against
         /// </summary>
-        public int StoredLength
-        {
-            get
-            {
-                return this.storedValue.Length;
-            }
-        }
+        public int StoredLength => this.storedValue.Length;
 
         /// <summary>
         /// Compares a value to the stored value. 
