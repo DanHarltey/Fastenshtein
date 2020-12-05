@@ -10,6 +10,7 @@
         {
             string[] words = new string[size];
 
+            // using a const seed to make sure runs of the performance tests are consistent.
             var random = new Random(69);
 
             for (int i = 0; i < words.Length; i++)

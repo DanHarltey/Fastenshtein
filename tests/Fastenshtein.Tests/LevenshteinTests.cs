@@ -1,6 +1,5 @@
 ﻿namespace Fastenshtein.Tests
 {
-    using Fastenshtein.Benchmarking;
     using System;
     using Xunit;
 
