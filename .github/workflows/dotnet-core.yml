@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  Main-build_windows:
 
     runs-on: windows-latest
 
@@ -40,3 +40,24 @@ jobs:
       with:
         name: Fastenshtein.nupkg
         path: src/Fastenshtein/bin/Release/Fastenshtein.*.nupkg
+        
+  Build_ubuntu:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET 5
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build Fastenshtein
+      run: dotnet build ./src/Fastenshtein --configuration Release --framework netstandard1.0 --nologo --no-restore
+    - name: Build Fastenshtein.Benchmarking
+      run: dotnet build ./benchmarks/Fastenshtein.Benchmarking --configuration Release --framework net5.0 --nologo --no-restore
+    - name: Build Fastenshtein.Tests
+      run: dotnet build ./tests/Fastenshtein.Tests --configuration Release --framework net5.0 --nologo --no-restore
+    - name: Test
+      run: dotnet test --configuration Release --framework net5.0 --no-build --no-restore --verbosity normal
