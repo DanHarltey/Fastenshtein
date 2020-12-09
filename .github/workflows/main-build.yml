@@ -39,11 +39,22 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Fastenshtein.nupkg
-        path: src/Fastenshtein/bin/Release/Fastenshtein.*.nupkg
+        path: src\Fastenshtein\bin\Release\Fastenshtein.*.nupkg
+    - name: Run benchmark
+      run: .\benchmarks\Fastenshtein.Benchmarking\bin\Release\net5.0\Fastenshtein.Benchmarking.exe
+    - name: Upload benchmarks-results to Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: benchmarks-results-windows-latest
+        path: BenchmarkDotNet.Artifacts
         
-  Build_ubuntu:
-
-    runs-on: ubuntu-latest
+  benchmarks:
+  
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
 
     steps:
     - uses: actions/checkout@v2
@@ -51,13 +62,12 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Install dependencies
-      run: dotnet restore
-    - name: Build Fastenshtein
-      run: dotnet build ./src/Fastenshtein --configuration Release --framework netstandard1.0 --nologo --no-restore
-    - name: Build Fastenshtein.Benchmarking
-      run: dotnet build ./benchmarks/Fastenshtein.Benchmarking --configuration Release --framework net5.0 --nologo --no-restore
-    - name: Build Fastenshtein.Tests
-      run: dotnet build ./tests/Fastenshtein.Tests --configuration Release --framework net5.0 --nologo --no-restore
-    - name: Test
-      run: dotnet test --configuration Release --framework net5.0 --no-build --no-restore --verbosity normal
+    - name: Run benchmarks script
+      run: |
+        cd scripts
+        ./benchmark.sh
+    - name: Upload benchmarks-results to Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: benchmarks-results-${{ matrix.os }}
+        path: scripts/BenchmarkDotNet.Artifacts
