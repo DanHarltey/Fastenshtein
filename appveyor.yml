@@ -1,6 +1,7 @@
 image:
   - Visual Studio 2019
   - Ubuntu
+  - macOS
 build_script:
   - cd scripts
   - cmd: .\benchmark.bat
