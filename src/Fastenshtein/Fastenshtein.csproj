@@ -17,7 +17,7 @@ Levenshtein calculates the shortest possible distance between two strings. Produ
     <FileVersion>1.0.0.6</FileVersion>
     <Version>1.0.0.6</Version>
     <PackageReleaseNotes>Speed improvment of around 10%. Removed support for Portable Class Libraries (PCL). .NET Framework support has moved to 4.5.2.</PackageReleaseNotes>
-    <PackageTags>Levenshtein;Distance;Levenshtein Distance;String;Fuzzy Matching;Search;netstandard;</PackageTags>
+    <PackageTags>Levenshtein Distance;String;Fuzzy Matching;Search;netstandard;</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
