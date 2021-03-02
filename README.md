@@ -53,7 +53,7 @@ RECONFIGURE;
 
 OR
 
-* Download the pre-compiled dll from [nuget](https://www.nuget.org/api/v2/package/Fastenshtein/) unzip the package and use the dll in \lib\net40-client folder.
+* Download the pre-compiled dll from [nuget](https://www.nuget.org/api/v2/package/Fastenshtein/) unzip the package and use the dll in \lib\net452 folder.
 
 4. Create the assembly
 ```sql
