@@ -5,7 +5,7 @@
     <Title>Fastenshtein</Title>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>DanHartley</Authors>
-    <Description>The one of the fastest Levenshtein distance packages on NuGet. Supports .NET Framework and .NET Core (.NET Standard 1.0 and .NET Standard 2.0). Levenshtein calculates the shortest possible distance between two strings. Producing a count of the number of insertions, deletions and substitutions to make one string into another.</Description>
+    <Description>The one of the fastest Levenshtein distance packages on NuGet. Supports .NET Framework and .NET (.NET Standard 1.0/2.0). Levenshtein calculates the shortest possible distance between two strings. Producing a count of the number of insertions, deletions and substitutions to make one string into another.</Description>
     <Copyright>Copyright ©  2017</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/DanHarltey/Fastenshtein</PackageProjectUrl>
@@ -14,7 +14,7 @@
     <AssemblyVersion>1.0.0.8</AssemblyVersion>
     <FileVersion>1.0.0.8</FileVersion>
     <Version>1.0.0.8</Version>
-    <PackageReleaseNotes>Speed improvment of around 10%. Removed support for Portable Class Libraries (PCL). .NET Framework support has moved to 4.5.2.</PackageReleaseNotes>
+    <PackageReleaseNotes>Adding .NetStandard2.0 support.</PackageReleaseNotes>
     <PackageTags>Levenshtein Distance;String;Fuzzy Matching;Search;netstandard;</PackageTags>
   </PropertyGroup>
 
