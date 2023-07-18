@@ -1,73 +1,73 @@
 name: GitHub action build
-
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: push
 
 jobs:
-  Main-build_windows:
+  main-build:
 
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET 5
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
-    - name: Install dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
-    - name: Test
-      run: dotnet test --configuration Release --no-build --no-restore --verbosity normal /p:CollectCoverage=true /p:CoverletOutput=TestResults /p:CoverletOutputFormat=lcov
-    - name: Upload net5.0 unit test code coverage to Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: .\tests\Fastenshtein.Tests\TestResults.net5.0.info
-    - name: Upload net48 unit test code coverage to Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: .\tests\Fastenshtein.Tests\TestResults.net48.info
-    - name: Pack
-      run: dotnet pack --configuration Release --no-build --no-restore --nologo
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: Fastenshtein.nupkg
-        path: src\Fastenshtein\bin\Release\Fastenshtein.*.nupkg
-    - name: Run benchmark
-      run: .\benchmarks\Fastenshtein.Benchmarking\bin\Release\net5.0\Fastenshtein.Benchmarking.exe
-    - name: Upload benchmarks-results to Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: benchmarks-results-windows-latest
-        path: BenchmarkDotNet.Artifacts
-        
-  benchmarks:
-  
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET 5
-      uses: actions/setup-dotnet@v1
+    - name: GIT checkout
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 8
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 5.0.x
-    - name: Run benchmarks script
+        dotnet-version: 8.0.x
+
+    - name: Run build script
+      working-directory: scripts
+      shell: bash
       run: |
-        cd scripts
-        ./benchmark.sh
-    - name: Upload benchmarks-results to Artifacts
-      uses: actions/upload-artifact@v2
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          ./dotnet_build.sh code_coverage
+        else
+          ./dotnet_build.sh
+         fi
+
+    - name: Run benchmarks
+      working-directory: release
+      shell: bash
+      run: dotnet ../benchmarks/Fastenshtein.Benchmarking/bin/Release/net8.0/Fastenshtein.Benchmarking.dll
+
+    - name: Upload benchmarks results
+      uses: actions/upload-artifact@v4
       with:
         name: benchmarks-results-${{ matrix.os }}
-        path: scripts/BenchmarkDotNet.Artifacts
+        path: release/BenchmarkDotNet.Artifacts
+        if-no-files-found: error
+
+    - name: Upload test coverage to Coveralls
+      if: runner.os == 'Linux'
+      uses: coverallsapp/github-action@v2
+      with:
+        format: lcov
+        files: release/coverage.net8.info release/coverage.net48.info
+
+    - name: Upload dotnet info
+      uses: actions/upload-artifact@v4
+      if: runner.os == 'Linux'
+      with:
+        name: Built with
+        path: release/dotnet_info.txt
+        if-no-files-found: error
+
+    - name: Upload test coverage
+      uses: actions/upload-artifact@v4
+      if: runner.os == 'Linux'
+      with:
+        name: test coverage
+        path: release/coverage.*.info
+        if-no-files-found: error
+
+    - name: Upload NuGet packages
+      uses: actions/upload-artifact@v4
+      if: runner.os == 'Linux'
+      with:
+        name: NuGet packages
+        path: release/Fastenshtein.*upkg
+        if-no-files-found: error

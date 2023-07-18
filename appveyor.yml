@@ -1,11 +1,28 @@
 image:
-  - Visual Studio 2019
+  - Visual Studio 2022
   - Ubuntu
   - macOS
+install:
+  - pwsh: |
+      if ($isWindows) {
+        Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "./dotnet-install.ps1"
+        ./dotnet-install.ps1 -InstallDir 'C:\Program Files\dotnet'
+      }
+      else {
+        Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
+        sudo chmod u+x dotnet-install.sh
+        if ($isMacOS) {
+          sudo ./dotnet-install.sh --install-dir '/usr/local/share/dotnet'
+        } else {
+          sudo ./dotnet-install.sh --install-dir '/usr/share/dotnet'
+        }
+      }
 build_script:
   - cd scripts
-  - cmd: .\benchmark.bat
-  - sh: ./benchmark.sh
+  - cmd: bash -c "./dotnet_build.sh"
+  - sh: ./dotnet_build.sh
+  - dotnet ../benchmarks/Fastenshtein.Benchmarking/bin/Release/net8.0/Fastenshtein.Benchmarking.dll
+
 artifacts:
   - path: scripts/BenchmarkDotNet.Artifacts
-    name: Benchmark results
+    name: Benchmark results - $(APPVEYOR_BUILD_WORKER_IMAGE)

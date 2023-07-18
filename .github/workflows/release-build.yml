@@ -1,0 +1,35 @@
+name: GitHub Release
+
+on:  
+  push:
+    tags:
+      - '1.*'
+
+jobs:
+  build:
+    name: Relase build
+    runs-on: ubuntu-latest
+
+    env:
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      DOTNET_NOLOGO: true
+
+    steps:
+    - name: Git checkout
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 8
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Run build script
+      working-directory: scripts
+      run: ./dotnet_build.sh code_coverage
+
+    - name: Create GitHub release
+      working-directory: scripts
+      run: ./github_release.sh ${{ github.ref_name }}
+      env:
+        GH_TOKEN: ${{ github.token }}
