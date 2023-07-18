@@ -31,6 +31,7 @@ jobs:
         format: lcov
         files: coverage.net7.info coverage.net48.info
     - name: Pack
+      run: dotnet pack --configuration Release --no-build --no-restore --nologo
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
