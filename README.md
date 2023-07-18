@@ -1,5 +1,5 @@
 # Fastenshtein
-[![NuGet](https://img.shields.io/nuget/v/Fastenshtein.svg)](https://www.nuget.org/packages/Fastenshtein/) ![GitHub action build](https://github.com/DanHarltey/Fastenshtein/workflows/GitHub%20action%20build/badge.svg) [![AppVeyor Build](https://ci.appveyor.com/api/projects/status/xrq5c00ager222i8/branch/master?svg=true)](https://ci.appveyor.com/project/DanHarltey/fastenshtein/branch/master) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Unit test coverage](https://coveralls.io/repos/github/DanHarltey/Fastenshtein/badge.svg?branch=master)](https://coveralls.io/github/DanHarltey/Fastenshtein?branch=master)
+[![NuGet](https://img.shields.io/nuget/v/Fastenshtein.svg)](https://www.nuget.org/packages/Fastenshtein/) ![GitHub action build](https://github.com/DanHarltey/Fastenshtein/workflows/GitHub%20action%20build/badge.svg) [![AppVeyor Build](https://ci.appveyor.com/api/projects/status/my7qghoen4pofb3h?svg=true)](https://ci.appveyor.com/project/DanHarltey/fastenshtein) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Unit test coverage](https://coveralls.io/repos/github/DanHarltey/Fastenshtein/badge.svg?branch=master)](https://coveralls.io/github/DanHarltey/Fastenshtein?branch=master)
 
 One of the fastest .Net Levenshtein projects around.
 

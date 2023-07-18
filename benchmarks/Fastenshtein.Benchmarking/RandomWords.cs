@@ -8,18 +8,18 @@
 
         public static string[] Create(int size, int maxWordSize)
         {
-            string[] words = new string[size];
+            var words = new string[size];
 
             // using a const seed to make sure runs of the performance tests are consistent.
             var random = new Random(69);
 
-            for (int i = 0; i < words.Length; i++)
+            for (var i = 0; i < words.Length; i++)
             {
-                int wordSize = random.Next(3, maxWordSize);
+                var wordSize = random.Next(3, maxWordSize);
 
-                words[i] = string.Create(wordSize, random, (word, r) =>
+                words[i] = string.Create(wordSize, random, static (word, r) =>
                 {
-                    for (int j = 0; j < word.Length; j++)
+                    for (var j = 0; j < word.Length; j++)
                     {
                         var index = r.Next(0, Letters.Length);
                         word[j] = Letters[index];

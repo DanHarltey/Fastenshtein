@@ -1,10 +1,5 @@
 name: GitHub action build
-
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: push
 
 jobs:
   Main-build_windows:
@@ -12,44 +7,46 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET 5
-      uses: actions/setup-dotnet@v1
+    - name: GIT checkout
+      uses: actions/checkout@v3
+    - name: Setup .NET 7
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 7.0.x
     - name: Install dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
-    - name: Test
-      run: dotnet test --configuration Release --no-build --no-restore --verbosity normal /p:CollectCoverage=true /p:CoverletOutput=TestResults /p:CoverletOutputFormat=lcov
-    - name: Upload net5.0 unit test code coverage to Coveralls
-      uses: coverallsapp/github-action@master
+    - name: Test net7.0
+      run: dotnet test --configuration Release --no-build --verbosity normal --framework net7.0 --collect:"XPlat Code Coverage;Format=lcov"
+    - name: Copy test coverage file
+      run: Get-Childitem –Path ".\tests\Fastenshtein.Tests\TestResults\" -Include "coverage.info" -File -Recurse | Move-Item -Destination "coverage.net7.info"
+    - name: Test net48
+      run: dotnet test --configuration Release --no-build --verbosity normal --framework net48 --collect:"XPlat Code Coverage;Format=lcov"
+    - name: Copy test coverage file
+      run: Get-Childitem –Path ".\tests\Fastenshtein.Tests\TestResults\" -Include "coverage.info" -File -Recurse | Move-Item -Destination coverage.net48.info
+    - name: Upload test coverage to Coveralls
+      uses: coverallsapp/github-action@v2
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: .\tests\Fastenshtein.Tests\TestResults.net5.0.info
-    - name: Upload net48 unit test code coverage to Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: .\tests\Fastenshtein.Tests\TestResults.net48.info
+        format: lcov
+        files: coverage.net7.info coverage.net48.info
     - name: Pack
-      run: dotnet pack --configuration Release --no-build --no-restore --nologo
     - name: Upload Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: Fastenshtein.nupkg
         path: src\Fastenshtein\bin\Release\Fastenshtein.*.nupkg
     - name: Run benchmark
-      run: .\benchmarks\Fastenshtein.Benchmarking\bin\Release\net5.0\Fastenshtein.Benchmarking.exe
+      run: .\benchmarks\Fastenshtein.Benchmarking\bin\Release\net7.0\Fastenshtein.Benchmarking.exe
     - name: Upload benchmarks-results to Artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: benchmarks-results-windows-latest
         path: BenchmarkDotNet.Artifacts
-        
+
+
   benchmarks:
-  
+
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -57,17 +54,18 @@ jobs:
         os: [ubuntu-latest, macos-latest]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET 5
-      uses: actions/setup-dotnet@v1
+    - name: GIT checkout
+      uses: actions/checkout@v3
+    - name: Setup .NET 7
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 7.0.x
     - name: Run benchmarks script
       run: |
         cd scripts
         ./benchmark.sh
     - name: Upload benchmarks-results to Artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: benchmarks-results-${{ matrix.os }}
         path: scripts/BenchmarkDotNet.Artifacts
