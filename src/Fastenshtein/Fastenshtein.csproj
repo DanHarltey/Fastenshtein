@@ -2,8 +2,11 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.0;netstandard2.0;net452;net8.0</TargetFrameworks>
-    <Title>Fastenshtein</Title>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Title>Fastenshtein</Title>
     <Authors>DanHartley</Authors>
     <Description>The one of the fastest Levenshtein distance packages on NuGet. Supports .NET Framework and .NET. Levenshtein calculates the shortest possible distance between two strings. Producing a count of the number of insertions, deletions and substitutions to make one string into another.</Description>
     <Copyright>Copyright ©  2017</Copyright>

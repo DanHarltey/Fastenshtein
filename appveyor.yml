@@ -4,6 +4,7 @@ image:
 install:
   - pwsh: |
     if ($isWindows) {
+      echo "Do nothing"
     }
     else {
       Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
