@@ -1,9 +1,19 @@
 image:
-  - Visual Studio 2022
   - Ubuntu
   - macOS
 install:
-  - sh: wget https://dot.net/v1/dotnet-install.sh
+  - pwsh: |
+    if ($isWindows) {
+    }
+    else {
+      Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
+      sudo chmod u+x dotnet-install.sh
+      if ($isMacOS) {
+        sudo ./dotnet-install.sh --jsonfile global.json --architecture x64 --install-dir '/usr/local/share/dotnet'
+      } else {
+        sudo ./dotnet-install.sh --jsonfile global.json --architecture x64 --install-dir '/usr/share/dotnet'
+      }
+    }
 build_script:
   - cd scripts
   - cmd: .\benchmark.bat
