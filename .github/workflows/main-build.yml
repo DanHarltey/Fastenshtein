@@ -35,8 +35,8 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: Fastenshtein.nupkg
-        path: src\Fastenshtein\bin\Release\Fastenshtein.*.nupkg
+        name: Fastenshtein
+        path: src\Fastenshtein\bin\Release\Fastenshtein.*.*upkg
     - name: Run benchmark
       run: .\benchmarks\Fastenshtein.Benchmarking\bin\Release\net8.0\Fastenshtein.Benchmarking.exe
     - name: Upload benchmarks-results to Artifacts
