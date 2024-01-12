@@ -1,10 +1,11 @@
 image:
+  - Visual Studio 2022
   - Ubuntu
   - macOS
 install:
   - pwsh: |
       if ($isWindows) {
-        echo "Do nothing"
+        echo ".Net already installed"
       }
       else {
         Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
