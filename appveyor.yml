@@ -5,7 +5,8 @@ image:
 install:
   - pwsh: |
       if ($isWindows) {
-        echo ".Net already installed"
+        Invoke-WebRequest "https://dot.net/v1/dotnet-install.ps1" -OutFile "./dotnet-install.ps1"
+        ./dotnet-install.ps1 -InstallDir 'C:\Program Files\dotnet'
       }
       else {
         Invoke-WebRequest "https://dot.net/v1/dotnet-install.sh" -OutFile "./dotnet-install.sh"
