@@ -4,8 +4,7 @@ on: push
 jobs:
   Main-build_windows:
 
-    runs-on: windows-latest
-
+    runs-on: ubuntu-latest
     steps:
     - name: GIT checkout
       uses: actions/checkout@v4
