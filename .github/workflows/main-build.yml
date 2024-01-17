@@ -29,12 +29,13 @@ jobs:
           ./dotnet_build.sh
          fi
 
-         - name: Upload test coverage to Coveralls
-         uses: coverallsapp/github-action@v2
-         with:
-           format: lcov
-           files: coverage.net8.info coverage.net48.info
-   
+    - name: Upload test coverage to Coveralls
+      if: runner.os == 'Linux'
+      uses: coverallsapp/github-action@v2
+      with:
+        format: lcov
+        files: coverage.net8.info coverage.net48.info
+
     - name: Upload NuGet packages
       uses: actions/upload-artifact@v4
       if: runner.os == 'Linux'
@@ -42,11 +43,11 @@ jobs:
         name: NuGet packages
         path: release\Fastenshtein.*.*upkg
 
-    - name: Upload code coverage
+    - name: Upload test coverage
       uses: actions/upload-artifact@v4
       if: runner.os == 'Linux'
       with:
-        name: code coverage
+        name: test coverage
         path: release/coverage.*.info
 
     - name: Upload dotnet info
