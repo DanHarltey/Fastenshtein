@@ -39,6 +39,7 @@ jobs:
       with:
         name: benchmarks-results-${{ matrix.os }}
         path: release/BenchmarkDotNet.Artifacts
+        if-no-files-found: error
 
     - name: Upload test coverage to Coveralls
       if: runner.os == 'Linux'
@@ -47,12 +48,13 @@ jobs:
         format: lcov
         files: release/coverage.net8.info release/coverage.net48.info
 
-    - name: Upload NuGet packages
+    - name: Upload dotnet info
       uses: actions/upload-artifact@v4
       if: runner.os == 'Linux'
       with:
-        name: NuGet packages
-        path: release\Fastenshtein.*.*upkg
+        name: Built with
+        path: release/dotnet_info.txt
+        if-no-files-found: error
 
     - name: Upload test coverage
       uses: actions/upload-artifact@v4
@@ -60,9 +62,12 @@ jobs:
       with:
         name: test coverage
         path: release/coverage.*.info
+        if-no-files-found: error
 
-    - name: Upload dotnet info
+    - name: Upload NuGet packages
       uses: actions/upload-artifact@v4
       if: runner.os == 'Linux'
       with:
-        path: release/dotnet_info.txt
+        name: NuGet packages
+        path: release\Fastenshtein.*upkg
+        if-no-files-found: error
