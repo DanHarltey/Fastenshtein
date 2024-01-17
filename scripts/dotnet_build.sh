@@ -7,7 +7,7 @@ mkdir ../release
 dotnet --info > ../release/dotnet_info.txt
 
 dotnet restore ../
-dotnet build ../ --configuration Release --no-restore /p:ContinuousIntegrationBuild=true
+dotnet build ../ --configuration Release --no-restore -p:ContinuousIntegrationBuild=true
 
 if [[ $1 = "code_coverage" ]]; then
   dotnet test ../ --configuration Release --no-build --verbosity normal --framework net8.0 --collect:"XPlat Code Coverage;Format=lcov"

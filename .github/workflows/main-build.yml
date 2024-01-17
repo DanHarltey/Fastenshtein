@@ -34,7 +34,7 @@ jobs:
       uses: coverallsapp/github-action@v2
       with:
         format: lcov
-        files: coverage.net8.info coverage.net48.info
+        files: release/coverage.net8.info release/coverage.net48.info
 
     - name: Upload NuGet packages
       uses: actions/upload-artifact@v4
