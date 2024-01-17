@@ -29,6 +29,17 @@ jobs:
           ./dotnet_build.sh
          fi
 
+    - name: Run benchmarks
+      working-directory: release
+      shell: bash
+      run: dotnet ../benchmarks/Fastenshtein.Benchmarking/bin/Release/net8.0/Fastenshtein.Benchmarking.dll
+
+    - name: Upload benchmarks results
+      uses: actions/upload-artifact@v4
+      with:
+        name: benchmarks-results-${{ matrix.os }}
+        path: release/BenchmarkDotNet.Artifacts
+
     - name: Upload test coverage to Coveralls
       if: runner.os == 'Linux'
       uses: coverallsapp/github-action@v2
