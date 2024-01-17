@@ -16,4 +16,10 @@ jobs:
 
     - name: Run build script
       working-directory: scripts
-      run: ./dotnet_build.sh code_coverage
+      shell: bash
+      run: |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          ./dotnet_build.sh code_coverage
+        else
+          ./dotnet_build.sh
+         fi
