@@ -21,5 +21,5 @@ fi
 
 dotnet pack ../ --configuration Release --no-build
 
-find ../src/Fastenshtein/bin/Release -name "Fastenshtein.*.nupkg" -exec cp "{}" ../release/Fastenshtein.nupkg \;
-find ../src/Fastenshtein/bin/Release -name "Fastenshtein.*.snupkg" -exec cp "{}" ../release/Fastenshtein.snupkg \;
+cp ../src/Fastenshtein/bin/Release/Fastenshtein.*.nupkg ../release/Fastenshtein.nupkg
+cp ../src/Fastenshtein/bin/Release/Fastenshtein.*.snupkg ../release/Fastenshtein.snupkg
