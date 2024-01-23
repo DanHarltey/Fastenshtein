@@ -1,0 +1,34 @@
+```assembly
+; Fastenshtein.Benchmarking.ArrayBenchmark.Simple()
+;             for (int i = 0; i < _array.Length; i++)
+;                  ^^^^^^^^^
+;                 _array[i] = i;
+;                 ^^^^^^^^^^^^^^
+;             return _array;
+;             ^^^^^^^^^^^^^^
+       sub       rsp,28
+       xor       eax,eax
+       mov       rcx,[rcx+8]
+       cmp       dword ptr [rcx+8],0
+       jle       short M00_L01
+M00_L00:
+       -- reload array
+       mov       rdx,rcx
+	   -- bounds check
+       cmp       eax,[rdx+8]
+       jae       short M00_L02
+	   -- bounds check
+       mov       r8d,eax
+       mov       [rdx+r8*4+10],eax
+       inc       eax
+       cmp       [rcx+8],eax
+       jg        short M00_L00
+M00_L01:
+       mov       rax,rcx
+       add       rsp,28
+       ret
+M00_L02:
+       call      CORINFO_HELP_RNGCHKFAIL
+       int       3
+; Total bytes of code 53
+```

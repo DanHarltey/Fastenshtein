@@ -1,0 +1,25 @@
+```assembly
+; Fastenshtein.Benchmarking.ArrayBenchmark.SimpleLocal()
+;             var tmp = this._array;
+;             ^^^^^^^^^^^^^^^^^^^^^^
+;             for (int i = 0; i < tmp.Length; i++)
+;                  ^^^^^^^^^
+;                 tmp[i] = i;
+;                 ^^^^^^^^^^^
+;             return tmp;
+;             ^^^^^^^^^^^
+       mov       rax,[rcx+8] -- rax is tmp
+       xor       ecx,ecx -- ecx is "i" i = 0
+       mov       edx,[rax+8] -- rax+8 is tmp.Length
+       test      edx,edx -- if tmp.Length == 0
+       jle       short M00_L01
+M00_L00:
+       mov       r8d,ecx -- inc array pointer
+       mov       [rax+r8*4+10],ecx -- assign i to array
+       inc       ecx -- ++i
+       cmp       edx,ecx 
+       jg        short M00_L00 ; if tmp.Length > i, jump to M00_L00
+M00_L01:
+       ret
+; Total bytes of code 28
+```

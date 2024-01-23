@@ -1,7 +1,7 @@
 ﻿namespace Fastenshtein.Tests
 {
     using Fastenshtein.Benchmarking;
-    using System;
+    using System.Linq;
     using Xunit;
 
     public class ArrayFillTests
@@ -18,32 +18,20 @@
             var onTest = new ArrayBenchmark();
             onTest.N = length;
 
-            var methods = new []
-            {
-                onTest.Simple,
-                onTest.SimpleLocal,
-                onTest.SimpleLocalWithCopy,
-                onTest.SimpleUnroll,
-                onTest.SimpleBackward,
-                onTest.UnrollBackward,
-                onTest.PointerSimple,
-                onTest.PointerUnroll,
-                onTest.UnsafeAdd,
-                onTest.See,
-                onTest.See256,
-                //onTest.See512,
-                onTest.SeeAny,
-            };
+            var methods = onTest
+                .GetType()
+                .GetMethods()
+                .Where(x => x.ReturnType == typeof(int[]));
 
-            foreach (var method in methods) 
+            foreach (var method in methods)
             {
                 onTest.SetUp();
 
-                var array = method();
+                var array = (int[])method.Invoke(onTest, null);
 
                 for (var i = 0; i < array.Length; i++)
                 {
-                    Assert.Equal(i, array[i]); 
+                    Assert.Equal(i, array[i]);
                 }
             }
         }
