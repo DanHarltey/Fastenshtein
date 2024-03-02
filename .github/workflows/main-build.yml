@@ -8,7 +8,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest, buildjet-4vcpu-ubuntu-2204-arm]
+    env:
+      TEST_COVERAGE: ${{ matrix.os == 'ubuntu-latest' }}
+      NO_NET48: ${{ matrix.os == 'buildjet-4vcpu-ubuntu-2204-arm' }}
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      DOTNET_NOLOGO: true
 
     steps:
     - name: GIT checkout
@@ -23,11 +29,15 @@ jobs:
       working-directory: scripts
       shell: bash
       run: |
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          ./dotnet_build.sh code_coverage
+        if [ "$TEST_COVERAGE" == "true" ]
+        then
+          ./dotnet_build.sh test_coverage
+        elif [ "$NO_NET48" == "true" ]
+        then
+          ./dotnet_build.sh no_net48
         else
           ./dotnet_build.sh
-         fi
+        fi
 
     - name: Run benchmarks
       working-directory: release
@@ -42,7 +52,7 @@ jobs:
         if-no-files-found: error
 
     - name: Upload test coverage to Coveralls
-      if: runner.os == 'Linux'
+      if: env.TEST_COVERAGE == 'true'
       uses: coverallsapp/github-action@v2
       with:
         format: lcov
@@ -50,7 +60,7 @@ jobs:
 
     - name: Upload dotnet info
       uses: actions/upload-artifact@v4
-      if: runner.os == 'Linux'
+      if: env.TEST_COVERAGE == 'true'
       with:
         name: Built with
         path: release/dotnet_info.txt
@@ -58,7 +68,7 @@ jobs:
 
     - name: Upload test coverage
       uses: actions/upload-artifact@v4
-      if: runner.os == 'Linux'
+      if: env.TEST_COVERAGE == 'true'
       with:
         name: test coverage
         path: release/coverage.*.info
@@ -66,7 +76,7 @@ jobs:
 
     - name: Upload NuGet packages
       uses: actions/upload-artifact@v4
-      if: runner.os == 'Linux'
+      if: env.TEST_COVERAGE == 'true'
       with:
         name: NuGet packages
         path: release/Fastenshtein.*upkg
