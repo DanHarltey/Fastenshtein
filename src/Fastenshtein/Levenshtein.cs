@@ -42,10 +42,7 @@
             }
 
             // Add indexing for insertion to first row
-            for (int i = 0; i < this.costs.Length;)
-            {
-                this.costs[i] = ++i;
-            }
+            ArrayFill.PopulateCosts(costs);
 
             for (int i = 0; i < value.Length; i++)
             {

@@ -22,10 +22,7 @@
             int[] costs = new int[value1.Length];
 
             // Add indexing for insertion to first row
-            for (int i = 0; i < costs.Length;)
-            {
-                costs[i] = ++i;
-            }
+            ArrayFill.PopulateCosts(costs);
 
             int minSize = value1.Length < value2.Length ? value1.Length : value2.Length;
 

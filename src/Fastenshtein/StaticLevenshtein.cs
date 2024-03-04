@@ -21,10 +21,7 @@
             int[] costs = new int[value2.Length];
 
             // Add indexing for insertion to first row
-            for (int i = 0; i < costs.Length;)
-            {
-                costs[i] = ++i;
-            }
+            ArrayFill.PopulateCosts(costs);
 
             for (int i = 0; i < value1.Length; i++)
             {
