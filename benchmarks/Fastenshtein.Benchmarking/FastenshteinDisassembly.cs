@@ -17,9 +17,9 @@ namespace Fastenshtein.Benchmarking
 
         [Benchmark(Baseline = true)]
         [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Must be an instance method for BenchmarkDotNet")]
-        public int Fastenshtein_1_0_0_5()
+        public int Fastenshtein_1_0_0_8()
         {
-            var levenshtein = new global::Fastenshtein.Benchmarking.FastenshteinOld.Fastenshtein_1_0_0_5("test");
+            var levenshtein = new global::Fastenshtein.Benchmarking.FastenshteinOld.Fastenshtein_1_0_0_8("test");
             return levenshtein.DistanceFrom("test");
         }
     }

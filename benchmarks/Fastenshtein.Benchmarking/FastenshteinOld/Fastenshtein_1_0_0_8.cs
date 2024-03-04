@@ -4,8 +4,12 @@
     using System.Collections.Generic;
     using System.Text;
 
-    internal class Fastenshtein_1_0_0_5
+    internal class Fastenshtein_1_0_0_8
     {
+        /*
+        * WARRING this class is performance critical (Speed).
+        */
+
         private readonly string storedValue;
         private readonly int[] costs;
 
@@ -13,7 +17,7 @@
         /// Creates a new instance with a value to test other values against
         /// </summary>
         /// <param Name="value">Value to compare other values to.</param>
-        public Fastenshtein_1_0_0_5(string value)
+        public Fastenshtein_1_0_0_8(string value)
         {
             this.storedValue = value;
             // Create matrix row
@@ -23,13 +27,7 @@
         /// <summary>
         /// gets the length of the stored value that is tested against
         /// </summary>
-        public int StoredLength
-        {
-            get
-            {
-                return this.storedValue.Length;
-            }
-        }
+        public int StoredLength => this.storedValue.Length;
 
         /// <summary>
         /// Compares a value to the stored value. 
@@ -53,42 +51,50 @@
             {
                 // cost of the first index
                 int cost = i;
-                int addationCost = i;
+                int previousCost = i;
 
                 // cache value for inner loop to avoid index lookup and bonds checking, profiled this is quicker
                 char value1Char = value[i];
 
                 for (int j = 0; j < this.storedValue.Length; j++)
                 {
-                    int insertionCost = cost;
+                    int currentCost = cost;
 
-                    cost = addationCost;
-
-                    // assigning this here reduces the array reads we do, improvment of the old version
-                    addationCost = this.costs[j];
+                    // assigning this here reduces the array reads we do, improvement of the old version
+                    cost = costs[j];
 
                     if (value1Char != this.storedValue[j])
                     {
-                        if (insertionCost < cost)
+                        if (previousCost < currentCost)
                         {
-                            cost = insertionCost;
+                            currentCost = previousCost;
                         }
 
-                        if (addationCost < cost)
+                        if (cost < currentCost)
                         {
-                            cost = addationCost;
+                            currentCost = cost;
                         }
 
-                        ++cost;
+                        ++currentCost;
                     }
 
-                    this.costs[j] = cost;
+                    /* 
+                     * Improvement on the older versions.
+                     * Swapping the variables here results in a performance improvement for modern intel CPU’s, but I have no idea why?
+                     */
+                    costs[j] = currentCost;
+                    previousCost = currentCost;
                 }
             }
 
             return this.costs[this.costs.Length - 1];
         }
 
+        /// <summary>
+        /// Compares the two values to find the minimum Levenshtein distance. 
+        /// Thread safe.
+        /// </summary>
+        /// <returns>Difference. 0 complete match.</returns>
         public static int Distance(string value1, string value2)
         {
             if (value2.Length == 0)
@@ -108,36 +114,39 @@
             {
                 // cost of the first index
                 int cost = i;
-                int addationCost = i;
+                int previousCost = i;
 
                 // cache value for inner loop to avoid index lookup and bonds checking, profiled this is quicker
                 char value1Char = value1[i];
 
                 for (int j = 0; j < value2.Length; j++)
                 {
-                    int insertionCost = cost;
+                    int currentCost = cost;
 
-                    cost = addationCost;
-
-                    // assigning this here reduces the array reads we do, improvment of the old version
-                    addationCost = costs[j];
+                    // assigning this here reduces the array reads we do, improvement of the old version
+                    cost = costs[j];
 
                     if (value1Char != value2[j])
                     {
-                        if (insertionCost < cost)
+                        if (previousCost < currentCost)
                         {
-                            cost = insertionCost;
+                            currentCost = previousCost;
                         }
 
-                        if (addationCost < cost)
+                        if (cost < currentCost)
                         {
-                            cost = addationCost;
+                            currentCost = cost;
                         }
 
-                        ++cost;
+                        ++currentCost;
                     }
 
-                    costs[j] = cost;
+                    /* 
+                     * Improvement on the older versions.
+                     * Swapping the variables here results in a performance improvement for modern intel CPU’s, but I have no idea why?
+                     */
+                    costs[j] = currentCost;
+                    previousCost = currentCost;
                 }
             }
 
