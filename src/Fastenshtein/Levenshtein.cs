@@ -4,7 +4,7 @@
     /// Measures the difference between two strings.
     /// Uses the Levenshtein string difference algorithm.
     /// </summary>
-    public partial class Levenshtein
+    public sealed partial class Levenshtein
     {
         /*
          * WARRING this class is performance critical (Speed).

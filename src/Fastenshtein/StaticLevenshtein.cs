@@ -4,7 +4,7 @@
     /// Measures the difference between two strings.
     /// Uses the Levenshtein string difference algorithm.
     /// </summary>
-    public partial class Levenshtein
+    public sealed partial class Levenshtein
     {
         /// <summary>
         /// Compares the two values to find the minimum Levenshtein distance. 
