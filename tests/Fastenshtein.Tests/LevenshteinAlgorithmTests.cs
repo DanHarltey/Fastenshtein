@@ -57,7 +57,7 @@
 
         private void Test(string value1, string value2, int expected)
         {
-            int actual = this.CalculateDistance(value1, value2);
+            var actual = this.CalculateDistance(value1, value2);
             Assert.Equal(expected, actual);
         }
     }

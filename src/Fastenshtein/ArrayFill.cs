@@ -8,7 +8,7 @@ namespace Fastenshtein
     internal static class ArrayFill
     {
 #if NET8_0_OR_GREATER 
-        private static readonly int[] indexes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+        private static readonly int[] indexes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
         private static readonly Vector<int> additionVector = new(Vector<int>.Count);
         private static readonly Vector<int> indexesVector = new(indexes);
 #endif
@@ -32,9 +32,9 @@ namespace Fastenshtein
                 }
             }
 #endif
-            for (; i < costs.Length; i++)
+            for (; i < costs.Length;)
             {
-                costs[i] = i;
+                costs[i] = ++i;
             }
         }
     }
