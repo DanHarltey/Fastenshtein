@@ -36,15 +36,17 @@
         /// <returns>Difference. 0 complete match.</returns>
         public int DistanceFrom(string value)
         {
+            var costs = this.costs;
+
             if (costs.Length == 0)
             {
                 return value.Length;
             }
 
             // Add indexing for insertion to first row
-            for (int i = 0; i < this.costs.Length;)
+            for (int i = 0; i < costs.Length;)
             {
-                this.costs[i] = ++i;
+                costs[i] = ++i;
             }
 
             for (int i = 0; i < value.Length; i++)
@@ -87,7 +89,7 @@
                 }
             }
 
-            return this.costs[this.costs.Length - 1];
+            return costs[costs.Length - 1];
         }
     }
 }
