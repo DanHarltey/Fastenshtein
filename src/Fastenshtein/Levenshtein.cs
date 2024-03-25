@@ -1,4 +1,6 @@
-﻿namespace Fastenshtein
+﻿using System;
+
+namespace Fastenshtein
 {
     /// <summary>
     /// Measures the difference between two strings.
@@ -21,7 +23,12 @@
         {
             this.storedValue = value;
             // Create matrix row
+#if NET5_0
+            this.costs = GC.AllocateUninitializedArray<int>(this.storedValue.Length);
+#else
             this.costs = new int[this.storedValue.Length];
+#endif
+
         }
 
         /// <summary>

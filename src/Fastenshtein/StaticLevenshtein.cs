@@ -1,4 +1,6 @@
-﻿namespace Fastenshtein
+﻿using System;
+
+namespace Fastenshtein
 {
     /// <summary>
     /// Measures the difference between two strings.
@@ -17,9 +19,11 @@
             {
                 return value1.Length;
             }
-
+#if net5_0
+            int[] costs = GC.AllocateUninitializedArray<int>(value2.Length);
+#else
             int[] costs = new int[value2.Length];
-
+#endif
             // Add indexing for insertion to first row
             for (int i = 0; i < costs.Length;)
             {
