@@ -15,12 +15,42 @@ namespace Fastenshtein.Benchmarking
             return levenshtein.DistanceFrom("test");
         }
 
-        [Benchmark(Baseline = true)]
+        [Benchmark]
         [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Must be an instance method for BenchmarkDotNet")]
-        public int Fastenshtein_1_0_0_8()
+        public int Fastenshtein2()
         {
-            var levenshtein = new global::Fastenshtein.Benchmarking.FastenshteinOld.Fastenshtein_1_0_0_8("test");
-            return levenshtein.DistanceFrom("test");
+            var levenshtein = new global::Fastenshtein.Levenshtein("test");
+            return levenshtein.DistanceFrom2("test");
         }
+        [Benchmark]
+        [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Must be an instance method for BenchmarkDotNet")]
+        public int Fastenshtein3()
+        {
+            var levenshtein = new global::Fastenshtein.Levenshtein("test");
+            return levenshtein.DistanceFrom3("test");
+        }
+        [Benchmark]
+        [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Must be an instance method for BenchmarkDotNet")]
+        public int Fastenshtein4()
+        {
+            var levenshtein = new global::Fastenshtein.Levenshtein("test");
+            return levenshtein.DistanceFrom4("test");
+        }
+
+        [Benchmark]
+        [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Must be an instance method for BenchmarkDotNet")]
+        public int Fastenshtein5()
+        {
+            var levenshtein = new global::Fastenshtein.Levenshtein("test");
+            return levenshtein.DistanceFrom5("test");
+        }
+
+        ////[Benchmark(Baseline = true)]
+        ////[SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Must be an instance method for BenchmarkDotNet")]
+        ////public int Fastenshtein_1_0_0_8()
+        ////{
+        ////    var levenshtein = new global::Fastenshtein.Benchmarking.FastenshteinOld.Fastenshtein_1_0_0_8("test");
+        ////    return levenshtein.DistanceFrom("test");
+        ////}
     }
 }
