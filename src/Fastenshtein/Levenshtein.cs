@@ -246,7 +246,7 @@ namespace Fastenshtein
                 return value.Length;
             }
 
-            int previousCost = 1;
+            int previousCost = 0;
 
             // Add indexing for insertion to first row
             for (; previousCost < costs.Length;)
@@ -307,23 +307,20 @@ namespace Fastenshtein
             var costs = this.costs;
             var storedValue = this.storedValue;
             ref var storedValueRef = ref MemoryMarshal.GetReference(storedValue.AsSpan());
-       
+
             if (costs.Length == 0)
             {
                 return value.Length;
             }
 
-            int previousCost = 1;
-
-            // Add indexing for insertion to first row
+            int previousCost = 0;
             ref var refCosts = ref MemoryMarshal.GetArrayDataReference(costs);
-            for (; previousCost <= costs.Length; previousCost++)
+            for (; previousCost < costs.Length;)
             {
-                refCosts = previousCost;
+                refCosts = ++previousCost;
                 refCosts = ref Unsafe.Add(ref refCosts, 1);
             }
             refCosts = ref MemoryMarshal.GetArrayDataReference(costs);
-
 
             for (int i = 0; i < value.Length; i++)
             {
