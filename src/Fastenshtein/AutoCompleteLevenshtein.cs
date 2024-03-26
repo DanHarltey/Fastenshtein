@@ -21,10 +21,12 @@
 
             int[] costs = new int[value1.Length];
 
+            int previousCost = 0;
+
             // Add indexing for insertion to first row
-            for (int i = 0; i < costs.Length;)
+            for (; previousCost < costs.Length;)
             {
-                costs[i] = ++i;
+                costs[previousCost] = ++previousCost;
             }
 
             int minSize = value1.Length < value2.Length ? value1.Length : value2.Length;
@@ -33,7 +35,7 @@
             {
                 // cost of the first index
                 int cost = i;
-                int previousCost = i;
+                previousCost = i;
 
                 // cache value for inner loop to avoid index lookup and bonds checking, profiled this is quicker
                 char value2Char = value2[i];

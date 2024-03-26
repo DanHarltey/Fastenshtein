@@ -20,17 +20,19 @@
 
             int[] costs = new int[value2.Length];
 
+            int previousCost = 0;
+
             // Add indexing for insertion to first row
-            for (int i = 0; i < costs.Length;)
+            for (; previousCost < costs.Length;)
             {
-                costs[i] = ++i;
+                costs[previousCost] = ++previousCost;
             }
 
             for (int i = 0; i < value1.Length; i++)
             {
                 // cost of the first index
                 int cost = i;
-                int previousCost = i;
+                previousCost = i;
 
                 // cache value for inner loop to avoid index lookup and bonds checking, profiled this is quicker
                 char value1Char = value1[i];
@@ -66,7 +68,7 @@
                 }
             }
 
-            return costs[costs.Length - 1];
+            return previousCost;
         }
     }
 }

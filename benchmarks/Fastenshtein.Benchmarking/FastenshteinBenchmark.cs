@@ -32,20 +32,6 @@ namespace Fastenshtein.Benchmarking
         }
 
         [Benchmark]
-        public void Fastenshtein2()
-        {
-            for (int i = 0; i < words.Length; i++)
-            {
-                var levenshtein = new global::Fastenshtein.Levenshtein(words[i]);
-
-                for (int j = 0; j < words.Length; j++)
-                {
-                    levenshtein.DistanceFrom2(words[j]);
-                }
-            }
-        }
-
-        [Benchmark]
         public void Fastenshtein3()
         {
             for (int i = 0; i < words.Length; i++)
@@ -60,7 +46,7 @@ namespace Fastenshtein.Benchmarking
         }
 
         [Benchmark]
-        public void Fastenshtein4()
+        public void Fastenshtein_Inc()
         {
             for (int i = 0; i < words.Length; i++)
             {
@@ -68,22 +54,7 @@ namespace Fastenshtein.Benchmarking
 
                 for (int j = 0; j < words.Length; j++)
                 {
-                    levenshtein.DistanceFrom4(words[j]);
-                }
-            }
-        }
-
-
-        [Benchmark]
-        public void Fastenshtein5()
-        {
-            for (int i = 0; i < words.Length; i++)
-            {
-                var levenshtein = new global::Fastenshtein.Levenshtein(words[i]);
-
-                for (int j = 0; j < words.Length; j++)
-                {
-                    levenshtein.DistanceFrom5(words[j]);
+                    levenshtein.DistanceFrom_Inc(words[j]);
                 }
             }
         }

@@ -17,33 +17,20 @@ namespace Fastenshtein.Benchmarking
 
         [Benchmark]
         [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Must be an instance method for BenchmarkDotNet")]
-        public int Fastenshtein2()
-        {
-            var levenshtein = new global::Fastenshtein.Levenshtein("test");
-            return levenshtein.DistanceFrom2("test");
-        }
-        [Benchmark]
-        [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Must be an instance method for BenchmarkDotNet")]
         public int Fastenshtein3()
         {
             var levenshtein = new global::Fastenshtein.Levenshtein("test");
             return levenshtein.DistanceFrom3("test");
         }
-        [Benchmark]
-        [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Must be an instance method for BenchmarkDotNet")]
-        public int Fastenshtein4()
-        {
-            var levenshtein = new global::Fastenshtein.Levenshtein("test");
-            return levenshtein.DistanceFrom4("test");
-        }
 
         [Benchmark]
         [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Must be an instance method for BenchmarkDotNet")]
-        public int Fastenshtein5()
+        public int Fastenshtein_Inc()
         {
             var levenshtein = new global::Fastenshtein.Levenshtein("test");
-            return levenshtein.DistanceFrom5("test");
+            return levenshtein.DistanceFrom_Inc("test");
         }
+
 
         ////[Benchmark(Baseline = true)]
         ////[SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Must be an instance method for BenchmarkDotNet")]
