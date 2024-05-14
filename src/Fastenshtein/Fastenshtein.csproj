@@ -10,7 +10,7 @@
     <Authors>DanHartley</Authors>
     <Description>One of the fastest Levenshtein distance packages on NuGet. Supports .NET Framework and .NET. Levenshtein calculates the shortest possible distance between two strings. Producing a count of the number of insertions, deletions and substitutions to make one string into another.</Description>
     <Copyright>Copyright ©  2017</Copyright>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/DanHarltey/Fastenshtein</PackageProjectUrl>
     <RepositoryType>GIT</RepositoryType>
     <RepositoryUrl>https://github.com/DanHarltey/Fastenshtein.git</RepositoryUrl>
