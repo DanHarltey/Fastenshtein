@@ -10,8 +10,8 @@
          * WARRING this class is performance critical (Speed).
          */
 
-        private readonly string storedValue;
-        private readonly int[] costs;
+        private readonly string _storedValue;
+        private readonly int[] _costs;
 
         /// <summary>
         /// Creates a new instance with a value to test other values against
@@ -19,15 +19,15 @@
         /// <param Name="value">Value to compare other values to.</param>
         public Levenshtein(string value)
         {
-            this.storedValue = value;
+            _storedValue = value;
             // Create matrix row
-            this.costs = new int[this.storedValue.Length];
+            _costs = new int[value.Length];
         }
 
         /// <summary>
         /// gets the length of the stored value that is tested against
         /// </summary>
-        public int StoredLength => this.storedValue.Length;
+        public int StoredLength => _storedValue.Length;
 
         /// <summary>
         /// Compares a value to the stored value. 
@@ -36,15 +36,21 @@
         /// <returns>Difference. 0 complete match.</returns>
         public int DistanceFrom(string value)
         {
-            if (costs.Length == 0)
+            // copying to local variables allows JIT to remove bounds checks, as it understands they can not change
+            var costs = _costs;
+            var storedValue = _storedValue;
+
+            if (costs.Length == 0
+                // this will never be ture, however it allows the JIT to remove a bounds check
+                || costs.Length != storedValue.Length) 
             {
                 return value.Length;
             }
 
             // Add indexing for insertion to first row
-            for (int i = 0; i < this.costs.Length;)
+            for (int i = 0; i < costs.Length;)
             {
-                this.costs[i] = ++i;
+                costs[i] = ++i;
             }
 
             for (int i = 0; i < value.Length; i++)
@@ -56,14 +62,14 @@
                 // cache value for inner loop to avoid index lookup and bonds checking, profiled this is quicker
                 char value1Char = value[i];
 
-                for (int j = 0; j < this.storedValue.Length; j++)
+                for (int j = 0; j < storedValue.Length; j++)
                 {
                     int currentCost = cost;
 
                     // assigning this here reduces the array reads we do, improvement of the old version
                     cost = costs[j];
 
-                    if (value1Char != this.storedValue[j])
+                    if (value1Char != storedValue[j])
                     {
                         if (previousCost < currentCost)
                         {
@@ -87,7 +93,7 @@
                 }
             }
 
-            return this.costs[this.costs.Length - 1];
+            return costs[costs.Length - 1];
         }
     }
 }
