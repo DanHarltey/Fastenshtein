@@ -12,8 +12,8 @@
     <Copyright>Copyright ©  2017</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/DanHarltey/Fastenshtein</PackageProjectUrl>
-    <RepositoryType>GIT</RepositoryType>
-    <RepositoryUrl>https://github.com/DanHarltey/Fastenshtein.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/DanHarltey/Fastenshtein</RepositoryUrl>
     <AssemblyVersion>1.0.10</AssemblyVersion>
     <FileVersion>1.0.10</FileVersion>
     <Version>1.0.10</Version>
