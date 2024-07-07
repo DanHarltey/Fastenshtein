@@ -81,6 +81,7 @@ namespace Fastenshtein
                 {
                     int columnIndex = counter - rowIndex;
 
+                    ////Console.WriteLine($"{columnIndex} {rowIndex}");
                     if (rowIndex >= Vector128<int>.Count && value2.Length - columnIndex >= Vector128<int>.Count)
                     {
                         VectorDistanceRow2(diag1Array, diag2Array, value1, value2, rowIndex, columnIndex);
@@ -97,7 +98,7 @@ namespace Fastenshtein
                         else
                         {
                             int cost;
-                            if(value1[rowIndex - 1] != value2[columnIndex - 1])
+                            if (value1[rowIndex - 1] != value2[columnIndex - 1])
                             {
                                 cost = 1;
                             }
@@ -120,42 +121,65 @@ namespace Fastenshtein
             return diag2Array[diag2Array.Length - 1];
         }
 
+        private readonly static int[] Reverse = [3, 2, 1, 0];
+
+        private static unsafe Vector128<int> IntFromChar(string value, int index)
+        {
+            Span<int> tmp = stackalloc int[4];
+            tmp[3] = value[index + 3];
+            tmp[2] = value[index + 2];
+            tmp[1] = value[index + 1];
+            tmp[0] = value[index];
+
+            return Vector128.Create<int>(tmp);
+        }
+
+        private static unsafe Vector128<int> IntFromCharReverse(string value, int index)
+        {
+            Span<int> tmp = stackalloc int[4];
+            tmp[0] = value[index + 3];
+            tmp[1] = value[index + 2];
+            tmp[2] = value[index + 1];
+            tmp[3] = value[index];
+
+            return Vector128.Create<int>(tmp);
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe void VectorDistanceRow2(int[] diag1Array, int[] diag2Array, string value1, string value2, int rowIndex, int columnIndex)
         {
             ref var diag1ArrayRef = ref MemoryMarshal.GetArrayDataReference(diag1Array);
             ref var diag2ArrayRef = ref MemoryMarshal.GetArrayDataReference(diag2Array);
+            ////ref var reverse = ref MemoryMarshal.GetArrayDataReference(Reverse);
 
-            fixed (char* sourcePtr = value1)
-            fixed (char* targetPtr = value2)
-            {
-                var sourceVector = Sse41.ConvertToVector128Int32((ushort*)sourcePtr + rowIndex - Vector128<int>.Count);
-                var targetVector = Sse41.ConvertToVector128Int32((ushort*)targetPtr + columnIndex - 1);
-                targetVector = Sse2.Shuffle(targetVector, 0x1b);
+            ////fixed (char* sourcePtr = value1)
+            ////fixed (char* targetPtr = value2)
+            var sourceVector = IntFromChar(value1, rowIndex - Vector128<int>.Count);// Sse41.ConvertToVector128Int32((ushort*)sourcePtr + rowIndex - Vector128<int>.Count);
+            var targetVector = IntFromCharReverse(value2, columnIndex - 1);// Sse41.ConvertToVector128Int32((ushort*)targetPtr + columnIndex - 1);
+                                                                           //// targetVector = Vector128.Shuffle(targetVector, Vector128.LoadUnsafe(ref reverse));
+                                                                           //// targetVector = Sse2.Shuffle(targetVector, 0x1b);
 
-                var substitutionCostAdjustment = Sse2.CompareEqual(sourceVector, targetVector);
+            var substitutionCostAdjustment = Sse2.CompareEqual(sourceVector, targetVector);
 
-                var diag1Vector = Vector128.LoadUnsafe(
-                    ref Unsafe.Add(ref diag1ArrayRef, rowIndex - Vector128<int>.Count));
+            var diag1Vector = Vector128.LoadUnsafe(
+                ref Unsafe.Add(ref diag1ArrayRef, rowIndex - Vector128<int>.Count));
 
-                var substitutionCost = diag1Vector + substitutionCostAdjustment;
+            var substitutionCost = diag1Vector + substitutionCostAdjustment;
 
-                var deleteCost = Vector128.LoadUnsafe(
-                    ref Unsafe.Add(ref diag2ArrayRef, rowIndex - (Vector128<int>.Count - 1)));
+            var deleteCost = Vector128.LoadUnsafe(
+                ref Unsafe.Add(ref diag2ArrayRef, rowIndex - (Vector128<int>.Count - 1)));
 
-                var insertCost = Vector128.LoadUnsafe(
-                    ref Unsafe.Add(ref diag2ArrayRef, rowIndex - Vector128<int>.Count));
+            var insertCost = Vector128.LoadUnsafe(
+                ref Unsafe.Add(ref diag2ArrayRef, rowIndex - Vector128<int>.Count));
 
-                var localCost = Vector128.Min(
-                    Vector128.Min(insertCost, deleteCost),
-                    substitutionCost);
+            var localCost = Vector128.Min(
+                Vector128.Min(insertCost, deleteCost),
+                substitutionCost);
 
-                localCost += Vector128.Create(1);
+            localCost += Vector128.Create(1);
 
-                localCost.StoreUnsafe(
-                    ref Unsafe.Add(ref diag1ArrayRef, rowIndex - (Vector128<int>.Count - 1)));
-            }
+            localCost.StoreUnsafe(
+                ref Unsafe.Add(ref diag1ArrayRef, rowIndex - (Vector128<int>.Count - 1)));
         }
 
 #endif
