@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Numerics;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
+using System.Runtime.InteropServices.Marshalling;
 #endif
 namespace Fastenshtein
 {
@@ -22,6 +23,202 @@ namespace Fastenshtein
         /// </summary>
         /// <returns>Difference. 0 complete match.</returns>
         public static int Distance(string value1, string value2)
+        {
+            var yValue = value1;
+            var xValue = value2;
+
+            if (yValue.Length == 0)
+            {
+                return xValue.Length;
+            }
+
+            if (xValue.Length == 0)
+            {
+                return yValue.Length;
+            }
+
+            var previousRow = new int[xValue.Length + 1];
+            var currentRow = new int[xValue.Length + 1];
+
+            for (var i = 0; i < previousRow.Length; i++)
+            {
+                previousRow[i] = i;
+            }
+
+            var loops = xValue.Length + yValue.Length - 1;
+            var minX = 0;
+            var maxX = 0;
+
+            for (int i = 0; i < loops; i++)
+            {
+                currentRow[0] = i - 1;
+
+                if (i >= yValue.Length)
+                {
+                    currentRow[0] = i - 1;
+                    minX++;
+                }
+
+                if (i < xValue.Length)
+                {
+                    previousRow[i] = i;
+                    maxX++;
+                }
+
+                var y = i - minX;
+                for (int x = minX; x < maxX; x++)
+                {
+                    // Cost of substitution
+                    var currentCost = previousRow[x];
+#if NETCOREAPP
+                    Console.WriteLine(string.Join(", ", previousRow));
+                    Console.WriteLine(string.Join(", ", currentRow));
+                    Console.WriteLine();
+
+                    //Console.WriteLine(currentCost.ToString());
+                    //Console.WriteLine($"{x},{y} {xValue[x]},{yValue[y]}");
+#endif
+                    if (xValue[x] != yValue[y])
+                    {
+                        if (previousRow[x + 1] < currentCost)
+                        {
+                            // Cost of deletion
+                            currentCost = previousRow[x + 1];
+                        }
+
+                        if (currentRow[x] < currentCost)
+                        {
+                            // Cost of insertion
+                            currentCost = currentRow[x];
+                        }
+
+                        ++currentCost;
+                    }
+
+                    currentRow[x + 1] = currentCost;
+                    --y;
+                }
+
+                if (i < (yValue.Length-1))
+                {
+                    var vtemp = previousRow;
+                    previousRow = currentRow;
+                    currentRow = vtemp;
+                }
+            }
+
+
+            ////for (var y = 0; y < yValue.Length; y++)
+            ////{
+            ////    currentRow[0] = y + 1;
+
+            ////    for (var x = 0; x < xValue.Length; x++)
+            ////    {
+            ////        // Cost of substitution
+            ////        var currentCost = previousRow[x];
+
+            ////        if (yValue[y] != xValue[x])
+            ////        {
+            ////            if (previousRow[x + 1] < currentCost)
+            ////            {
+            ////                // Cost of deletion
+            ////                currentCost = previousRow[x + 1];
+            ////            }
+
+            ////            if (currentRow[x] < currentCost)
+            ////            {
+            ////                // Cost of insertion
+            ////                currentCost = currentRow[x];
+            ////            }
+
+            ////            ++currentCost;
+            ////        }
+
+            ////        currentRow[x + 1] = currentCost;
+            ////    }
+
+            ////var vtemp = previousRow;
+            ////previousRow = currentRow;
+            ////currentRow = vtemp;
+            ////}
+
+            return currentRow[value2.Length];
+        }
+        /// <summary>
+        /// Compares the two values to find the minimum Levenshtein distance. 
+        /// Thread safe.
+        /// </summary>
+        /// <returns>Difference. 0 complete match.</returns>
+        public static int DistanceDualRow(string value1, string value2)
+        {
+            var yValue = value1;
+            var xValue = value2;
+
+            if (yValue.Length == 0)
+            {
+                return xValue.Length;
+            }
+
+            if (xValue.Length == 0)
+            {
+                return yValue.Length;
+            }
+
+            var previousRow = new int[xValue.Length + 1];
+            var currentRow = new int[xValue.Length + 1];
+
+            for (var i = 0; i < previousRow.Length; i++)
+            {
+                previousRow[i] = i;
+            }
+
+            for (var y = 0; y < yValue.Length; y++)
+            {
+                currentRow[0] = y + 1;
+
+                for (var x = 0; x < xValue.Length; x++)
+                {
+                    // Cost of substitution
+                    var currentCost = previousRow[x];
+#if NETCOREAPP
+                    Console.WriteLine(string.Join(", ", previousRow));
+                    Console.WriteLine(string.Join(", ", currentRow));
+                    Console.WriteLine();
+#endif
+                    if (yValue[y] != xValue[x])
+                    {
+                        if (previousRow[x + 1] < currentCost)
+                        {
+                            // Cost of deletion
+                            currentCost = previousRow[x + 1];
+                        }
+
+                        if (currentRow[x] < currentCost)
+                        {
+                            // Cost of insertion
+                            currentCost = currentRow[x];
+                        }
+
+                        ++currentCost;
+                    }
+
+                    currentRow[x + 1] = currentCost;
+                }
+
+                var vtemp = previousRow;
+                previousRow = currentRow;
+                currentRow = vtemp;
+            }
+
+            return previousRow[value2.Length];
+        }
+
+        /// <summary>
+        /// Compares the two values to find the minimum Levenshtein distance. 
+        /// Thread safe.
+        /// </summary>
+        /// <returns>Difference. 0 complete match.</returns>
+        public static int Distance2(string value1, string value2)
         {
 #if NETCOREAPP
             if (Vector.IsHardwareAccelerated)//&& value1.Length > Vector<int>.Count)
@@ -123,15 +320,55 @@ namespace Fastenshtein
 
         private readonly static int[] Reverse = [3, 2, 1, 0];
 
+
         private static unsafe Vector128<int> IntFromChar(string value, int index)
         {
-            Span<int> tmp = stackalloc int[4];
+            ////if (Sse41.IsSupported)
+            ////{
+            ////    fixed (char* valuePtr = value)
+            ////    {
+            ////        return Sse41.ConvertToVector128Int32((ushort*)valuePtr + index);
+            ////    }
+            ////}
+            Span<ushort> tmp = stackalloc ushort[8];
             tmp[3] = value[index + 3];
             tmp[2] = value[index + 2];
             tmp[1] = value[index + 1];
             tmp[0] = value[index];
 
-            return Vector128.Create<int>(tmp);
+            var shortVector = Vector128.Create<ushort>(tmp);
+            var intVetor = Vector128.WidenLower(shortVector);
+            return intVetor.AsInt32();
+            // Unsafe.As<Vector128<TFrom>, Vector128<TTo>>(ref vector);
+
+            //var charSpan = value.AsSpan(index, 4);
+            //var shortSpan = MemoryMarshal.Cast<char, ushort>(charSpan);
+            //ref var spanRef = ref MemoryMarshal.GetReference(shortSpan);
+            //var shortVector = Vector64.LoadUnsafe(ref spanRef);
+            //var v128 = shortVector.ToVector128Unsafe();
+            //var intVector = Vector128.WidenLower(v128);
+            //return intVector.As<uint, int>();
+        }
+
+
+        private static unsafe Vector128<int> IntFromChar2(string value, int index)
+        {
+
+            //Vector.As<int>()
+            ////Span<int> tmp = stackalloc int[4];
+            ////tmp[3] = value[index + 3];
+            ////tmp[2] = value[index + 2];
+            ////tmp[1] = value[index + 1];
+            ////tmp[0] = value[index];
+            ////return Vector128.Create<int>(tmp);
+
+            var charSpan = value.AsSpan(index, 4);
+            var shortSpan = MemoryMarshal.Cast<char, ushort>(charSpan);
+            ref var spanRef = ref MemoryMarshal.GetReference(shortSpan);
+            var shortVector = Vector64.LoadUnsafe(ref spanRef);
+            var v128 = shortVector.ToVector128Unsafe();
+            var intVector = Vector128.WidenLower(v128);
+            return intVector.As<uint, int>();
         }
 
         private static unsafe Vector128<int> IntFromCharReverse(string value, int index)
@@ -151,6 +388,7 @@ namespace Fastenshtein
             ref var diag1ArrayRef = ref MemoryMarshal.GetArrayDataReference(diag1Array);
             ref var diag2ArrayRef = ref MemoryMarshal.GetArrayDataReference(diag2Array);
             ////ref var reverse = ref MemoryMarshal.GetArrayDataReference(Reverse);
+
 
             ////fixed (char* sourcePtr = value1)
             ////fixed (char* targetPtr = value2)

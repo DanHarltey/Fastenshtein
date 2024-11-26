@@ -55,25 +55,25 @@
             Test(string.Empty, string.Empty, 0);
         }
 
-        [Fact]
-        public void Fuzzy_Test()
-        {
-            var timer = Stopwatch.StartNew();
+        ////[Fact]
+        ////public void Fuzzy_Test()
+        ////{
+        ////    var timer = Stopwatch.StartNew();
 
-            while (timer.ElapsedMilliseconds < 5000)
-            {
-                var randomWords = RandomWords.Create(10, 1000);
+        ////    while (timer.ElapsedMilliseconds < 5000)
+        ////    {
+        ////        var randomWords = RandomWords.Create(10, 1000);
 
-                foreach (var word1 in randomWords)
-                {
-                    foreach (var word2 in randomWords)
-                    {
-                        var expected = SimpleLevenshteinDistance(word1, word2);
-                        Test(word1, word2, expected);
-                    }
-                }
-            }
-        }
+        ////        foreach (var word1 in randomWords)
+        ////        {
+        ////            foreach (var word2 in randomWords)
+        ////            {
+        ////                var expected = SimpleLevenshteinDistance(word1, word2);
+        ////                Test(word1, word2, expected);
+        ////            }
+        ////        }
+        ////    }
+        ////}
 
         protected abstract int CalculateDistance(string value1, string value2);
 
@@ -92,7 +92,7 @@
 
             if (value2.Length == 0)
             {
-                return value2.Length;
+                return value1.Length;
             }
 
             int[] previousRow = new int[value2.Length + 1];

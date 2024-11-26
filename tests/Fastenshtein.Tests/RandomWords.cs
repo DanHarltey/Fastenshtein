@@ -15,7 +15,7 @@ namespace Fastenshtein.Tests
 
             for (int i = 0; i < words.Length; i++)
             {
-                int wordSize = r.Next(3, maxWordSize);
+                int wordSize = r.Next(0, maxWordSize);
                 char[] word = new char[wordSize];
 
                 for (int j = 0; j < word.Length; j++)
