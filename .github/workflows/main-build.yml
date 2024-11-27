@@ -56,7 +56,7 @@ jobs:
       uses: coverallsapp/github-action@v2
       with:
         format: lcov
-        files: release/coverage.net8.info release/coverage.net48.info
+        files: release/coverage.net9.info release/coverage.net48.info
 
     - name: Upload dotnet info
       uses: actions/upload-artifact@v4
