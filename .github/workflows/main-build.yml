@@ -1,83 +1,83 @@
-# # name: GitHub action build
-# # on: push
+name: GitHub action build
+on: push
 
-# # jobs:
-# #   main-build:
+jobs:
+  main-build:
 
-# #     runs-on: ${{ matrix.os }}
-# #     strategy:
-# #       fail-fast: false
-# #       matrix:
-# #         os: [ubuntu-latest, windows-latest, macos-latest, buildjet-4vcpu-ubuntu-2204-arm]
-# #     env:
-# #       TEST_COVERAGE: ${{ matrix.os == 'ubuntu-latest' }}
-# #       NO_NET481: ${{ matrix.os == 'buildjet-4vcpu-ubuntu-2204-arm' }}
-# #       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
-# #       DOTNET_CLI_TELEMETRY_OPTOUT: 1
-# #       DOTNET_NOLOGO: true
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest, buildjet-4vcpu-ubuntu-2204-arm]
+    env:
+      TEST_COVERAGE: ${{ matrix.os == 'ubuntu-latest' }}
+      NO_NET481: ${{ matrix.os == 'buildjet-4vcpu-ubuntu-2204-arm' }}
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+      DOTNET_CLI_TELEMETRY_OPTOUT: 1
+      DOTNET_NOLOGO: true
 
-# #     steps:
-# #     - name: GIT checkout
-# #       uses: actions/checkout@v4
+    steps:
+    - name: GIT checkout
+      uses: actions/checkout@v4
 
-# #     - name: Setup .NET 9
-# #       uses: actions/setup-dotnet@v4
-# #       with:
-# #         dotnet-version: 9.0.x
+    - name: Setup .NET 9
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
 
-# #     - name: Run build script
-# #       working-directory: scripts
-# #       shell: bash
-# #       run: |
-# #         if [ "$TEST_COVERAGE" == "true" ]
-# #         then
-# #           ./dotnet_build.sh test_coverage
-# #         elif [ "$NO_NET481" == "true" ]
-# #         then
-# #           ./dotnet_build.sh no_net481
-# #         else
-# #           ./dotnet_build.sh
-# #         fi
+    - name: Run build script
+      working-directory: scripts
+      shell: bash
+      run: |
+        if [ "$TEST_COVERAGE" == "true" ]
+        then
+          ./dotnet_build.sh test_coverage
+        elif [ "$NO_NET481" == "true" ]
+        then
+          ./dotnet_build.sh no_net481
+        else
+          ./dotnet_build.sh
+        fi
 
-# #     - name: Run benchmarks
-# #       working-directory: release
-# #       shell: bash
-# #       run: dotnet ../benchmarks/Fastenshtein.Benchmarking/bin/Release/net9.0/Fastenshtein.Benchmarking.dll
+    - name: Run benchmarks
+      working-directory: release
+      shell: bash
+      run: dotnet ../benchmarks/Fastenshtein.Benchmarking/bin/Release/net9.0/Fastenshtein.Benchmarking.dll
 
-# #     - name: Upload benchmarks results
-# #       uses: actions/upload-artifact@v4
-# #       with:
-# #         name: benchmarks-results-${{ matrix.os }}
-# #         path: release/BenchmarkDotNet.Artifacts
-# #         if-no-files-found: error
+    - name: Upload benchmarks results
+      uses: actions/upload-artifact@v4
+      with:
+        name: benchmarks-results-${{ matrix.os }}
+        path: release/BenchmarkDotNet.Artifacts
+        if-no-files-found: error
 
-# #     - name: Upload test coverage to Coveralls
-# #       if: env.TEST_COVERAGE == 'true'
-# #       uses: coverallsapp/github-action@v2
-# #       with:
-# #         format: lcov
-# #         files: release/coverage.net9.info release/coverage.net481.info
+    - name: Upload test coverage to Coveralls
+      if: env.TEST_COVERAGE == 'true'
+      uses: coverallsapp/github-action@v2
+      with:
+        format: lcov
+        files: release/coverage.net9.info release/coverage.net481.info
 
-# #     - name: Upload dotnet info
-# #       uses: actions/upload-artifact@v4
-# #       if: env.TEST_COVERAGE == 'true'
-# #       with:
-# #         name: Built with
-# #         path: release/dotnet_info.txt
-# #         if-no-files-found: error
+    - name: Upload dotnet info
+      uses: actions/upload-artifact@v4
+      if: env.TEST_COVERAGE == 'true'
+      with:
+        name: Built with
+        path: release/dotnet_info.txt
+        if-no-files-found: error
 
-# #     - name: Upload test coverage
-# #       uses: actions/upload-artifact@v4
-# #       if: env.TEST_COVERAGE == 'true'
-# #       with:
-# #         name: test coverage
-# #         path: release/coverage.*.info
-# #         if-no-files-found: error
+    - name: Upload test coverage
+      uses: actions/upload-artifact@v4
+      if: env.TEST_COVERAGE == 'true'
+      with:
+        name: test coverage
+        path: release/coverage.*.info
+        if-no-files-found: error
 
-# #     - name: Upload NuGet packages
-# #       uses: actions/upload-artifact@v4
-# #       if: env.TEST_COVERAGE == 'true'
-# #       with:
-# #         name: NuGet packages
-# #         path: release/Fastenshtein.*upkg
-# #         if-no-files-found: error
+    - name: Upload NuGet packages
+      uses: actions/upload-artifact@v4
+      if: env.TEST_COVERAGE == 'true'
+      with:
+        name: NuGet packages
+        path: release/Fastenshtein.*upkg
+        if-no-files-found: error

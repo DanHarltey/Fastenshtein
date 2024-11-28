@@ -1,5 +1,7 @@
 image:
+  - Visual Studio 2022
   - Ubuntu2204
+  - macOS
 install:
   - pwsh: |
       if ($isWindows) {
