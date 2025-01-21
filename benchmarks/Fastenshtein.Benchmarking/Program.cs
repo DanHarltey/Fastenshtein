@@ -2,6 +2,8 @@
 
 using BenchmarkDotNet.Running;
 using System;
+using System.Numerics;
+using System.Runtime.Intrinsics;
 
 static class Program
 {
@@ -13,6 +15,22 @@ static class Program
 
     static void Main(string[] args)
     {
+        if(Vector512.IsHardwareAccelerated)
+        {
+            Console.WriteLine("IsHardwareAccelerated");
+        }
+
+        if (Vector256.IsHardwareAccelerated)
+        {
+            Console.WriteLine("256 IsHardwareAccelerated");
+        }
+
+        if (Vector128.IsHardwareAccelerated)
+        {
+            Console.WriteLine("128 IsHardwareAccelerated");
+        }
+
+
         DateTime startTime = DateTime.UtcNow;
 
         if (args.Length != 0 && string.Equals(args[0], "d", StringComparison.OrdinalIgnoreCase))
@@ -20,7 +38,7 @@ static class Program
             _ = BenchmarkRunner.Run<FastenshteinDisassembly>();
         }
         else if (args.Length != 0 && string.Equals(args[0], "c", StringComparison.OrdinalIgnoreCase))
-        { 
+        {
             _ = BenchmarkRunner.Run<CompetitiveBenchmarkSmallWordsSingleThread>();
             _ = BenchmarkRunner.Run<CompetitiveBenchmarkNormalWordsSingleThread>();
             _ = BenchmarkRunner.Run<CompetitiveBenchmarkLargeWordsSingleThread>();
@@ -29,11 +47,15 @@ static class Program
             _ = BenchmarkRunner.Run<CompetitiveBenchmarkNormalWordsMultiThread>();
             _ = BenchmarkRunner.Run<CompetitiveBenchmarkLargeWordsMultiThread>();
         }
-        else
+        else if (args.Length != 0 && string.Equals(args[0], "f", StringComparison.OrdinalIgnoreCase))
         {
             _ = BenchmarkRunner.Run<BenchmarkSmallWordsSingleThread>();
             _ = BenchmarkRunner.Run<BenchmarkNormalWordsSingleThread>();
             _ = BenchmarkRunner.Run<BenchmarkLargeWordsSingleThread>();
+        }
+        else
+        {
+            _ = BenchmarkRunner.Run<DiagonalBenchmark>();
         }
 
         Console.WriteLine("Completed in : " + (DateTime.UtcNow - startTime));

@@ -15,7 +15,7 @@ public static class RandomWords
 
         for (var i = 0; i < words.Length; i++)
         {
-            var wordSize = random.Next(3, maxWordSize);
+            var wordSize = random.Next(512, maxWordSize);
 
             words[i] = string.Create(wordSize, random, static (word, r) =>
             {

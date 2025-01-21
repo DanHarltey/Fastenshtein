@@ -1,0 +1,244 @@
+↑ ↓ → ← 
+
+  xx
+ 012
+y112
+y222
+y333
+y444
+
+
+-- backwards
+x:1 y:1
+Before
+1|1|0
+0|0|2
+After
+1|1|0
+0|1|2
+
+
+x:2 y:1
+
+12
+1x
+
+Before
+2|1|2
+1|1|0
+After
+2|1|2
+1|1|2
+
+x:1 y:2
+
+11
+2x
+
+Before
+2|1|2
+1|1|2
+After
+2|1|2
+1|2|2
+
+x:2 y:2
+
+12
+2x
+
+Before
+3|2|2
+2|1|2
+After
+3|2|2
+2|1|2
+
+x:1 y:3
+Before
+3|2|2
+2|1|2
+After
+3|2|2
+2|3|2
+
+x:2 y:3
+Before
+4|3|2
+3|2|2
+After
+4|3|2
+3|2|3
+
+x:1 y:4
+Before
+4|3|2
+3|2|3
+After
+4|3|2
+3|4|3
+
+x:2 y:4
+Before
+5|4|3
+4|3|2
+After
+5|4|3
+4|3|4
+
+-- forwards
+
+x: 1, y: 1
+oldValue: 1, newValue: 1
+
+Before
+0|1|?
+1|x|?
+
+
+After
+0|1|?
+1|1|?
+
+---
+
+x: 1, y: 2
+
+oldValue: 2, newValue: 2
+
+Before
+1|1|2
+2|x|2
+
+After
+
+1|1|2
+2|2|2
+
+x: 2, y: 1
+
+Before
+1|1|2
+0|1|x
+
+
+After
+1|1|2
+0|1|2
+
+--------------------------
+<------------------- match this
+  xx
+ 012
+y112
+y2x2
+y333
+y444
+
+|0|1|?|
+|1|x|?|
+
+|1|1|2|
+|2|1|x|
+
+|1|1|2|
+|2|x|2|
+
+
+    x  x
+ | | d|e
+y|b|>c|x
+y|a| x|
+
+Backwards
+|b|c|e|
+|a|d|x|
+
+|b|c|e|
+|a|x|x|
+
+
+
+
+Forwards - doesn't work
+|b|c| |
+|a|d| |
+ x
+|d|c| |
+| |x| |
+
+mad shit
+x:1 y:1
+Before
+1|1|0
+0|0|2
+After
+1|1|0
+0|1|2
+  ↑
+  altered
+
+p right|above|
+c above right|?|?
+
+x:2 y:1
+Before
+2|1|2
+1|1|0
+After
+2|1|2
+1|1|2
+    ↑
+  altered
+
+p ? | right|above|
+c ? |above right|
+
+  xx
+ 012
+y11x
+
+  x
+ 01
+y11
+y2x
+
+2|1|2
+1|1|2
+
+p ? | right|above|
+c ? |above right|
+
+
+
+
+x: 1, y: 1
+oldValue: 1, newValue: 1
+
+Before
+0|1|2
+1|1|2
+
+After
+0|1|2
+1|1|2
+
+---
+
+x: 1, y: 2
+oldValue: 2, newValue: 2
+Before
+1|1|2
+2|1|2
+After
+1|1|2
+2|2|2
+
+x: 2, y: 1
+oldValue: 2, newValue: 2
+Before
+1|1|2
+2|2|2
+After
+1|1|2
+2|2|2

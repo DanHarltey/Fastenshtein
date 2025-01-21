@@ -24,6 +24,7 @@
     <PackageReference Include="F23.StringSimilarity" Version="6.0.0" />
     <PackageReference Include="FuzzyStrings.NetStandard" Version="1.0.1" />
     <PackageReference Include="NinjaNye.SearchExtensions.Levenshtein" Version="4.0.1" />
+    <PackageReference Include="Quickenshtein" Version="1.5.1" />
   </ItemGroup>
 
   <ItemGroup>
