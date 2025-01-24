@@ -30,48 +30,57 @@ foreach (var item in new []{ "value2", "value3", "value4"})
 ```
 ### How to include Fastenshtein in Microsoft SQL Server (SQLCLR)
 
-We will create Fastenshtein as a CLR Scalar-Valued Function within SQL Server. This will allow the fast Levenshtein implementationto be used within SQL Server.
+We will create Fastenshtein as a CLR Scalar-Valued Function within SQL Server. This will allow the fast Levenshtein implementation to be used within SQL Server.
 
 1. To enable CLR integration for the server:
-```sql
-sp_configure 'clr enabled', 1
-RECONFIGURE
-```
-2. Beginning with SQL Server 2017 (14.x). Either configure [CLR strict security](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/clr-strict-security?view=sql-server-ver15) or run the below to disable it.
-```sql
-EXEC sp_configure 'show advanced options', 1;
-RECONFIGURE;
+   ```sql
+   sp_configure 'clr enabled', 1
+   RECONFIGURE
+   ```
+2. Beginning with SQL Server 2017 (14.x). Either configure [CLR strict security](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/clr-strict-security?view=sql-server-ver15) or run the below to disable it:
+   ```sql
+   EXEC sp_configure 'show advanced options', 1;
+   RECONFIGURE;
 
-EXEC sp_configure 'clr strict security', 0;
-RECONFIGURE;
-```
+   EXEC sp_configure 'clr strict security', 0;
+   RECONFIGURE;
+   ```
 
-3. Place the Fastenshtein.dll on the same computer as the SQL Server instance in a directory that the SQL Server instance has access to. You must use the .Net framework version 4.6.2 of Fastenshtein. To create the assembly (dll) either:
+3. To load Fastenshtein onto the server, you must use the .Net framework version 4.6.2. This can be done in two ways:
 
-* Compile the project “Fastenshtein” in Release config in Visual Studio.
+   - Using assembly bits. Download "Fastenshtein SQL Assembly Hex" from the [lastest release](https://github.com/DanHarltey/Fastenshtein/releases/latest). Unzip the file and copy the full contents of the "Fastenshtein_net462.hex" file into the below:
 
-OR
+     ```sql
+     CREATE ASSEMBLY FastenshteinAssembly
+     FROM 0x{contents of Fastenshtein_net462.hex}
+     WITH PERMISSION_SET = SAFE;
+     ```
 
-* Download the pre-compiled dll from [nuget](https://www.nuget.org/api/v2/package/Fastenshtein/) unzip the package and use the dll in \lib\net462 folder.
+   - Local path or network location to the assembly. Place the Fastenshtein.dll in a directory that the SQL Server instance has access to. To create the assembly (dll) either:
 
-4. Create the assembly
-```sql
-CREATE ASSEMBLY FastenshteinAssembly FROM 'C:\Fastenshtein.dll' WITH PERMISSION_SET = SAFE
-```
+     * Compile the project “Fastenshtein” in Release config.
 
-5. Then create the function
-```sql
-CREATE FUNCTION [Levenshtein](@value1 [nvarchar](MAX), @value2 [nvarchar](MAX))
-RETURNS [int]
-AS 
-EXTERNAL NAME [FastenshteinAssembly].[Fastenshtein.Levenshtein].[Distance]
-GO
-```
+      OR
 
-6. It is now ready to be used: 
-```sql
--- Usage
-DECLARE @retVal as integer
-select @retVal = [dbo].[Levenshtein]('Test','test')
-Select @retVal
-```
+      * Download the pre-compiled dll from [nuget](https://www.nuget.org/api/v2/package/Fastenshtein/) unzip the package and use the dll in \lib\net462 folder.
+
+      ```sql
+      CREATE ASSEMBLY FastenshteinAssembly FROM 'C:\Fastenshtein.dll' WITH PERMISSION_SET = SAFE
+      ```
+
+4. Then create the function
+   ```sql
+   CREATE FUNCTION [Levenshtein](@value1 [nvarchar](MAX), @value2 [nvarchar](MAX))
+   RETURNS [int]
+   AS 
+   EXTERNAL NAME [FastenshteinAssembly].[Fastenshtein.Levenshtein].[Distance]
+   GO
+   ```
+
+5. It is now ready to be used: 
+   ```sql
+   -- Usage
+   DECLARE @retVal AS INTEGER
+   SELECT @retVal = [dbo].[Levenshtein]('Test','test')
+   SELECT @retVal
+   ```

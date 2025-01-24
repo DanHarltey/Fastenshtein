@@ -16,6 +16,8 @@ then
 
   dotnet test ../ --configuration Release --no-build --verbosity normal --framework net481 --collect:"XPlat Code Coverage;Format=lcov"
   find ../tests/Fastenshtein.Tests/TestResults/ -name "coverage.info" -type f -exec mv {} ../release/coverage.net481.info \;
+
+  xxd -plain -u ../src/Fastenshtein/bin/Release/net462/Fastenshtein.dll | tr -d '\n' > ../release/Fastenshtein_net462.hex
 elif [ $1 = "no_net481" ]
 then
   dotnet test ../ --configuration Release --no-build --verbosity normal --framework net9.0
