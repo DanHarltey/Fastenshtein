@@ -46,13 +46,13 @@ EXEC sp_configure 'clr strict security', 0;
 RECONFIGURE;
 ```
 
-3. Place the Fastenshtein.dll on the same computer as the SQL Server instance in a directory that the SQL Server instance has access to. You must use the .Net framework version 4.5.2 of Fastenshtein. To create the assembly (dll) either:
+3. Place the Fastenshtein.dll on the same computer as the SQL Server instance in a directory that the SQL Server instance has access to. You must use the .Net framework version 4.6.2 of Fastenshtein. To create the assembly (dll) either:
 
 * Compile the project “Fastenshtein” in Release config in Visual Studio.
 
 OR
 
-* Download the pre-compiled dll from [nuget](https://www.nuget.org/api/v2/package/Fastenshtein/) unzip the package and use the dll in \lib\net452 folder.
+* Download the pre-compiled dll from [nuget](https://www.nuget.org/api/v2/package/Fastenshtein/) unzip the package and use the dll in \lib\net462 folder.
 
 4. Create the assembly
 ```sql

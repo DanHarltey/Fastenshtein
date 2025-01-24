@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.0;netstandard2.0;net452;net8.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net462;net8.0;net9.0</TargetFrameworks>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
@@ -14,10 +14,10 @@
     <PackageProjectUrl>https://github.com/DanHarltey/Fastenshtein</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/DanHarltey/Fastenshtein</RepositoryUrl>
-    <AssemblyVersion>1.0.10</AssemblyVersion>
-    <FileVersion>1.0.10</FileVersion>
-    <Version>1.0.10</Version>
-    <PackageReleaseNotes>Performance improvement in the DistanceFrom method.</PackageReleaseNotes>
+    <AssemblyVersion>1.0.11</AssemblyVersion>
+    <FileVersion>1.0.11</FileVersion>
+    <Version>1.0.11</Version>
+    <PackageReleaseNotes>Upgrading to .Net 9 &amp; Framework 4.6.2</PackageReleaseNotes>
     <PackageTags>Levenshtein Distance;String;Fuzzy Matching;Search;netstandard;</PackageTags>
     <PackageReadmeFile>nuget-readme.md</PackageReadmeFile>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
@@ -41,7 +41,7 @@
     </PackageReference>
   </ItemGroup>
 
- <PropertyGroup>
+  <PropertyGroup>
     <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
     <PublishRepositoryUrl>True</PublishRepositoryUrl>
 
@@ -58,45 +58,10 @@
     <Nullable Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net6.0'))">enable</Nullable>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard1.0|AnyCPU'">
+  <PropertyGroup>
     <WarningsAsErrors></WarningsAsErrors>
     <WarningLevel>9999</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.0|AnyCPU'">
-    <WarningLevel>9999</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-    <WarningLevel>9999</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-    <WarningLevel>9999</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net452|AnyCPU'">
-    <WarningLevel>9999</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net452|AnyCPU'">
-    <WarningLevel>9999</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0|AnyCPU'">
-    <WarningLevel>9999</WarningLevel>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0|AnyCPU'">
-    <WarningLevel>9999</WarningLevel>
+    <WarningsNotAsErrors></WarningsNotAsErrors>
   </PropertyGroup>
 
 </Project>
