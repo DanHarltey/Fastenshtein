@@ -11,13 +11,14 @@ dotnet build ../ --configuration Release --no-restore -p:ContinuousIntegrationBu
 
 if [ $1 = "test_coverage" ] 
 then
-  dotnet test ../ --configuration Release --no-build --verbosity normal --framework net9.0 --collect:"XPlat Code Coverage;Format=lcov"
-  find ../tests/Fastenshtein.Tests/TestResults/ -name "coverage.info" -type f -exec mv {} ../release/coverage.net9.info \;
+  dotnet test ../ --configuration Release --no-build --verbosity normal --framework net9.0 --collect:"Code Coverage;Format=cobertura"
+  find ../tests/Fastenshtein.Tests/TestResults/ -name "*.cobertura.xml" -type f -exec mv {} ../release/coverage.net9.xml \;
 
-  dotnet test ../ --configuration Release --no-build --verbosity normal --framework net481 --collect:"XPlat Code Coverage;Format=lcov"
-  find ../tests/Fastenshtein.Tests/TestResults/ -name "coverage.info" -type f -exec mv {} ../release/coverage.net481.info \;
+  dotnet test ../ --configuration Release --no-build --framework net481 --collect:"Code Coverage;Format=cobertura"
+  find ../tests/Fastenshtein.Tests/TestResults/ -name "*.cobertura.xml" -type f -exec mv {} ../release/coverage.net481.xml \;
 
   xxd -plain -u ../src/Fastenshtein/bin/Release/net462/Fastenshtein.dll | tr -d '\n' > ../release/Fastenshtein_net462.hex
+
 elif [ $1 = "no_net481" ]
 then
   dotnet test ../ --configuration Release --no-build --verbosity normal --framework net9.0

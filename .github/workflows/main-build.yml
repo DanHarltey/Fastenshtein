@@ -51,8 +51,8 @@ jobs:
       if: env.TEST_COVERAGE == 'true'
       uses: coverallsapp/github-action@v2
       with:
-        format: lcov
-        files: release/coverage.net9.info release/coverage.net481.info
+        format: cobertura
+        files: release/coverage.net9.xml release/coverage.net481.xml
 
     - name: Upload dotnet info
       uses: actions/upload-artifact@v4
@@ -67,7 +67,7 @@ jobs:
       if: env.TEST_COVERAGE == 'true'
       with:
         name: test coverage
-        path: release/coverage.*.info
+        path: release/coverage.*.xml
         if-no-files-found: error
 
     - name: Upload NuGet packages
