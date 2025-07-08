@@ -1,4 +1,6 @@
-﻿namespace Fastenshtein
+﻿using System;
+
+namespace Fastenshtein
 {
     /// <summary>
     /// Measures the difference between two strings.
@@ -7,7 +9,7 @@
     public partial class Levenshtein
     {
         /*
-         * WARRING this class is performance critical (Speed).
+         * WARNING this class is performance critical (Speed).
          */
 
         private readonly string _storedValue;
@@ -30,11 +32,21 @@
         public int StoredLength => _storedValue.Length;
 
         /// <summary>
-        /// Compares a value to the stored value. 
+        /// Compares a value to the stored value.
         /// Not thread safe.
         /// </summary>
         /// <returns>Difference. 0 complete match.</returns>
         public int DistanceFrom(string value)
+        {
+            return DistanceFrom(value.AsSpan());
+        }
+
+        /// <summary>
+        /// Compares a value to the stored value.
+        /// Not thread safe.
+        /// </summary>
+        /// <returns>Difference. 0 complete match.</returns>
+        public int DistanceFrom(ReadOnlySpan<char> value)
         {
             // copying to local variables allows JIT to remove bounds checks, as it understands they can not change
             var costs = _costs;
@@ -42,7 +54,7 @@
 
             if (costs.Length == 0
                 // this will never be ture, however it allows the JIT to remove a bounds check
-                || costs.Length != storedValue.Length) 
+                || costs.Length != storedValue.Length)
             {
                 return value.Length;
             }
