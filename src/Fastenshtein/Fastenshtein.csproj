@@ -17,7 +17,10 @@
     <AssemblyVersion>1.0.11</AssemblyVersion>
     <FileVersion>1.0.11</FileVersion>
     <Version>1.0.11</Version>
-    <PackageReleaseNotes>Upgrading to .Net 9 &amp; Framework 4.6.2</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated build targets:
+- Adding direct support for .Net 9.
+- Removed support for netstandard1.0, as recommended by Microsoft.
+- net452 updated to net462, as it was no longer supported.</PackageReleaseNotes>
     <PackageTags>Levenshtein Distance;String;Fuzzy Matching;Search;netstandard;</PackageTags>
     <PackageReadmeFile>nuget-readme.md</PackageReadmeFile>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
@@ -62,6 +65,7 @@
     <WarningsAsErrors></WarningsAsErrors>
     <WarningLevel>9999</WarningLevel>
     <WarningsNotAsErrors></WarningsNotAsErrors>
+    <NuGetAuditMode>all</NuGetAuditMode>
   </PropertyGroup>
 
 </Project>
