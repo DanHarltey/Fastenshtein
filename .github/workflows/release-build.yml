@@ -26,10 +26,12 @@ jobs:
 
     - name: Run build script
       working-directory: scripts
+      shell: bash
       run: ./dotnet_build.sh test_coverage
 
     - name: Create GitHub release
       working-directory: scripts
+      shell: bash
       run: ./github_release.sh ${{ github.ref_name }}
       env:
         GH_TOKEN: ${{ github.token }}
