@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net462;net8.0;net9.0</TargetFrameworks>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <AnalysisLevel>latest-all</AnalysisLevel>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -31,10 +33,6 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -62,10 +60,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <WarningsAsErrors></WarningsAsErrors>
     <WarningLevel>9999</WarningLevel>
-    <WarningsNotAsErrors></WarningsNotAsErrors>
     <NuGetAuditMode>all</NuGetAuditMode>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <NoWarn>CA1062</NoWarn>
   </PropertyGroup>
-
 </Project>
