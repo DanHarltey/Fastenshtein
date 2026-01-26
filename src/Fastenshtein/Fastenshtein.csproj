@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net462;net8.0;net9.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net462;net8.0;net9.0;net10.0</TargetFrameworks>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <AnalysisLevel>latest-all</AnalysisLevel>
@@ -16,13 +16,10 @@
     <PackageProjectUrl>https://github.com/DanHarltey/Fastenshtein</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/DanHarltey/Fastenshtein</RepositoryUrl>
-    <AssemblyVersion>1.0.11</AssemblyVersion>
-    <FileVersion>1.0.11</FileVersion>
-    <Version>1.0.11</Version>
-    <PackageReleaseNotes>Updated build targets:
-- Adding direct support for .Net 9.
-- Removed support for netstandard1.0, as recommended by Microsoft.
-- net452 updated to net462, as it was no longer supported.</PackageReleaseNotes>
+    <AssemblyVersion>1.0.12</AssemblyVersion>
+    <FileVersion>1.0.12</FileVersion>
+    <Version>1.0.12</Version>
+    <PackageReleaseNotes>Adding direct support for .Net 10.</PackageReleaseNotes>
     <PackageTags>Levenshtein Distance;String;Fuzzy Matching;Search;netstandard;</PackageTags>
     <PackageReadmeFile>nuget-readme.md</PackageReadmeFile>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
@@ -36,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.102">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

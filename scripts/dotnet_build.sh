@@ -11,8 +11,8 @@ dotnet build ../ --configuration Release --no-restore -p:ContinuousIntegrationBu
 
 if [ $1 = "test_coverage" ] 
 then
-  dotnet test ../ --configuration Release --no-build --verbosity normal --framework net9.0 --collect:"Code Coverage;Format=cobertura" --settings:"../.runsettings"
-  find ../tests/Fastenshtein.Tests/TestResults/ -name "*.cobertura.xml" -type f -exec mv {} ../release/coverage.net9.xml \;
+  dotnet test ../ --configuration Release --no-build --verbosity normal --framework net10.0 --collect:"Code Coverage;Format=cobertura" --settings:"../.runsettings"
+  find ../tests/Fastenshtein.Tests/TestResults/ -name "*.cobertura.xml" -type f -exec mv {} ../release/coverage.net10.xml \;
 
   dotnet test ../ --configuration Release --no-build --framework net481 --collect:"Code Coverage;Format=cobertura" --settings:"../.runsettings"
   find ../tests/Fastenshtein.Tests/TestResults/ -name "*.cobertura.xml" -type f -exec mv {} ../release/coverage.net481.xml \;
@@ -21,7 +21,7 @@ then
 
 elif [ $1 = "no_net481" ]
 then
-  dotnet test ../ --configuration Release --no-build --verbosity normal --framework net9.0
+  dotnet test ../ --configuration Release --no-build --verbosity normal --framework net10.0
 else
   dotnet test ../ --configuration Release --no-build --verbosity normal
 fi
