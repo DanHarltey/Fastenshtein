@@ -7,7 +7,7 @@
     public partial class Levenshtein
     {
         /*
-         * WARRING this class is performance critical (Speed).
+         * WARNING this class is performance critical (Speed).
          */
 
         private readonly string _storedValue;

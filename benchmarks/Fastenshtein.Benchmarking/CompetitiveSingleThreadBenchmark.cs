@@ -1,6 +1,7 @@
 ﻿namespace Fastenshtein.Benchmarking;
 
 using BenchmarkDotNet.Attributes;
+using System;
 
 [RankColumn, MemoryDiagnoser]
 public abstract class CompetitiveSingleThreadBenchmark
@@ -46,6 +47,37 @@ public abstract class CompetitiveSingleThreadBenchmark
     }
 
     [Benchmark]
+    public void FastenshteinValue()
+    {
+        var words = _words;
+        for (int i = 0; i < words.Length; i++)
+        {
+            var levenshtein = new global::Fastenshtein.LevenshteinValue<char>(words[i]);
+
+            for (int j = 0; j < words.Length; j++)
+            {
+                levenshtein.DistanceFrom(words[j].AsSpan());
+            }
+        }
+    }
+
+    [Benchmark]
+    public void FastenshteinValueAdvanced()
+    {
+        var words = _words;
+        Span<int> buffer = stackalloc int[400];
+        for (int i = 0; i < words.Length; i++)
+        {
+            var levenshtein = new global::Fastenshtein.LevenshteinValue<char>(words[i], buffer);
+
+            for (int j = 0; j < words.Length; j++)
+            {
+                levenshtein.DistanceFrom(words[j].AsSpan());
+            }
+        }
+    }
+
+    [Benchmark]
     public void FastenshteinStatic()
     {
         var words = _words;
@@ -54,6 +86,19 @@ public abstract class CompetitiveSingleThreadBenchmark
             for (int j = 0; j < words.Length; j++)
             {
                 global::Fastenshtein.Levenshtein.Distance(words[i], words[j]);
+            }
+        }
+    }
+
+    [Benchmark]
+    public void FastenshteinStaticSpan()
+    {
+        var words = _words;
+        for (int i = 0; i < words.Length; i++)
+        {
+            for (int j = 0; j < words.Length; j++)
+            {
+                global::Fastenshtein.Levenshtein.Distance(words[i].AsSpan(), words[j].AsSpan());
             }
         }
     }
@@ -97,6 +142,19 @@ public abstract class CompetitiveSingleThreadBenchmark
             for (int j = 0; j < words.Length; j++)
             {
                 global::DuoVia.FuzzyStrings.LevenshteinDistanceExtensions.LevenshteinDistance(words[i], words[j]);
+            }
+        }
+    }
+
+    [Benchmark]
+    public void FuzzySharp()
+    {
+        var words = _words;
+        for (int i = 0; i < words.Length; i++)
+        {
+            for (int j = 0; j < words.Length; j++)
+            {
+                global::FuzzySharp.Levenshtein.EditDistance(words[i], words[j]);
             }
         }
     }

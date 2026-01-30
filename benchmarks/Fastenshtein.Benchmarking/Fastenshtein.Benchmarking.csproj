@@ -22,6 +22,7 @@
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.15.8" />
     <PackageReference Include="F23.StringSimilarity" Version="7.0.1" />
+    <PackageReference Include="FuzzySharp" Version="2.0.2" />
     <PackageReference Include="FuzzyStrings.NetStandard" Version="1.0.1" />
     <PackageReference Include="NinjaNye.SearchExtensions.Levenshtein" Version="4.0.1" />
   </ItemGroup>
