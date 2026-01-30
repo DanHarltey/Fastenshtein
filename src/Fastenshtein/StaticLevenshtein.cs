@@ -13,12 +13,13 @@
         /// <returns>Difference. 0 complete match.</returns>
         public static int Distance(string value1, string value2)
         {
-            if (value2.Length == 0)
+            int[] costs = new int[value2.Length];
+
+            if (value2.Length == 0
+                || costs.Length != value2.Length)
             {
                 return value1.Length;
             }
-
-            int[] costs = new int[value2.Length];
 
             // Add indexing for insertion to first row
             for (int i = 0; i < costs.Length;)
