@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
+using System;
 
 namespace Fastenshtein.Benchmarking;
 
@@ -36,6 +37,19 @@ public abstract class FastenshteinBenchmark
             for (int j = 0; j < words.Length; j++)
             {
                 global::Fastenshtein.Levenshtein.Distance(words[i], words[j]);
+            }
+        }
+    }
+
+    [Benchmark]
+    public void FastenshteinStaticSpan()
+    {
+        var words = _words;
+        for (int i = 0; i < words.Length; i++)
+        {
+            for (int j = 0; j < words.Length; j++)
+            {
+                global::Fastenshtein.Levenshtein.Distance(words[i].AsSpan(), words[j].AsSpan());
             }
         }
     }
