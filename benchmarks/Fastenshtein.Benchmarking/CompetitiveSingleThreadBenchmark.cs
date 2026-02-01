@@ -100,4 +100,30 @@ public abstract class CompetitiveSingleThreadBenchmark
             }
         }
     }
+
+    [Benchmark]
+    public void Quickenshtein()
+    {
+        var words = _words;
+        for (int i = 0; i < words.Length; i++)
+        {
+            for (int j = 0; j < words.Length; j++)
+            {
+                global::Quickenshtein.Levenshtein.GetDistance(words[i], words[j]);
+            }
+        }
+    }
+
+    [Benchmark]
+    public void FuzzySharp()
+    {
+        var words = _words;
+        for (int i = 0; i < words.Length; i++)
+        {
+            for (int j = 0; j < words.Length; j++)
+            {
+                global::FuzzySharp.Levenshtein.EditDistance(words[i], words[j]);
+            }
+        }
+    }
 }

@@ -55,12 +55,12 @@ public abstract class FastenshteinBenchmark
     //}
 
     //[Benchmark(Baseline = true)]
-    //public void Fastenshtein_1_0_0_8()
+    //public void Fastenshtein_1_0_0_12()
     //{
     //    var words = _words;
     //    for (int i = 0; i < words.Length; i++)
     //    {
-    //        var levenshtein = new global::Fastenshtein.Benchmarking.FastenshteinOld.Fastenshtein_1_0_0_8(words[i]);
+    //        var levenshtein = new global::Fastenshtein.Benchmarking.FastenshteinOld.Fastenshtein_1_0_0_12(words[i]);
 
     //        for (int j = 0; j < words.Length; j++)
     //        {
@@ -70,14 +70,14 @@ public abstract class FastenshteinBenchmark
     //}
 
     [Benchmark(Baseline = true)]
-    public void FastenshteinStatic_1_0_0_8()
+    public void FastenshteinStatic_1_0_0_12()
     {
         var words = _words;
         for (int i = 0; i < words.Length; i++)
         {
             for (int j = 0; j < words.Length; j++)
             {
-                global::Fastenshtein.Benchmarking.FastenshteinOld.Fastenshtein_1_0_0_8.Distance(words[i], words[j]);
+                global::Fastenshtein.Benchmarking.FastenshteinOld.Fastenshtein_1_0_0_12.Distance(words[i], words[j]);
             }
         }
     }
