@@ -1,4 +1,6 @@
-﻿namespace Fastenshtein
+﻿using System;
+
+namespace Fastenshtein
 {
     /// <summary>
     /// Measures the difference between two strings.
@@ -14,15 +16,26 @@
         /// <returns>0 exact match less a positive value, lower the value the best match</returns>
         public static int Distance(string value1, string value2)
         {
-            if (value1.Length == 0)
+            return Distance(value1.AsSpan(), value2.AsSpan());
+        }
+
+        /// <summary>
+        /// Compares the two spans of characters and returns a measure of their summarily with 0 being an exact match.
+        /// </summary>
+        /// <param name="value1">the incomplete value entered by the user</param>
+        /// <param name="value2">the value to compare value1 against</param>
+        /// <returns>0 exact match less a positive value, lower the value the best match</returns>
+        public static unsafe int Distance(ReadOnlySpan<char> value1, ReadOnlySpan<char> value2)
+        {
+            if (value1.IsEmpty)
             {
                 return 0;
             }
 
-            int[] costs = new int[value1.Length];
+            int* costs = stackalloc int[value1.Length];
 
             // Add indexing for insertion to first row
-            for (int i = 0; i < costs.Length;)
+            for (int i = 0; i < value1.Length;)
             {
                 costs[i] = ++i;
             }
@@ -69,7 +82,7 @@
                 }
             }
 
-            return costs[costs.Length - 1];
+            return costs[value1.Length - 1];
         }
     }
 }

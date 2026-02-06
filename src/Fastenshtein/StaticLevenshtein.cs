@@ -1,4 +1,6 @@
-﻿namespace Fastenshtein
+﻿using System;
+
+namespace Fastenshtein
 {
     /// <summary>
     /// Measures the difference between two strings.
@@ -7,21 +9,32 @@
     public partial class Levenshtein
     {
         /// <summary>
-        /// Compares the two values to find the minimum Levenshtein distance. 
+        /// Compares the two values to find the minimum Levenshtein distance.
         /// Thread safe.
         /// </summary>
         /// <returns>Difference. 0 complete match.</returns>
         public static int Distance(string value1, string value2)
+        {
+            return Distance(value1.AsSpan(), value2.AsSpan());
+        }
+
+        /// <summary>
+        /// Compares the two values to find the minimum Levenshtein distance.
+        /// Thread safe.
+        /// </summary>
+        /// <returns>Difference. 0 complete match.</returns>
+        public static unsafe int Distance(ReadOnlySpan<char> value1, ReadOnlySpan<char> value2)
         {
             if (value2.Length == 0)
             {
                 return value1.Length;
             }
 
-            int[] costs = new int[value2.Length];
+            int costsLength = value2.Length;
+            int* costs = stackalloc int[costsLength];
 
             // Add indexing for insertion to first row
-            for (int i = 0; i < costs.Length;)
+            for (int i = 0; i < costsLength;)
             {
                 costs[i] = ++i;
             }
@@ -66,7 +79,7 @@
                 }
             }
 
-            return costs[costs.Length - 1];
+            return costs[costsLength - 1];
         }
     }
 }
