@@ -50,7 +50,7 @@ jobs:
       run: dotnet ../benchmarks/Fastenshtein.Benchmarking/bin/Release/net10.0/Fastenshtein.Benchmarking.dll
 
     - name: Upload benchmarks results
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: benchmarks-results-${{ matrix.os }}
         path: release/BenchmarkDotNet.Artifacts
@@ -64,7 +64,7 @@ jobs:
         files: release/coverage.net10.xml release/coverage.net481.xml
 
     - name: Upload dotnet info
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       if: env.TEST_COVERAGE == 'true'
       with:
         name: Built with
@@ -72,7 +72,7 @@ jobs:
         if-no-files-found: error
 
     - name: Upload test coverage
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       if: env.TEST_COVERAGE == 'true'
       with:
         name: test coverage
@@ -80,7 +80,7 @@ jobs:
         if-no-files-found: error
 
     - name: Upload NuGet packages
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       if: env.TEST_COVERAGE == 'true'
       with:
         name: NuGet packages
