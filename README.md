@@ -5,15 +5,19 @@ One of the fastest .Net Levenshtein projects around.
 
 Fastenshtein is an optimized and fully unit tested Levenshtein implementation. It is optimized for speed and memory usage.
 
-From the included brenchmarking tests comparing random words of 3 to 20 random chars to other Nuget Levenshtein implementations.
+From the included benchmarking tests comparing random words of 3 to 20 random chars to other Nuget Levenshtein implementations.
 
-| Method                  | Mean     | Ratio | Rank | Gen0     | Allocated  | Alloc Ratio |
-|------------------------ |---------:|------:|-----:|---------:|-----------:|------------:|
-| Fastenshtein            | 1.077 ms |  1.00 |    1 |        - |     6345 B |       1.000 |
-| FastenshteinStatic      | 1.122 ms |  1.04 |    2 |   3.9063 |   265441 B |      41.835 |
-| NinjaNye                | 1.899 ms |  1.76 |    4 |  76.1719 |  4274593 B |     673.695 |
-| StringSimilarity        | 2.899 ms |  2.69 |    5 |   7.8125 |   543770 B |      85.701 |
-| FuzzyStringsNetStandard | 7.351 ms |  6.81 |    6 | 414.0625 | 22967283 B |   3,619.745 |
+| Method                    | Mean       | Ratio | Rank | Gen0      | Allocated  | Alloc Ratio |
+|-------------------------- |-----------:|------:|-----:|----------:|-----------:|------------:|
+| Fastenshtein              |   896.9 μs |  1.00 |    1 |         - |     6344 B |        1.00 |
+| FastenshteinValue         |   886.6 μs |  0.99 |    1 |         - |     4424 B |        0.70 |
+| FastenshteinValueAdvanced |   897.7 μs |  1.00 |    1 |         - |          - |        0.00 |
+| FastenshteinStatic        | 1,005.3 μs |  1.12 |    2 |   31.2500 |   265440 B |       41.84 |
+| FastenshteinStaticSpan    |   996.7 μs |  1.11 |    2 |   31.2500 |   265440 B |       41.84 |
+| FuzzySharp                | 1,375.3 μs |  1.53 |    3 |   80.0781 |   677088 B |      106.73 |
+| NinjaNye                  | 1,463.3 μs |  1.63 |    4 |  509.7656 |  4274592 B |      673.80 |
+| StringSimilarity          | 2,046.7 μs |  2.28 |    5 |   62.5000 |   543744 B |       85.71 |
+| FuzzyStringsNetStandard   | 6,577.7 μs |  7.33 |    6 | 2742.1875 | 22967280 B |    3,620.32 |
 
 ## Usage
 
