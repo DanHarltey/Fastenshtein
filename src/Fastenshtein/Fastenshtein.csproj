@@ -16,10 +16,13 @@
     <PackageProjectUrl>https://github.com/DanHarltey/Fastenshtein</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/DanHarltey/Fastenshtein</RepositoryUrl>
-    <AssemblyVersion>1.0.12</AssemblyVersion>
-    <FileVersion>1.0.12</FileVersion>
-    <Version>1.0.12</Version>
-    <PackageReleaseNotes>Adding direct support for .Net 10. Adding new static Distance method for Spans for net8.0 or greater.</PackageReleaseNotes>
+    <AssemblyVersion>1.1.1</AssemblyVersion>
+    <FileVersion>1.1.1</FileVersion>
+    <Version>1.1.1</Version>
+    <PackageReleaseNotes>- Improved doc’s and readme.
+- For .Net 7 and above. Adding new LevenshteinValue ref struct. This gives the developer more control over memory allocation and improves support for Span’s.
+- Altered parameter names of AutoCompleteLevenshtein.Distance value1->prefix and value2->candidate
+</PackageReleaseNotes>
     <PackageTags>Levenshtein Distance;String;Fuzzy Matching;Search;netstandard;</PackageTags>
     <PackageReadmeFile>nuget-readme.md</PackageReadmeFile>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>

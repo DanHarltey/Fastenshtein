@@ -32,7 +32,7 @@ It avoids cases where comparing a short/partial input against a long candidate p
 ## Important note / gotcha
 
 Because it shortens the candidate to the input length, you can get results that differ from full edit-distance expectations.
-For example, "tst" vs "test" will be compared as "tst" vs "tes" (candidate is condensed to 3 chars),
+For example, "tst" vs "test" will be compared as "tst" vs "tes" (candidate is shortened to 3 chars),
 which yields a distance of 2 rather than 1.
 
 ## Example: ranking suggestions

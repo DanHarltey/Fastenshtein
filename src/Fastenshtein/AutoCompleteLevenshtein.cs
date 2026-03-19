@@ -7,19 +7,20 @@
     public static class AutoCompleteLevenshtein
     {
         /// <summary>
-        /// Compares the two strings and returns a measure of their summarily with 0 being an exact match.
+        /// For autocomplete-style matching. It calculates the distance between an incomplete value and the start of a candidate value.
+        /// Thread safe.
         /// </summary>
-        /// <param name="value1">the incomplete value entered by the user</param>
-        /// <param name="value2">the value to compare value1 against</param>
-        /// <returns>0 exact match less a positive value, lower the value the best match</returns>
-        public static int Distance(string value1, string value2)
+        /// <param name="prefix">The incomplete value you want to match</param>
+        /// <param name="candidate">The full candidate value to compare against</param>
+        /// <returns>The distance between <paramref name="prefix"/> and <paramref name="candidate"/>. Never negative. Zero is exact match. The higher value the greater the difference.</returns>
+        public static int Distance(string prefix, string candidate)
         {
-            if (value1.Length == 0)
+            if (prefix.Length == 0)
             {
                 return 0;
             }
 
-            int[] costs = new int[value1.Length];
+            int[] costs = new int[prefix.Length];
 
             // Add indexing for insertion to first row
             for (int i = 0; i < costs.Length;)
@@ -27,7 +28,7 @@
                 costs[i] = ++i;
             }
 
-            int minSize = value1.Length < value2.Length ? value1.Length : value2.Length;
+            int minSize = prefix.Length < candidate.Length ? prefix.Length : candidate.Length;
 
             for (int i = 0; i < minSize; i++)
             {
@@ -36,16 +37,16 @@
                 int previousCost = i;
 
                 // cache value for inner loop to avoid index lookup and bonds checking, profiled this is quicker
-                char value2Char = value2[i];
+                char value2Char = candidate[i];
 
-                for (int j = 0; j < value1.Length; j++)
+                for (int j = 0; j < prefix.Length; j++)
                 {
                     int currentCost = cost;
 
                     // assigning this here reduces the array reads we do, improvement of the old version
                     cost = costs[j];
 
-                    if (value2Char != value1[j])
+                    if (value2Char != prefix[j])
                     {
                         if (previousCost < currentCost)
                         {

@@ -10,7 +10,9 @@
         /// Compares the two values to find the minimum Levenshtein distance. 
         /// Thread safe.
         /// </summary>
-        /// <returns>Difference. 0 complete match.</returns>
+        /// <param name="value1">the first value to compare</param>
+        /// <param name="value2">the second value to compare</param>
+        /// <returns>The distance between <paramref name="value1"/> and <paramref name="value2"/>. Never negative. Zero is exact match. The higher value the greater the difference.</returns>
         public static int Distance(string value1, string value2)
         {
             if (value2.Length == 0)
