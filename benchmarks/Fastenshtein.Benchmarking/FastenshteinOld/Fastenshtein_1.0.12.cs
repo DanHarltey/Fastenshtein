@@ -1,6 +1,6 @@
 ﻿namespace Fastenshtein.Benchmarking.FastenshteinOld;
 
-internal class Fastenshtein_1_0_0_12
+internal class Fastenshtein_1_0_12
 {
     /*
      * WARNING this class is performance critical (Speed).
@@ -13,7 +13,7 @@ internal class Fastenshtein_1_0_0_12
     /// Creates a new instance with a value to test other values against
     /// </summary>
     /// <param Name="value">Value to compare other values to.</param>
-    public Fastenshtein_1_0_0_12(string value)
+    public Fastenshtein_1_0_12(string value)
     {
         _storedValue = value;
         // Create matrix row
