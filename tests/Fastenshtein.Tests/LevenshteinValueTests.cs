@@ -2,7 +2,6 @@
 
 namespace Fastenshtein.Tests;
 
-using Newtonsoft.Json.Linq;
 using System;
 using Xunit;
 
