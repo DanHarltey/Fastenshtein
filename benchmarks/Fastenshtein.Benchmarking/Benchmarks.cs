@@ -29,18 +29,3 @@ public class CompetitiveBenchmarkLargeWordsSingleThread : CompetitiveSingleThrea
 {
     protected override string[] CreateTestData() => RandomWords.Create(20, 400);
 }
-
-public class CompetitiveBenchmarkSmallWordsMultiThread : CompetitiveMultiThreadBenchmark
-{
-    protected override string[] CreateTestData() => RandomWords.Create(100, 5);
-}
-
-public class CompetitiveBenchmarkNormalWordsMultiThread : CompetitiveMultiThreadBenchmark
-{
-    protected override string[] CreateTestData() => RandomWords.Create(90, 20);
-}
-
-public class CompetitiveBenchmarkLargeWordsMultiThread : CompetitiveMultiThreadBenchmark
-{
-    protected override string[] CreateTestData() => RandomWords.Create(50, 400);
-}

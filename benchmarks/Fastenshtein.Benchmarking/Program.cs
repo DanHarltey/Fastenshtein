@@ -6,36 +6,13 @@ using System;
 static class Program
 {
     /*
-     * If you want to add your method to the benchmarking. 
-     * There are just two files that need altering 
-     * BenchmarkMultiThread & BenchmarkSingleThread.
+     * If you want to add your method to the benchmarking.
+     * There are just one file that needs altering 
+     * CompetitiveSingleThreadBenchmark.
      */
 
-    static void Main(string[] args)
-    {
-        DateTime startTime = DateTime.UtcNow;
-
-        if (args.Length != 0 && string.Equals(args[0], "d", StringComparison.OrdinalIgnoreCase))
-        {
-            _ = BenchmarkRunner.Run<FastenshteinDisassembly>();
-        }
-        else if (args.Length != 0 && string.Equals(args[0], "c", StringComparison.OrdinalIgnoreCase))
-        { 
-            _ = BenchmarkRunner.Run<CompetitiveBenchmarkSmallWordsSingleThread>();
-            _ = BenchmarkRunner.Run<CompetitiveBenchmarkNormalWordsSingleThread>();
-            _ = BenchmarkRunner.Run<CompetitiveBenchmarkLargeWordsSingleThread>();
-
-            _ = BenchmarkRunner.Run<CompetitiveBenchmarkSmallWordsMultiThread>();
-            _ = BenchmarkRunner.Run<CompetitiveBenchmarkNormalWordsMultiThread>();
-            _ = BenchmarkRunner.Run<CompetitiveBenchmarkLargeWordsMultiThread>();
-        }
-        else
-        {
-            _ = BenchmarkRunner.Run<BenchmarkSmallWordsSingleThread>();
-            _ = BenchmarkRunner.Run<BenchmarkNormalWordsSingleThread>();
-            _ = BenchmarkRunner.Run<BenchmarkLargeWordsSingleThread>();
-        }
-
-        Console.WriteLine("Completed in : " + (DateTime.UtcNow - startTime));
-    }
+    static void Main(string[] args) 
+        => BenchmarkSwitcher
+            .FromAssembly(typeof(Program).Assembly)
+            .Run(args);
 }

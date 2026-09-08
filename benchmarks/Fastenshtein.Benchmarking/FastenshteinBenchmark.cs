@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
+using Fastenshtein.Benchmarking.FastenshteinOld;
 using System;
 
 namespace Fastenshtein.Benchmarking;
@@ -14,12 +15,12 @@ public abstract class FastenshteinBenchmark
     public void SetUp() => _words = CreateTestData();
 
     [Benchmark]
-    public void Fastenshtein()
+    public void FastenshteinInstance()
     {
         var words = _words;
         for (int i = 0; i < words.Length; i++)
         {
-            var levenshtein = new global::Fastenshtein.Levenshtein(words[i]);
+            var levenshtein = new Levenshtein(words[i]);
 
             for (int j = 0; j < words.Length; j++)
             {
@@ -28,33 +29,17 @@ public abstract class FastenshteinBenchmark
         }
     }
 
-    [Benchmark]
-    public void FastenshteinValue()
+    [Benchmark(Baseline = true)]
+    public void FastenshteinInstance_Old()
     {
         var words = _words;
         for (int i = 0; i < words.Length; i++)
         {
-            var levenshtein = new global::Fastenshtein.LevenshteinValue<char>(words[i]);
+            var levenshtein = new Fastenshtein_1_1_1(words[i]);
 
             for (int j = 0; j < words.Length; j++)
             {
-                levenshtein.DistanceFrom(words[j].AsSpan());
-            }
-        }
-    }
-
-    [Benchmark]
-    public void FastenshteinValueAdvanced()
-    {
-        Span<int> buffer = stackalloc int[400];
-        var words = _words;
-        for (int i = 0; i < words.Length; i++)
-        {
-            var levenshtein = new global::Fastenshtein.LevenshteinValue<char>(words[i], buffer);
-
-            for (int j = 0; j < words.Length; j++)
-            {
-                levenshtein.DistanceFrom(words[j].AsSpan());
+                levenshtein.DistanceFrom(words[j]);
             }
         }
     }
@@ -67,48 +52,109 @@ public abstract class FastenshteinBenchmark
         {
             for (int j = 0; j < words.Length; j++)
             {
-                global::Fastenshtein.Levenshtein.Distance(words[i], words[j]);
+                Levenshtein.Distance(words[i], words[j]);
+            }
+        }
+    }
+
+
+    [Benchmark]
+    public void FastenshteinStatic_Old()
+    {
+        var words = _words;
+        for (int i = 0; i < words.Length; i++)
+        {
+            for (int j = 0; j < words.Length; j++)
+            {
+                Fastenshtein_1_1_1.Distance(words[i], words[j]);
             }
         }
     }
 
     [Benchmark]
-    public void FastenshteinStaticSpan()
+    public void FastenshteinValueInstance()
     {
         var words = _words;
         for (int i = 0; i < words.Length; i++)
         {
-            for (int j = 0; j < words.Length; j++)
-            {
-                global::Fastenshtein.Levenshtein.Distance(words[i].AsSpan(), words[j].AsSpan());
-            }
-        }
-    }
-
-    [Benchmark(Baseline = true)]
-    public void Fastenshtein_1_0_12()
-    {
-        var words = _words;
-        for (int i = 0; i < words.Length; i++)
-        {
-            var levenshtein = new global::Fastenshtein.Benchmarking.FastenshteinOld.Fastenshtein_1_0_12(words[i]);
+            var levenshtein = new LevenshteinValue<char>(words[i]);
 
             for (int j = 0; j < words.Length; j++)
             {
-                levenshtein.DistanceFrom(words[j]);
+                levenshtein.DistanceFrom(words[j].AsSpan());
             }
         }
     }
 
     [Benchmark]
-    public void FastenshteinStatic_1_0_12()
+    public void FastenshteinValueInstance_Old()
+    {
+        var words = _words;
+        for (int i = 0; i < words.Length; i++)
+        {
+            var levenshtein = new FastenshteinValue_1_1_1<char>(words[i]);
+
+            for (int j = 0; j < words.Length; j++)
+            {
+                levenshtein.DistanceFrom(words[j].AsSpan());
+            }
+        }
+    }
+
+    [Benchmark]
+    public void FastenshteinValueSpanCtor()
+    {
+        Span<int> buffer = stackalloc int[400];
+        var words = _words;
+        for (int i = 0; i < words.Length; i++)
+        {
+            var levenshtein = new LevenshteinValue<char>(words[i], buffer);
+
+            for (int j = 0; j < words.Length; j++)
+            {
+                levenshtein.DistanceFrom(words[j].AsSpan());
+            }
+        }
+    }
+
+    [Benchmark]
+    public void FastenshteinValueSpanCtor_Old()
+    {
+        Span<int> buffer = stackalloc int[400];
+        var words = _words;
+        for (int i = 0; i < words.Length; i++)
+        {
+            var levenshtein = new FastenshteinValue_1_1_1<char>(words[i], buffer);
+
+            for (int j = 0; j < words.Length; j++)
+            {
+                levenshtein.DistanceFrom(words[j].AsSpan());
+            }
+        }
+    }
+
+    [Benchmark]
+    public void FastenshteinSpanStatic()
     {
         var words = _words;
         for (int i = 0; i < words.Length; i++)
         {
             for (int j = 0; j < words.Length; j++)
             {
-                global::Fastenshtein.Benchmarking.FastenshteinOld.Fastenshtein_1_0_12.Distance(words[i], words[j]);
+                Levenshtein.Distance(words[i].AsSpan(), words[j].AsSpan());
+            }
+        }
+    }
+
+    [Benchmark]
+    public void FastenshteinSpanStatic_Old()
+    {
+        var words = _words;
+        for (int i = 0; i < words.Length; i++)
+        {
+            for (int j = 0; j < words.Length; j++)
+            {
+                Fastenshtein_1_1_1.Distance(words[i].AsSpan(), words[j].AsSpan());
             }
         }
     }

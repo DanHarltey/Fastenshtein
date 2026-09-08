@@ -32,7 +32,7 @@ public abstract class CompetitiveSingleThreadBenchmark
     ////}
 
     [Benchmark(Baseline = true)]
-    public void Fastenshtein()
+    public void FastenshteinInstance()
     {
         var words = _words;
         for (int i = 0; i < words.Length; i++)
@@ -42,37 +42,6 @@ public abstract class CompetitiveSingleThreadBenchmark
             for (int j = 0; j < words.Length; j++)
             {
                 levenshtein.DistanceFrom(words[j]);
-            }
-        }
-    }
-
-    [Benchmark]
-    public void FastenshteinValue()
-    {
-        var words = _words;
-        for (int i = 0; i < words.Length; i++)
-        {
-            var levenshtein = new global::Fastenshtein.LevenshteinValue<char>(words[i]);
-
-            for (int j = 0; j < words.Length; j++)
-            {
-                levenshtein.DistanceFrom(words[j].AsSpan());
-            }
-        }
-    }
-
-    [Benchmark]
-    public void FastenshteinValueAdvanced()
-    {
-        var words = _words;
-        Span<int> buffer = stackalloc int[400];
-        for (int i = 0; i < words.Length; i++)
-        {
-            var levenshtein = new global::Fastenshtein.LevenshteinValue<char>(words[i], buffer);
-
-            for (int j = 0; j < words.Length; j++)
-            {
-                levenshtein.DistanceFrom(words[j].AsSpan());
             }
         }
     }
@@ -91,7 +60,38 @@ public abstract class CompetitiveSingleThreadBenchmark
     }
 
     [Benchmark]
-    public void FastenshteinStaticSpan()
+    public void FastenshteinValueInstance()
+    {
+        var words = _words;
+        for (int i = 0; i < words.Length; i++)
+        {
+            var levenshtein = new global::Fastenshtein.LevenshteinValue<char>(words[i]);
+
+            for (int j = 0; j < words.Length; j++)
+            {
+                levenshtein.DistanceFrom(words[j].AsSpan());
+            }
+        }
+    }
+
+    [Benchmark]
+    public void FastenshteinValueSpanCtor()
+    {
+        var words = _words;
+        Span<int> buffer = stackalloc int[400];
+        for (int i = 0; i < words.Length; i++)
+        {
+            var levenshtein = new global::Fastenshtein.LevenshteinValue<char>(words[i], buffer);
+
+            for (int j = 0; j < words.Length; j++)
+            {
+                levenshtein.DistanceFrom(words[j].AsSpan());
+            }
+        }
+    }
+
+    [Benchmark]
+    public void FastenshteinSpanStatic()
     {
         var words = _words;
         for (int i = 0; i < words.Length; i++)

@@ -1,23 +1,49 @@
-﻿namespace Fastenshtein.Benchmarking.FastenshteinOld;
+﻿using System;
+using System.Numerics;
 
-internal class Fastenshtein_1_0_12
+namespace Fastenshtein.Benchmarking.FastenshteinOld;
+
+/// <summary>
+/// Measures the difference between two strings.
+/// Uses the Levenshtein string difference algorithm.
+/// </summary>
+public readonly ref struct FastenshteinValue_1_1_1<T>
 {
     /*
      * WARNING this class is performance critical (Speed).
      */
 
-    private readonly string _storedValue;
-    private readonly int[] _costs;
+    private readonly ReadOnlySpan<T> _storedValue;
+    private readonly Span<int> _costs;
 
     /// <summary>
     /// Creates a new instance with a value to test other values against
     /// </summary>
     /// <param Name="value">Value to compare other values to.</param>
-    public Fastenshtein_1_0_12(string value)
+    public FastenshteinValue_1_1_1(ReadOnlySpan<T> value)
     {
         _storedValue = value;
         // Create matrix row
         _costs = new int[value.Length];
+    }
+
+    /// <summary>
+    /// Creates a new instance with a value to test other values against
+    /// </summary>
+    /// <param name="value">Value to compare other values to.</param>
+    /// <param name="buffer">memory for the Levenstein operation to use. Must not be smaller than  <paramref name="value"/> in length.</param>
+    /// <exception cref="ArgumentException">Thrown when <paramref name="buffer"/> is smalller than <paramref name="value"/> in length</exception>
+    public FastenshteinValue_1_1_1(ReadOnlySpan<T> value, Span<int> buffer)
+    {
+        if (value.Length > buffer.Length)
+        {
+            throw new ArgumentException(
+                "Must not be below value in length",
+                nameof(buffer));
+        }
+
+        _storedValue = value;
+        _costs = buffer[.._storedValue.Length];
     }
 
     /// <summary>
@@ -30,7 +56,8 @@ internal class Fastenshtein_1_0_12
     /// Not thread safe.
     /// </summary>
     /// <returns>Difference. 0 complete match.</returns>
-    public int DistanceFrom(string value)
+    public int DistanceFrom<TOther>(ReadOnlySpan<TOther> value)
+        where TOther : IEqualityOperators<TOther, T, bool>
     {
         // copying to local variables allows JIT to remove bounds checks, as it understands they can not change
         var costs = _costs;
@@ -56,7 +83,7 @@ internal class Fastenshtein_1_0_12
             int previousCost = i;
 
             // cache value for inner loop to avoid index lookup and bonds checking, profiled this is quicker
-            char value1Char = value[i];
+            TOther value1Char = value[i];
 
             for (int j = 0; j < storedValue.Length; j++)
             {
@@ -66,69 +93,6 @@ internal class Fastenshtein_1_0_12
                 cost = costs[j];
 
                 if (value1Char != storedValue[j])
-                {
-                    if (previousCost < currentCost)
-                    {
-                        currentCost = previousCost;
-                    }
-
-                    if (cost < currentCost)
-                    {
-                        currentCost = cost;
-                    }
-
-                    ++currentCost;
-                }
-
-                /* 
-                 * Improvement on the older versions.
-                 * Swapping the variables here results in a performance improvement for modern intel CPU’s, but I have no idea why?
-                 */
-                costs[j] = currentCost;
-                previousCost = currentCost;
-            }
-        }
-
-        return costs[costs.Length - 1];
-    }
-
-    /// <summary>
-    /// Compares the two values to find the minimum Levenshtein distance. 
-    /// Thread safe.
-    /// </summary>
-    /// <returns>Difference. 0 complete match.</returns>
-    public static int Distance(string value1, string value2)
-    {
-        if (value2.Length == 0)
-        {
-            return value1.Length;
-        }
-
-        int[] costs = new int[value2.Length];
-
-        // Add indexing for insertion to first row
-        for (int i = 0; i < costs.Length;)
-        {
-            costs[i] = ++i;
-        }
-
-        for (int i = 0; i < value1.Length; i++)
-        {
-            // cost of the first index
-            int cost = i;
-            int previousCost = i;
-
-            // cache value for inner loop to avoid index lookup and bonds checking, profiled this is quicker
-            char value1Char = value1[i];
-
-            for (int j = 0; j < value2.Length; j++)
-            {
-                int currentCost = cost;
-
-                // assigning this here reduces the array reads we do, improvement of the old version
-                cost = costs[j];
-
-                if (value1Char != value2[j])
                 {
                     if (previousCost < currentCost)
                     {
