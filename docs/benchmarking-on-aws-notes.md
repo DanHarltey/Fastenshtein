@@ -47,7 +47,7 @@ dotnet build --configuration Release
 
 cd benchmarks/Fastenshtein.Benchmarking/bin/Release/net10.0/
 
-dotnet Fastenshtein.Benchmarking.dll c
+dotnet Fastenshtein.Benchmarking.dll --filter "*Competitive*"
 ```
 
 ## Last benchmark

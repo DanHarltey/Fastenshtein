@@ -4,7 +4,7 @@ using BenchmarkDotNet.Attributes;
 using System;
 
 [RankColumn, MemoryDiagnoser]
-public abstract class CompetitiveSingleThreadBenchmark
+public abstract class CompetitiveBenchmark
 {
     private string[] _words;
 

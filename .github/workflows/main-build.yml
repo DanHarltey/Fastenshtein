@@ -43,7 +43,7 @@ jobs:
     - name: Run benchmarks
       working-directory: release
       shell: bash
-      run: dotnet ../benchmarks/Fastenshtein.Benchmarking/bin/Release/net10.0/Fastenshtein.Benchmarking.dll
+      run: dotnet ../benchmarks/Fastenshtein.Benchmarking/bin/Release/net10.0/Fastenshtein.Benchmarking.dll --filter "*.FastenshteinBenchmark_*"
 
     - name: Upload benchmarks results
       uses: actions/upload-artifact@v6

@@ -22,7 +22,7 @@ build_script:
   - cd scripts
   - cmd: bash -c "./dotnet_build.sh"
   - sh: ./dotnet_build.sh
-  - dotnet ../benchmarks/Fastenshtein.Benchmarking/bin/Release/net10.0/Fastenshtein.Benchmarking.dll
+  - dotnet ../benchmarks/Fastenshtein.Benchmarking/bin/Release/net10.0/Fastenshtein.Benchmarking.dll --filter "*.FastenshteinBenchmark_*"
 
 artifacts:
   - path: scripts/BenchmarkDotNet.Artifacts
