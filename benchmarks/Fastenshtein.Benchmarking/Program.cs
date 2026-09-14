@@ -1,4 +1,4 @@
-﻿namespace Fastenshtein.Benchmarking;
+namespace Fastenshtein.Benchmarking;
 
 using BenchmarkDotNet.Running;
 using System;
@@ -28,6 +28,18 @@ static class Program
             _ = BenchmarkRunner.Run<CompetitiveBenchmarkSmallWordsMultiThread>();
             _ = BenchmarkRunner.Run<CompetitiveBenchmarkNormalWordsMultiThread>();
             _ = BenchmarkRunner.Run<CompetitiveBenchmarkLargeWordsMultiThread>();
+        }
+        else if (args.Length != 0 && string.Equals(args[0], "compare", StringComparison.OrdinalIgnoreCase))
+        {
+            ComparisonBenchmarkRunner.RunAll();
+        }
+        else if (args.Length != 0 && string.Equals(args[0], "breakeven", StringComparison.OrdinalIgnoreCase))
+        {
+            BreakEvenBenchmarkRunner.Run();
+        }
+        else if (args.Length != 0 && string.Equals(args[0], "e", StringComparison.OrdinalIgnoreCase))
+        {
+            _ = BenchmarkRunner.Run<EarlyExitBenchmark>();
         }
         else
         {
