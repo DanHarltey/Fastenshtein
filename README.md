@@ -28,6 +28,30 @@ foreach (var item in new []{ "value2", "value3", "value4"})
 	int levenshteinDistance = lev.DistanceFrom(item);
 }
 ```
+
+### Unicode behavior
+
+The string-based Levenshtein APIs operate on .NET `string` values using
+`String.Length` and indexed `char` access.
+
+A .NET `char` represents one UTF-16 code unit, so a supplementary Unicode code
+point represented by a surrogate pair can occupy two positions in the
+Levenshtein calculation.
+
+This means the string overloads calculate distance over UTF-16 code units rather
+than Unicode code points or grapheme clusters.
+
+On newer .NET versions, the generic `ReadOnlySpan<T>` overload operates on the
+elements supplied by the caller, so its sequence unit depends on the span's
+element type.
+
+Applications that require code-point or user-perceived-character semantics
+should convert or segment the input into the intended sequence units before
+calculating the distance.
+
+For additional background on runtime string representations and edit-distance
+implementations, see [Levenshtein implementations and Unicode sequence units](https://www.levenshtein.net/levenshtein-implementations).
+
 ### How to include Fastenshtein in Microsoft SQL Server (SQLCLR)
 
 We will create Fastenshtein as a CLR Scalar-Valued Function within SQL Server. This will allow the fast Levenshtein implementation to be used within SQL Server.
