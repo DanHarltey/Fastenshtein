@@ -12,7 +12,7 @@
         /// </summary>
         /// <param name="prefix">The incomplete value you want to match</param>
         /// <param name="candidate">The full candidate value to compare against</param>
-        /// <returns>The distance between <paramref name="prefix"/> and <paramref name="candidate"/>. Never negative. Zero is exact match. The higher value the greater the difference.</returns>
+        /// <returns>The distance between <paramref name="prefix"/> and <paramref name="candidate"/>. Never negative. Zero is an exact match. The higher value the greater the difference.</returns>
         public static int Distance(string prefix, string candidate)
         {
             if (prefix.Length == 0)

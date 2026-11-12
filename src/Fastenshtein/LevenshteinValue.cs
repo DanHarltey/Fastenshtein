@@ -21,7 +21,7 @@ public readonly ref struct LevenshteinValue<T>
     /// <summary>
     /// Creates a new instance with a value to test other values against
     /// </summary>
-    /// <param Name="value">Value to compare other values to.</param>
+    /// <param Name="value">Value to compare other values to</param>
     public LevenshteinValue(ReadOnlySpan<T> value)
     {
         _storedValue = value;
@@ -32,8 +32,8 @@ public readonly ref struct LevenshteinValue<T>
     /// <summary>
     /// Creates a new instance with a value to test other values against
     /// </summary>
-    /// <param name="value">Value to compare other values to.</param>
-    /// <param name="buffer">memory for the Levenstein operation to use. Must not be smaller than  <paramref name="value"/> in length.</param>
+    /// <param name="value">Value to compare other values to</param>
+    /// <param name="buffer">memory for the Levenstein operation to use. Must not be smaller than  <paramref name="value"/> in length</param>
     /// <exception cref="ArgumentException">Thrown when <paramref name="buffer"/> is smalller than <paramref name="value"/> in length</exception>
     public LevenshteinValue(ReadOnlySpan<T> value, Span<int> buffer)
     {
@@ -57,7 +57,7 @@ public readonly ref struct LevenshteinValue<T>
     /// Compares a value to the stored value. 
     /// Not thread safe.
     /// </summary>
-    /// <returns>Difference. 0 complete match.</returns>
+    /// <returns>The distance between the stored value and <paramref name="value"/>. Never negative. Zero is an exact match. The higher value the greater the difference.</returns>
     public int DistanceFrom<TOther>(ReadOnlySpan<TOther> value)
         where TOther : IEqualityOperators<TOther, T, bool>
     {

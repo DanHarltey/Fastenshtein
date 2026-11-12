@@ -17,7 +17,7 @@ When the first parameter is smaller than the second, it calculates the Levenshte
 
 ## Why it exists
 
-It avoids cases where comparing a short/partial input against a long candidate produces a large distance that doesn’t reflect how close the start of the candidate matches what the user typed.
+It avoids cases where comparing a short/partial input against a long candidate produces a large distance.
 
 ```
    // Autocomplete-style comparisons (user input first, candidate second)
@@ -56,3 +56,9 @@ which yields a distance of 2 rather than 1.
        Console.WriteLine($"{match.Distance} - {match.Candidate}");
    }
 ```
+The example output would be:
+
+2 - Benidorm, Spain  
+3 - Bendigo, Australia  
+4 - London, UK  
+5 - Berlin, Germany  

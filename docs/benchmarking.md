@@ -10,7 +10,7 @@ dotnet run -c Release --project benchmarks/Fastenshtein.Benchmarking -- --list f
 
 dotnet run -c Release --project benchmarks/Fastenshtein.Benchmarking  -- --filter "*FastenshteinDisassembly*"
 
-## Run one method disassembly benchmarks
+## Run one method in the disassembly benchmarks
 
 dotnet run -c Release --project benchmarks/Fastenshtein.Benchmarking  -- --filter "*FastenshteinDisassembly.FastenshteinInstance*"
 

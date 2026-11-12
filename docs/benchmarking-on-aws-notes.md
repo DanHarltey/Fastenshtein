@@ -1,6 +1,6 @@
-# Notes on how benchmark on Amazon Linux 2023 (AL2023)
+# Notes on how to benchmark on Amazon Linux 2023 (AL2023)
 
-The default user has the username ec2-user. Can use like ec2-user@63.35.177.218. Use a private key for ssh authentication.
+The default user has the username ec2-user. Can use like ec2-user@63.35.177.218. Use a private key for SSH authentication.
 
 ## How to install .Net
 

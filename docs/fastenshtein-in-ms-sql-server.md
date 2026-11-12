@@ -32,7 +32,7 @@ We will create Fastenshtein as a CLR Scalar-Valued Function within SQL Server. T
 
       OR
 
-      * Download the pre-compiled dll from [nuget](https://www.nuget.org/api/v2/package/Fastenshtein/) unzip the package and use the dll in \lib\net462 folder.
+      * Download the pre-compiled dll from the [lastest release](https://github.com/DanHarltey/Fastenshtein/releases/latest). Download Fastenshtein.nupkg, unzip the package and use the dll in \lib\net462 folder.
 
       ```sql
       CREATE ASSEMBLY FastenshteinAssembly FROM 'C:\Fastenshtein.dll' WITH PERMISSION_SET = SAFE

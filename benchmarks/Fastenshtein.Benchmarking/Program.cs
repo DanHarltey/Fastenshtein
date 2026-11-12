@@ -7,7 +7,7 @@ static class Program
 {
     /*
      * If you want to add your method to the benchmarking.
-     * There are just one file that needs altering 
+     * There is just one file that needs altering 
      * CompetitiveSingleThreadBenchmark.
      */
 

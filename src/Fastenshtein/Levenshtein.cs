@@ -33,7 +33,7 @@
         /// Compares a value to the stored value. 
         /// Not thread safe.
         /// </summary>
-        /// <returns>Difference. 0 complete match.</returns>
+       /// <returns>The distance between the stored value and <paramref name="value"/>. Never negative. Zero is an exact match. The higher value the greater the difference.</returns>
         public int DistanceFrom(string value)
         {
             // copying to local variables allows JIT to remove bounds checks, as it understands they can not change

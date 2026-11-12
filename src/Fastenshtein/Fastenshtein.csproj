@@ -19,8 +19,8 @@
     <AssemblyVersion>1.1.1</AssemblyVersion>
     <FileVersion>1.1.1</FileVersion>
     <Version>1.1.1</Version>
-    <PackageReleaseNotes>- Improved doc’s and readme.
-- For .Net 7 and above. Adding new LevenshteinValue ref struct. This gives the developer more control over memory allocation and improves support for Span’s.
+    <PackageReleaseNotes>- Improved docs and readme.
+- For .Net 7 and above. Adding new LevenshteinValue ref struct. This gives the developer more control over memory allocation and improves support for Span`s.
 - Altered parameter names of AutoCompleteLevenshtein.Distance value1->prefix and value2->candidate
 </PackageReleaseNotes>
     <PackageTags>Levenshtein Distance;String;Fuzzy Matching;Search;netstandard;</PackageTags>
