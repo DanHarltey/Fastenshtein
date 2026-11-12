@@ -9,19 +9,20 @@ dotnet --info > ../release/dotnet_info.txt
 dotnet restore ../
 dotnet build ../ --configuration Release --no-restore -p:ContinuousIntegrationBuild=true
 
-if [ $1 = "test_coverage" ] 
+if [ "${1:-}" = "test_coverage" ]
 then
-  dotnet test ../ --configuration Release --no-build --verbosity normal --framework net10.0 --collect:"Code Coverage;Format=cobertura" --settings:"../.runsettings"
-  find ../tests/Fastenshtein.Tests/TestResults/ -name "*.cobertura.xml" -type f -exec mv {} ../release/coverage.net10.xml \;
+  dotnet test ../ --configuration Release --no-build --verbosity normal --framework net11.0 --collect:"Code Coverage;Format=cobertura" --settings:"../.runsettings"
+  find ../tests/Fastenshtein.Tests/TestResults/ -name "*.cobertura.xml" -type f -exec mv {} ../release/coverage.net11.xml \;
 
   dotnet test ../ --configuration Release --no-build --framework net481 --collect:"Code Coverage;Format=cobertura" --settings:"../.runsettings"
   find ../tests/Fastenshtein.Tests/TestResults/ -name "*.cobertura.xml" -type f -exec mv {} ../release/coverage.net481.xml \;
 
   xxd -plain -u ../src/Fastenshtein/bin/Release/net462/Fastenshtein.dll | tr -d '\n' > ../release/Fastenshtein_net462.hex
 
-elif [ $1 = "no_net481" ]
+elif [ "${1:-}" = "no_net481" ]
 then
   dotnet test ../ --configuration Release --no-build --verbosity normal --framework net10.0
+  dotnet test ../ --configuration Release --no-build --verbosity normal --framework net11.0
 else
   dotnet test ../ --configuration Release --no-build --verbosity normal
 fi

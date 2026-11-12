@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.12.35521.163 d17.12
+# Visual Studio Version 18
+VisualStudioVersion = 18.12.12405.243 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BF8EDB96-7FBA-4D96-A4C6-9C4C8AA8DEF4}"
 EndProject
@@ -14,6 +14,32 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fastenshtein", "src\Fastenshtein\Fastenshtein.csproj", "{B64FA67E-B6A5-491B-A48E-E670D4DA6439}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fastenshtein.Tests", "tests\Fastenshtein.Tests\Fastenshtein.Tests.csproj", "{01E26E0C-F161-4133-9E99-5ED200745E9B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{17F62D72-514F-4A31-9453-345BC6E106E1}"
+	ProjectSection(SolutionItems) = preProject
+		.github\dependabot.yml = .github\dependabot.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{0239F8CE-79E9-499B-B318-E1651423191F}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\main-build.yml = .github\workflows\main-build.yml
+		.github\workflows\release-build.yml = .github\workflows\release-build.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{3B2A2F29-0A31-4D79-8F81-2596B4318D38}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\dotnet_build.sh = scripts\dotnet_build.sh
+		scripts\github_release.sh = scripts\github_release.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{E5EACB1A-7F4F-48F4-9334-359E47749A0D}"
+	ProjectSection(SolutionItems) = preProject
+		docs\auto-complete-levenshtein.md = docs\auto-complete-levenshtein.md
+		docs\benchmarking-on-aws-notes.md = docs\benchmarking-on-aws-notes.md
+		docs\benchmarking.md = docs\benchmarking.md
+		docs\fastenshtein-in-ms-sql-server.md = docs\fastenshtein-in-ms-sql-server.md
+		docs\nuget-readme.md = docs\nuget-readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +67,7 @@ Global
 		{7C12DEC0-84A5-46FD-A863-9B1F56A6E5EB} = {DD7EE063-92FE-4B4F-BF63-EAF020462BF0}
 		{B64FA67E-B6A5-491B-A48E-E670D4DA6439} = {BF8EDB96-7FBA-4D96-A4C6-9C4C8AA8DEF4}
 		{01E26E0C-F161-4133-9E99-5ED200745E9B} = {4F67D85A-A3D4-4595-9EDD-428D0FB05BB8}
+		{0239F8CE-79E9-499B-B318-E1651423191F} = {17F62D72-514F-4A31-9453-345BC6E106E1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0703F632-2C3F-48C7-8116-651F70046E7C}
