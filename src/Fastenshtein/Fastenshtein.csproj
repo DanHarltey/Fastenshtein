@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net462;net8.0;net9.0;net10.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net462;net10.0;net11.0</TargetFrameworks>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <AnalysisLevel>latest-all</AnalysisLevel>
@@ -21,7 +21,7 @@
     <Version>1.1.1</Version>
     <PackageReleaseNotes>- Improved docs and readme.
 - For .Net 7 and above. Adding new LevenshteinValue ref struct. This gives the developer more control over memory allocation and improves support for Span`s.
-- Altered parameter names of AutoCompleteLevenshtein.Distance value1->prefix and value2->candidate
+- Altered parameter names of AutoCompleteLevenshtein.Distance value1-&gt;prefix and value2-&gt;candidate
 </PackageReleaseNotes>
     <PackageTags>Levenshtein Distance;String;Fuzzy Matching;Search;netstandard;</PackageTags>
     <PackageReadmeFile>nuget-readme.md</PackageReadmeFile>
