@@ -19,15 +19,15 @@ jobs:
     - name: GIT checkout
       uses: actions/checkout@v6
 
-    - name: Setup .NET 9
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: 9.0.x
-
     - name: Setup .NET 10
-      uses: actions/setup-dotnet@v5
+      uses: actions/setup-dotnet@v6
       with:
         dotnet-version: 10.0.x
+
+    - name: Setup .NET 11
+      uses: actions/setup-dotnet@v6
+      with:
+        dotnet-version: 11.0.x
 
     - name: Run build script
       working-directory: scripts
@@ -43,7 +43,7 @@ jobs:
     - name: Run benchmarks
       working-directory: release
       shell: bash
-      run: dotnet ../benchmarks/Fastenshtein.Benchmarking/bin/Release/net10.0/Fastenshtein.Benchmarking.dll --filter "*.FastenshteinBenchmark_*"
+      run: dotnet ../benchmarks/Fastenshtein.Benchmarking/bin/Release/net11.0/Fastenshtein.Benchmarking.dll --filter "*.FastenshteinBenchmark_*"
 
     - name: Upload benchmarks results
       uses: actions/upload-artifact@v7
@@ -57,7 +57,7 @@ jobs:
       uses: coverallsapp/github-action@v2
       with:
         format: cobertura
-        files: release/coverage.net10.xml release/coverage.net481.xml
+        files: release/coverage.net11.xml release/coverage.net481.xml
 
     - name: Upload dotnet info
       uses: actions/upload-artifact@v7

@@ -27,8 +27,8 @@ The default user has the username ec2-user. Can use like ec2-user@63.35.177.218.
    wget https://builds.dotnet.microsoft.com/dotnet/scripts/v1/dotnet-install.sh
    chmod +x dotnet-install.sh
    
-   # Install latest 10.0 SDK into ~/.dotnet (you can also pin an exact version)
-   ./dotnet-install.sh --channel 10.0
+   # Install latest 11.0 SDK into ~/.dotnet (you can also pin an exact version)
+   ./dotnet-install.sh --channel 11.0
    
    echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.bashrc
    echo 'export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools' >> ~/.bashrc
@@ -45,7 +45,7 @@ The default user has the username ec2-user. Can use like ec2-user@63.35.177.218.
 cd Fastenshtein
 dotnet build --configuration Release
 
-cd benchmarks/Fastenshtein.Benchmarking/bin/Release/net10.0/
+cd benchmarks/Fastenshtein.Benchmarking/bin/Release/net11.0/
 
 dotnet Fastenshtein.Benchmarking.dll --filter "*Competitive*"
 ```
