@@ -29,3 +29,5 @@ build_script:
 artifacts:
   - path: scripts/BenchmarkDotNet.Artifacts
     name: Benchmark results - $(APPVEYOR_BUILD_WORKER_IMAGE)
+  - path: release/dotnet_info.txt
+    name: dotnet info - $(APPVEYOR_BUILD_WORKER_IMAGE)
