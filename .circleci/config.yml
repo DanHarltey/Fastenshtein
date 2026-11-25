@@ -1,0 +1,35 @@
+version: 2.1
+
+functions:
+  setup-dotnet: github.com/circleci-functions/setup-dotnet@v0.1.0
+
+jobs:
+  main-build:
+    docker:
+      - image: cimg/base:current
+    environment:
+      DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+      DOTNET_NOLOGO: "true"
+      TESTINGPLATFORM_TELEMETRY_OPTOUT: "1"
+    steps:
+      - checkout
+      - setup-dotnet:
+          with:
+            dotnet-version: |
+              10.0.x
+              11.0.x
+      - run:
+          name: Run build script
+          working_directory: scripts
+          # net481 tests are Windows-only; build still targets all frameworks.
+          command: ./dotnet_build.sh no_net481
+
+workflows:
+  main-build:
+    jobs:
+      - main-build:
+          filters:
+            branches:
+              only: /.*/
+            tags:
+              ignore: /.*/
