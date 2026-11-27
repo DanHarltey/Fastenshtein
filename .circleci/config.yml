@@ -3,10 +3,40 @@ version: 2.1
 functions:
   setup-dotnet: github.com/circleci-functions/setup-dotnet@v0.1.0
 
-jobs:
-  main-build:
+executors:
+  linux-x64:
     docker:
       - image: cimg/base:current
+    resource_class: medium
+    environment:
+      DOTNET_BUILD_ARGS: no_net481
+  linux-arm:
+    docker:
+      - image: cimg/base:current
+    resource_class: arm.medium
+    environment:
+      DOTNET_BUILD_ARGS: no_net481
+  macos:
+    macos:
+      xcode: 27.1.0
+    resource_class: m4pro.medium
+    environment:
+      DOTNET_BUILD_ARGS: no_net481
+  windows:
+    machine:
+      image: windows-server-2022-gui:current
+    resource_class: windows.medium
+    shell: bash.exe -eo pipefail
+    environment:
+      # Empty means the script's default branch, which also runs the net481 tests.
+      DOTNET_BUILD_ARGS: ""
+
+jobs:
+  build:
+    parameters:
+      os:
+        type: executor
+    executor: << parameters.os >>
     environment:
       DOTNET_CLI_TELEMETRY_OPTOUT: "1"
       DOTNET_NOLOGO: "true"
@@ -20,14 +50,16 @@ jobs:
               11.0.x
       - run:
           name: Run build script
-          working_directory: scripts
-          # net481 tests are Windows-only; build still targets all frameworks.
-          command: ./dotnet_build.sh no_net481
+          # net481 tests only run on Windows; DOTNET_BUILD_ARGS carries the per-OS args.
+          command: cd scripts && bash ./dotnet_build.sh ${DOTNET_BUILD_ARGS:-}
 
 workflows:
   main-build:
     jobs:
-      - main-build:
+      - build:
+          matrix:
+            parameters:
+              os: [linux-x64, linux-arm, macos, windows]
           filters:
             branches:
               only: /.*/
